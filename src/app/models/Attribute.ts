@@ -1,4 +1,4 @@
-export interface Country {
+export interface Attribute {
   id: number;
   name: string;
 }
