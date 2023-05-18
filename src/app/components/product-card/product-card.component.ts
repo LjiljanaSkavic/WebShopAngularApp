@@ -16,8 +16,6 @@ export class ProductCardComponent implements OnInit {
   ngOnInit(): void {
     this.countryService.getAll().subscribe(res => console.log(res));
     this.userService.getAll().subscribe(res => console.log(res));
-    this.categoryService.getAll().subscribe(res => console.log(res));
-
   }
 
 }
