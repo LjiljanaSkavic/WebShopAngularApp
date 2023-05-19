@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -31,6 +32,7 @@ const MATERIAL_MODULES = [
     ProductCardComponent,
     LoginCardComponent,
     SignUpCardComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
