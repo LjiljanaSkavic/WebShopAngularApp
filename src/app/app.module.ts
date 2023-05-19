@@ -8,18 +8,35 @@ import { HttpClientModule } from "@angular/common/http";
 import { CountryService } from "./services/country.service";
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { SignUpCardComponent } from './components/sign-up-card/sign-up-card.component';
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
+import { MatIconModule } from "@angular/material/icon";
+
+const MATERIAL_MODULES = [
+  MatCardModule,
+  MatFormFieldModule,
+  MatButtonModule,
+  FormsModule,
+  ReactiveFormsModule,
+  MatInputModule,
+  MatIconModule
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductCardComponent,
     LoginCardComponent,
-    SignUpCardComponent
+    SignUpCardComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MATERIAL_MODULES,
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]

@@ -1,0 +1,14 @@
+.sign-up-card {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  max-width: 432px;
+  padding: 128px 32px;
+}
+
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}

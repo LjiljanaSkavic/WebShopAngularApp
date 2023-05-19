@@ -1,1 +1,35 @@
-<p>sign-up-card works!</p>
+<mat-card class="sign-up-card">
+  <mat-label>Create account</mat-label>
+  <form class="sign-up-form">
+    <mat-form-field appearance="fill">
+      <mat-label>First name</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Last name</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>City</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Repeat password</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput type="email">
+    </mat-form-field>
+    <button mat-button>Sign up</button>
+  </form>
+  <button mat-button (click)="onLogIn($event)">Already have a account? Sign in</button>
+</mat-card>
