@@ -16,6 +16,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AppRoutingModule } from "./app-routing.module";
+import { HeaderComponent } from './header/header.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -34,6 +35,7 @@ const MATERIAL_MODULES = [
     LoginCardComponent,
     SignUpCardComponent,
     PageNotFoundComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
