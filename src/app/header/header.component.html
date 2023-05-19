@@ -1,15 +1,22 @@
-<mat-toolbar>
-  <div>
+<mat-toolbar class="toolbar-container">
+  <div class="toolbar-container-left">
     <button mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Web shop</span>
+    <mat-label>Web shop</mat-label>
   </div>
 
-  <button mat-icon-button>
-    <mat-icon>shopping_cart</mat-icon>
-  </button>
-  <button mat-icon-button>
-    <mat-icon>account_circle</mat-icon>
-  </button>
+  <div class="search-bar">
+    <mat-icon class="search-bar__icon">search</mat-icon>
+    <input matInput placeholder="Search for products" class="search-bar__input"/>
+  </div>
+
+  <div class="toolbar-container-right">
+    <button mat-icon-button>
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>

@@ -1,0 +1,21 @@
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toolbar-container-left {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-container-right {
+
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid darkgrey;
+  border-radius: 24px;
+}

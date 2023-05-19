@@ -19,6 +19,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { HomeComponent } from './components/home/home.component';
+import { MyCompComponent } from './components/my-comp/my-comp.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -40,6 +41,7 @@ const MATERIAL_MODULES = [
     PageNotFoundComponent,
     HeaderComponent,
     HomeComponent,
+    MyCompComponent,
   ],
   imports: [
     BrowserModule,
