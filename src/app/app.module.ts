@@ -17,6 +17,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { HeaderComponent } from './header/header.component';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { HomeComponent } from './components/home/home.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -25,7 +27,8 @@ const MATERIAL_MODULES = [
   FormsModule,
   ReactiveFormsModule,
   MatInputModule,
-  MatIconModule
+  MatIconModule,
+  MatToolbarModule
 ];
 
 @NgModule({
@@ -36,13 +39,14 @@ const MATERIAL_MODULES = [
     SignUpCardComponent,
     PageNotFoundComponent,
     HeaderComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MATERIAL_MODULES,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]
