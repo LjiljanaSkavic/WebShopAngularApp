@@ -15,6 +15,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AppRoutingModule } from "./app-routing.module";
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -39,6 +40,7 @@ const MATERIAL_MODULES = [
     BrowserAnimationsModule,
     HttpClientModule,
     MATERIAL_MODULES,
+    AppRoutingModule
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]
