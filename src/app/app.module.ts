@@ -19,7 +19,9 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { HomeComponent } from './components/home/home.component';
-import { MyCompComponent } from './components/my-comp/my-comp.component';
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { CommonModule } from "@angular/common";
+import { MatListModule } from "@angular/material/list";
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -29,7 +31,10 @@ const MATERIAL_MODULES = [
   ReactiveFormsModule,
   MatInputModule,
   MatIconModule,
-  MatToolbarModule
+  MatToolbarModule,
+  AppRoutingModule,
+  MatSidenavModule,
+  MatListModule
 ];
 
 @NgModule({
@@ -41,9 +46,9 @@ const MATERIAL_MODULES = [
     PageNotFoundComponent,
     HeaderComponent,
     HomeComponent,
-    MyCompComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

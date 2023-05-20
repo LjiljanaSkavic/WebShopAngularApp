@@ -18,4 +18,33 @@
   padding: 8px;
   border: 1px solid darkgrey;
   border-radius: 24px;
+
+  &__icon {
+  }
+
+  &__input {
+    background-color: inherit;
+    border: none;
+  }
+
+}
+
+.example-container {
+  width: 400px;
+  height: 100vh;
+  background-color: white;
+  //border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+//.example-sidenav-content {
+//  display: flex;
+//  height: 100%;
+//  align-items: center;
+//  justify-content: center;
+//}
+
+.example-sidenav {
+  width: 500px;
+  padding: 24px;
+  background-color: #F5F5F5;
 }

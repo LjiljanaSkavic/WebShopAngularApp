@@ -1,6 +1,6 @@
 <mat-toolbar class="toolbar-container">
   <div class="toolbar-container-left">
-    <button mat-icon-button>
+    <button (click)="drawer.toggle()" mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
     <mat-label>Web shop</mat-label>
@@ -8,7 +8,7 @@
 
   <div class="search-bar">
     <mat-icon class="search-bar__icon">search</mat-icon>
-    <input matInput placeholder="Search for products" class="search-bar__input"/>
+    <input class="search-bar__input" placeholder="Search for products"/>
   </div>
 
   <div class="toolbar-container-right">
@@ -20,3 +20,14 @@
     </button>
   </div>
 </mat-toolbar>
+
+<mat-drawer-container autosize class="example-container">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <li *ngFor="let category of categories">
+      <ng-template *ngIf="!category.subcategory">
+        <a>{{ category.name }}</a>
+      </ng-template>
+    </li>
+  </mat-drawer>
+
+</mat-drawer-container>
