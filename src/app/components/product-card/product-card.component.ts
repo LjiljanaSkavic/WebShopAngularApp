@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CountryService } from "../../services/country.service";
-import { UserService } from "../../services/user.service";
-import { CategoryService } from "../../services/category.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {CountryService} from "../../services/country.service";
+import {UserService} from "../../services/user.service";
+import {CategoryService} from "../../services/category.service";
+import {Product} from "../../models/Product";
 
 @Component({
   selector: 'app-product-card',
@@ -9,6 +10,7 @@ import { CategoryService } from "../../services/category.service";
   styleUrls: ['./product-card.component.scss']
 })
 export class ProductCardComponent implements OnInit {
+  @Input() product: Product;
 
   constructor(private countryService: CountryService, private userService: UserService, private categoryService: CategoryService) {
   }
@@ -16,6 +18,7 @@ export class ProductCardComponent implements OnInit {
   ngOnInit(): void {
     this.countryService.getAll().subscribe(res => console.log(res));
     this.userService.getAll().subscribe(res => console.log(res));
+    console.log(this.product);
   }
 
 }
