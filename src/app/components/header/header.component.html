@@ -23,11 +23,11 @@
 
 <mat-drawer-container autosize class="example-container">
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <li *ngFor="let category of categories">
-      <ng-template *ngIf="!category.subcategory">
+    <div *ngFor="let category of categories">
+      <li *ngIf="!category.subcategory" class="no-bullets">
         <a>{{ category.name }}</a>
-      </ng-template>
-    </li>
+      </li>
+    </div>
   </mat-drawer>
 
 </mat-drawer-container>

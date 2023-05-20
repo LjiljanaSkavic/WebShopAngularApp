@@ -22,6 +22,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {CommonModule} from "@angular/common";
 import {MatListModule} from "@angular/material/list";
 import {HeaderComponent} from "./components/header/header.component";
+import {ContainerComponent} from './components/container/container.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -46,6 +47,7 @@ const MATERIAL_MODULES = [
     PageNotFoundComponent,
     HeaderComponent,
     HomeComponent,
+    ContainerComponent,
   ],
   imports: [
     CommonModule,
