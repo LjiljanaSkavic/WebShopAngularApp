@@ -21,13 +21,16 @@
   </div>
 </mat-toolbar>
 
-<mat-drawer-container autosize class="example-container">
-  <mat-drawer #drawer class="example-sidenav" mode="side">
+<mat-drawer-container autosize class="container">
+  <mat-drawer #drawer class="sidenav" mode="side">
     <div *ngFor="let category of categories">
       <li *ngIf="!category.subcategory" class="no-bullets">
         <a>{{ category.name }}</a>
       </li>
     </div>
   </mat-drawer>
-
+  <div class="sidenav-content">
+    <app-container>
+    </app-container>
+  </div>
 </mat-drawer-container>

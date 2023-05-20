@@ -7,6 +7,8 @@ export interface Product {
   description: string;
   price: number;
   isNew: boolean;
+  isDeleted: boolean;
+  image: string;
   sellerUser: User;
   category: Category;
 }
