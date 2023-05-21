@@ -1,0 +1,15 @@
+<div *ngIf="isLoggedIn; else loggedOut">
+  one shopping card with products
+</div>
+
+<ng-template #loggedOut>
+  <div>
+    <mat-label>Your chopping cart is empty</mat-label>
+    <div class="button-wrapper">
+      <button (click)="onSignInYourAccountClick()" mat-button>Sign in to your account
+      </button>
+      <button (click)="onSignUpNowClick()" mat-button>Sign up now
+      </button>
+    </div>
+  </div>
+</ng-template>

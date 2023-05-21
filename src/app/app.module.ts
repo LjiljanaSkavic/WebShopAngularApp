@@ -25,6 +25,7 @@ import { HeaderComponent } from "./components/header/header.component";
 import { ContainerComponent } from './components/container/container.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -51,6 +52,7 @@ const MATERIAL_MODULES = [
     HomeComponent,
     ContainerComponent,
     MyProfileComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     CommonModule,

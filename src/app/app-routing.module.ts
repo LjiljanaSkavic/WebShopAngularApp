@@ -5,6 +5,7 @@ import { SignUpCardComponent } from "./components/sign-up-card/sign-up-card.comp
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { HomeComponent } from "./components/home/home.component";
 import { MyProfileComponent } from "./components/my-profile/my-profile.component";
+import { ShoppingCartComponent } from "./components/shopping-cart/shopping-cart.component";
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: "my-profile",
     component: MyProfileComponent
+  },
+  {
+    path: "shopping-cart",
+    component: ShoppingCartComponent
   },
   {
     path: "**",

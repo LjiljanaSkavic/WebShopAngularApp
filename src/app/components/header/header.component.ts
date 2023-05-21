@@ -29,4 +29,9 @@ export class HeaderComponent implements OnInit {
   onProfileClick() {
     this.userService.isLoggedIn ? this.router.navigateByUrl('my-profile').then(r => console.log('my profile')) : this.router.navigateByUrl('login').then(r => console.log('login'));
   }
+
+
+  onShoppingCartClick() {
+    this.router.navigateByUrl('shopping-cart').then(r => console.log('my cart'));
+  }
 }
