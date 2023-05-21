@@ -13,6 +13,9 @@
 
   <div class="toolbar-container-right">
     <button mat-icon-button>
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button>
       <mat-icon>shopping_cart</mat-icon>
     </button>
     <button mat-icon-button>
@@ -24,7 +27,7 @@
 <mat-drawer-container autosize class="container">
   <mat-drawer #drawer class="sidenav" mode="side">
     <div *ngFor="let category of categories">
-      <li *ngIf="!category.subcategory" class="no-bullets">
+      <li *ngIf="!category.parentCategory" class="no-bullets">
         <a>{{ category.name }}</a>
       </li>
     </div>

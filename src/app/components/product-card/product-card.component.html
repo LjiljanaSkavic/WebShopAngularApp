@@ -7,6 +7,11 @@
     </mat-card-title-group>
   </mat-card-header>
   <mat-card-content>
-    {{ product.description }}
+    <mat-label>{{ product.description }}</mat-label>
+    <div class="button-wrapper">
+      <button mat-button>Add to watchlist</button>
+      <button mat-button>Add to card</button>
+      <button mat-button></button>
+    </div>
   </mat-card-content>
 </mat-card>
