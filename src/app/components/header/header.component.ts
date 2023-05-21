@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Category} from "../../models/Category";
-import {CategoryService} from "../../services/category.service";
+import { Component, OnInit } from '@angular/core';
+import { Category } from "../../models/Category";
+import { CategoryService } from "../../services/category.service";
+import { Router } from "@angular/router";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +14,7 @@ export class HeaderComponent implements OnInit {
   showFiller = false;
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private categoryService: CategoryService, private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -24,4 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  onProfileClick() {
+    this.userService.isLoggedIn ? this.router.navigateByUrl('my-profile').then(r => console.log('my profile')) : this.router.navigateByUrl('login').then(r => console.log('login'));
+  }
 }

@@ -1,20 +1,23 @@
 <mat-card class="login-card">
   <mat-label>Login</mat-label>
   <mat-label>Please sign in to continue.</mat-label>
-  <form class="login-form">
+  <form [formGroup]="loginForm" class="login-form">
     <mat-form-field>
       <mat-label>Username</mat-label>
-      <input matInput>
+      <input formControlName="username" matInput>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'"
-             required>
-      <mat-icon matSuffix
-                (click)="hidePassword = !hidePassword">{{ hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" matInput
+             placeholder="Password" required>
+      <mat-icon (click)="hidePassword = !hidePassword"
+                matSuffix>{{ hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
 
-    <button mat-button>Login</button>
+
+    <button (click)="onLoginClick($event)" [disabled]="!loginForm.valid" mat-button>Login</button>
+
   </form>
-  <button mat-button (click)="onSignUp($event)">Don't have an account yet? Sign up</button>
+  <button (click)="onSignUpClick($event)" mat-button>Don't have an account yet? Sign up
+  </button>
 </mat-card>
