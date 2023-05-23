@@ -4,3 +4,12 @@
   padding: 16px;
   border: 1px solid gray;
 }
+
+.comment-card {
+  display: flex;
+
+  &__field {
+    padding: 16px;
+    width: 100%;
+  }
+}

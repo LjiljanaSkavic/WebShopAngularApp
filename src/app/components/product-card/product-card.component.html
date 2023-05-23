@@ -12,6 +12,15 @@
       <button mat-button>Add to watchlist</button>
       <button mat-button>Add to card</button>
       <button mat-button></button>
+      <button (click)="toggle()" mat-icon-button>
+        <mat-icon>comment</mat-icon>
+      </button>
     </div>
   </mat-card-content>
+  <div [@collapse]="collapsed" class="comment-card">
+    <mat-form-field class="comment-card__field">
+      <mat-label>Leave a comment</mat-label>
+      <textarea matInput placeholder="My comment..."></textarea>
+    </mat-form-field>
+  </div>
 </mat-card>
