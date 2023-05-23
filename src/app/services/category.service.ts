@@ -16,4 +16,9 @@ export class CategoryService {
   getAll(): Observable<Category[]> {
     return this.httpClient.get<Category[]>(this.baseUrl);
   }
+
+  getAllChildren(id: number): Observable<Category[]> {
+    const childrenUrl = `http://localhost:9000/categories/${ id }/children`;
+    return this.httpClient.get<Category[]>(childrenUrl);
+  }
 }
