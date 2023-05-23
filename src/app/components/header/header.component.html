@@ -1,3 +1,4 @@
+<script src="header.component.ts"></script>
 <mat-toolbar class="toolbar-container">
   <div class="toolbar-container-left">
     <button (click)="drawer.toggle()" mat-icon-button>
@@ -26,11 +27,18 @@
 
 <mat-drawer-container autosize class="container">
   <mat-drawer #drawer class="sidenav" mode="side">
-    <div *ngFor="let category of categories">
-      <li *ngIf="!category.parentCategory" class="no-bullets">
-        <a>{{ category.name }}</a>
+    <ul *ngFor="let category of categories; trackBy: categoryTrack">
+      <li (click)="toggleSubcategories(category.id)" *ngIf="!category.parentCategory"
+          class="no-bullets">{{ category.name }}
+        <ng-template *ngIf="showSubcategories">
+          <ul *ngFor="let subcategory of subcategories; trackBy: subCategoryTrack">
+            <li (click)="toggleSubcategories(subcategory.id)" *ngIf="!subcategory.parentCategory"
+                class="no-bullets">{{ subcategory.name }}
+            </li>
+          </ul>
+        </ng-template>
       </li>
-    </div>
+    </ul>
   </mat-drawer>
   <div class="sidenav-content">
     <app-container>

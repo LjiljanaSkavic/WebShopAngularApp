@@ -9,20 +9,39 @@ import { UserService } from "../../services/user.service";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent implements OnInit {
   searchTerm = "";
   showFiller = false;
   categories: Category[] = [];
+  subcategories: Category[] = [];
+  showSubcategories = false;
 
   constructor(private categoryService: CategoryService, private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.categoryService.getAll().subscribe(categories => {
-        console.log(categories)
         this.categories = categories;
+        console.log(categories);
       }
     )
+  }
+
+  categoryTrack(index: number, item: Category): number {
+    return item.id;
+  }
+
+  subCategoryTrack(index: number, item: Category): number {
+    return item.id;
+  }
+
+  getSubcategories(id: number): void {
+    this.categoryService.getAllChildren(id).subscribe(categories => {
+      console.log('categories from back', categories);
+      this.subcategories = categories;
+      console.log('here subcategories', this.subcategories);
+    });
   }
 
 
@@ -33,5 +52,11 @@ export class HeaderComponent implements OnInit {
 
   onShoppingCartClick() {
     this.router.navigateByUrl('shopping-cart').then(r => console.log('my cart'));
+  }
+
+  toggleSubcategories(parentId: number) {
+    this.showSubcategories = !this.showSubcategories;
+    this.getSubcategories(parentId);
+    console.log('from toggle ', this.subcategories);
   }
 }
