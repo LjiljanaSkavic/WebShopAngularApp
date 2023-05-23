@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Category } from "../../models/Category";
 import { CategoryService } from "../../services/category.service";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -10,22 +11,23 @@ import { UserService } from "../../services/user.service";
   styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   searchTerm = "";
   showFiller = false;
   categories: Category[] = [];
   subcategories: Category[] = [];
   showSubcategories = false;
+  subs = new Subscription();
 
   constructor(private categoryService: CategoryService, private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.categoryService.getAll().subscribe(categories => {
+    this.subs.add(this.categoryService.getAll().subscribe(categories => {
         this.categories = categories;
         console.log(categories);
       }
-    )
+    ));
   }
 
   categoryTrack(index: number, item: Category): number {
@@ -58,5 +60,9 @@ export class HeaderComponent implements OnInit {
     this.showSubcategories = !this.showSubcategories;
     this.getSubcategories(parentId);
     console.log('from toggle ', this.subcategories);
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }
