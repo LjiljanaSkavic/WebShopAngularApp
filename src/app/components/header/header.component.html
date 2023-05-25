@@ -27,21 +27,19 @@
 
 <mat-drawer-container autosize class="container">
   <mat-drawer #drawer class="sidenav" mode="side">
-    <ul *ngFor="let category of categories; trackBy: categoryTrack">
-      <li (click)="toggleSubcategories(category.id)" *ngIf="!category.parentCategory"
+    <ul *ngFor="let category of rootCategories; trackBy: categoryTrack">
+      <li (click)="toggleSubcategories(category.id)"
           class="no-bullets">{{ category.name }}
-        <ng-template *ngIf="showSubcategories">
-          <ul *ngFor="let subcategory of subcategories; trackBy: subCategoryTrack">
-            <li (click)="toggleSubcategories(subcategory.id)" *ngIf="!subcategory.parentCategory"
-                class="no-bullets">{{ subcategory.name }}
-            </li>
-          </ul>
-        </ng-template>
+        <!--        <ul *ngFor="let subcategory of subcategories; trackBy: subCategoryTrack">-->
+        <!--          <li (click)="toggleSubcategories(subcategory.id)" *ngIf="!subcategory.parentCategory"-->
+        <!--              class="no-bullets">{{ subcategory.name }}-->
+        <!--          </li>-->
+        <!--        </ul>-->
       </li>
     </ul>
   </mat-drawer>
-  <div class="sidenav-content">
+  <mat-drawer-content class="sidenav-content">
     <app-container>
     </app-container>
-  </div>
+  </mat-drawer-content>
 </mat-drawer-container>

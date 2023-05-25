@@ -14,7 +14,8 @@ import { Subscription } from "rxjs";
 export class HeaderComponent implements OnInit, OnDestroy {
   searchTerm = "";
   showFiller = false;
-  categories: Category[] = [];
+  allCategories: Category[] = [];
+  rootCategories: Category[] = [];
   subcategories: Category[] = [];
   showSubcategories = false;
   subs = new Subscription();
@@ -24,8 +25,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.add(this.categoryService.getAll().subscribe(categories => {
-        this.categories = categories;
-        console.log(categories);
+        this.allCategories = categories;
+        this.rootCategories = categories.filter(category => !category.parentCategory);
+        console.log(this.rootCategories);
       }
     ));
   }
@@ -40,10 +42,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   getSubcategories(id: number): void {
     this.categoryService.getAllChildren(id).subscribe(categories => {
-      console.log('categories from back', categories);
       this.subcategories = categories;
-      console.log('here subcategories', this.subcategories);
     });
+  }
+
+  toggleSubcategories(parentId: number) {
+    this.showSubcategories = !this.showSubcategories;
+    if (this.showSubcategories) {
+      this.getSubcategories(parentId);
+    }
   }
 
 
@@ -54,12 +61,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onShoppingCartClick() {
     this.router.navigateByUrl('shopping-cart').then(r => console.log('my cart'));
-  }
-
-  toggleSubcategories(parentId: number) {
-    this.showSubcategories = !this.showSubcategories;
-    this.getSubcategories(parentId);
-    console.log('from toggle ', this.subcategories);
   }
 
   ngOnDestroy() {

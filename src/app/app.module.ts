@@ -17,15 +17,15 @@ import { MatIconModule } from "@angular/material/icon";
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { HomeComponent } from './components/home/home.component';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { CommonModule } from "@angular/common";
 import { MatListModule } from "@angular/material/list";
 import { HeaderComponent } from "./components/header/header.component";
 import { ContainerComponent } from './components/container/container.component';
-import { MatTooltipModule } from "@angular/material/tooltip";
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { ActivationCardComponent } from './components/activation-card/activation-card.component';
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -38,7 +38,8 @@ const MATERIAL_MODULES = [
   MatToolbarModule,
   AppRoutingModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatTooltipModule
 ];
 
 @NgModule({
@@ -49,10 +50,10 @@ const MATERIAL_MODULES = [
     SignUpCardComponent,
     PageNotFoundComponent,
     HeaderComponent,
-    HomeComponent,
     ContainerComponent,
     MyProfileComponent,
     ShoppingCartComponent,
+    ActivationCardComponent,
   ],
   imports: [
     CommonModule,
@@ -61,7 +62,6 @@ const MATERIAL_MODULES = [
     HttpClientModule,
     MATERIAL_MODULES,
     AppRoutingModule,
-    MatTooltipModule,
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]
