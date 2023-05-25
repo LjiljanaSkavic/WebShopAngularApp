@@ -6,12 +6,12 @@ import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   searchTerm = "";
   showFiller = false;
   allCategories: Category[] = [];

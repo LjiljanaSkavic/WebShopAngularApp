@@ -20,7 +20,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { CommonModule } from "@angular/common";
 import { MatListModule } from "@angular/material/list";
-import { HeaderComponent } from "./components/header/header.component";
+import { HomeComponent } from "./components/home/home.component";
 import { ContainerComponent } from './components/container/container.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
@@ -49,7 +49,7 @@ const MATERIAL_MODULES = [
     LoginCardComponent,
     SignUpCardComponent,
     PageNotFoundComponent,
-    HeaderComponent,
+    HomeComponent,
     ContainerComponent,
     MyProfileComponent,
     ShoppingCartComponent,

@@ -6,17 +6,17 @@ import { PageNotFoundComponent } from "./components/page-not-found/page-not-foun
 import { MyProfileComponent } from "./components/my-profile/my-profile.component";
 import { ShoppingCartComponent } from "./components/shopping-cart/shopping-cart.component";
 import { ActivationCardComponent } from "./components/activation-card/activation-card.component";
-import { HeaderComponent } from "./components/header/header.component";
+import { HomeComponent } from "./components/home/home.component";
 
 
 const routes: Routes = [
   {
     path: "",
-    component: HeaderComponent
+    component: HomeComponent
   },
   {
     path: "web-shop",
-    component: HeaderComponent
+    component: HomeComponent
   },
   {
     path: "profile-activation",
