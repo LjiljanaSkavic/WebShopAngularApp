@@ -1,0 +1,9 @@
+<mat-card class="activation-card">
+  <mat-label>The verification code will be sent to the email entered below</mat-label>
+  <mat-label>{{ email }}</mat-label>
+  <mat-form-field appearance="fill">
+    <mat-label>Activation code</mat-label>
+    <input formControlName="activationCode" matInput>
+  </mat-form-field>
+  <button (click)="onSubmitActivationCodeClick()" mat-button>Submit</button>
+</mat-card>
