@@ -8,7 +8,7 @@ import { Category } from "../models/Category";
 })
 export class CategoryService {
 
-  private baseUrl = "http://localhost:9000/categories"
+  private baseUrl = "http://localhost:9000/categories/all"
 
   constructor(private httpClient: HttpClient) {
   }
@@ -17,8 +17,8 @@ export class CategoryService {
     return this.httpClient.get<Category[]>(this.baseUrl);
   }
 
-  getAllChildren(id: number): Observable<Category[]> {
-    const childrenUrl = `http://localhost:9000/categories/${ id }/children`;
+  getChildren(parentId: number): Observable<Category[]> {
+    const childrenUrl = `http://localhost:9000/categories/${ parentId }/children`;
     return this.httpClient.get<Category[]>(childrenUrl);
   }
 }

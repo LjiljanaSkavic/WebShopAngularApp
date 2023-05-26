@@ -26,6 +26,7 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { ActivationCardComponent } from './components/activation-card/activation-card.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatTreeModule } from "@angular/material/tree";
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -39,7 +40,8 @@ const MATERIAL_MODULES = [
   AppRoutingModule,
   MatSidenavModule,
   MatListModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatTreeModule
 ];
 
 @NgModule({

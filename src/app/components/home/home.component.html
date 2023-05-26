@@ -26,16 +26,23 @@
 
 <mat-drawer-container autosize class="container">
   <mat-drawer #drawer class="sidenav" mode="side">
-    <ul *ngFor="let category of rootCategories; trackBy: categoryTrack">
-      <li (click)="toggleSubcategories(category.id)"
-          class="no-bullets">{{ category.name }}
-        <!--        <ul *ngFor="let subcategory of subcategories; trackBy: subCategoryTrack">-->
-        <!--          <li (click)="toggleSubcategories(subcategory.id)" *ngIf="!subcategory.parentCategory"-->
-        <!--              class="no-bullets">{{ subcategory.name }}-->
-        <!--          </li>-->
-        <!--        </ul>-->
-      </li>
-    </ul>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <!-- This is the tree node template for leaf nodes -->
+      <mat-tree-node (click)="getNode(node)" *matTreeNodeDef="let node" matTreeNodePadding>
+        <button disabled mat-icon-button></button>
+        {{node.name}}
+      </mat-tree-node>
+      <!-- This is the tree node template for expandable nodes -->
+      <mat-tree-node (click)="getNode(node)" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        <button
+          [attr.aria-label]="'Toggle ' + node.name" mat-icon-button matTreeNodeToggle>
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+          </mat-icon>
+        </button>
+        {{node.name}}
+      </mat-tree-node>
+    </mat-tree>
   </mat-drawer>
   <mat-drawer-content class="sidenav-content">
     <app-container>

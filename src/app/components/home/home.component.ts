@@ -4,6 +4,15 @@ import { CategoryService } from "../../services/category.service";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { Subscription } from "rxjs";
+import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
+import { FlatTreeControl } from "@angular/cdk/tree";
+
+interface ExampleFlatNode {
+  id: number,
+  expandable: boolean;
+  name: string;
+  level: number;
+}
 
 @Component({
   selector: 'app-home',
@@ -12,22 +21,40 @@ import { Subscription } from "rxjs";
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
-  searchTerm = "";
-  showFiller = false;
+
   allCategories: Category[] = [];
-  rootCategories: Category[] = [];
-  subcategories: Category[] = [];
-  showSubcategories = false;
   subs = new Subscription();
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+    node => node.level,
+    node => node.expandable,
+  );
+  dataSource: MatTreeFlatDataSource<Category, ExampleFlatNode, ExampleFlatNode>;
 
   constructor(private categoryService: CategoryService, private router: Router, private userService: UserService) {
   }
 
+  _transformer = (node: Category, level: number) => {
+    return {
+      id: node.id,
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      level: level,
+    };
+  };
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
+
+  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
   ngOnInit(): void {
     this.subs.add(this.categoryService.getAll().subscribe(categories => {
-        this.allCategories = categories;
-        this.rootCategories = categories.filter(category => !category.parentCategory);
-        console.log(this.rootCategories);
+        this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+        this.dataSource.data = categories;
       }
     ));
   }
@@ -36,28 +63,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     return item.id;
   }
 
-  subCategoryTrack(index: number, item: Category): number {
-    return item.id;
-  }
-
-  getSubcategories(id: number): void {
-    this.categoryService.getAllChildren(id).subscribe(categories => {
-      this.subcategories = categories;
-    });
-  }
-
-  toggleSubcategories(parentId: number) {
-    this.showSubcategories = !this.showSubcategories;
-    if (this.showSubcategories) {
-      this.getSubcategories(parentId);
-    }
-  }
-
-
   onProfileClick() {
     this.userService.isLoggedIn ? this.router.navigateByUrl('my-profile').then(r => console.log('my profile')) : this.router.navigateByUrl('login').then(r => console.log('login'));
   }
-
 
   onShoppingCartClick() {
     this.router.navigateByUrl('shopping-cart').then(r => console.log('my cart'));
@@ -65,5 +73,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
+  }
+
+  getNode(node: Category) {
+    console.log(node);
   }
 }
