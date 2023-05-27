@@ -3,9 +3,10 @@ import { Category } from "../../models/Category";
 import { CategoryService } from "../../services/category.service";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
-import { Subscription } from "rxjs";
+import { debounceTime, Subscription } from "rxjs";
 import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
 import { FlatTreeControl } from "@angular/cdk/tree";
+import { FormControl, FormGroup } from "@angular/forms";
 
 interface ExampleFlatNode {
   id: number,
@@ -22,12 +23,18 @@ interface ExampleFlatNode {
 
 export class HomeComponent implements OnInit, OnDestroy {
   newCategorySelected = new EventEmitter<number>();
+  newQueryWritten = new EventEmitter<string>();
   subs = new Subscription();
   treeControl = new FlatTreeControl<ExampleFlatNode>(
     node => node.level,
     node => node.expandable,
   );
   dataSource: MatTreeFlatDataSource<Category, ExampleFlatNode, ExampleFlatNode>;
+  searchControl = new FormControl('');
+  searchBarGroup = new FormGroup({
+    searchControl: this.searchControl,
+  });
+
 
   constructor(private categoryService: CategoryService, private router: Router, private userService: UserService) {
   }
@@ -52,11 +59,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.add(this.categoryService.getAll().subscribe(categories => {
-        this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-        this.dataSource.data = categories;
+      this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+      this.dataSource.data = categories;
+    }));
+    this.subs.add(this.searchControl.valueChanges.pipe(debounceTime(500)).subscribe(query => {
+      console.log(query);
+      if (query != null) {
+        this.newQueryWritten.emit(query);
       }
-    ));
+    }));
   }
+
 
   onProfileClick() {
     this.userService.isLoggedIn ? this.router.navigateByUrl('my-profile').then(r => console.log('my profile')) : this.router.navigateByUrl('login').then(r => console.log('login'));

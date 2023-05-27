@@ -13,6 +13,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   subs = new Subscription();
   @Input() selectedCategoryChanged: Observable<number>;
+  @Input() writtenQueryChanged: Observable<string>;
 
   constructor(private productService: ProductService) {
   }
@@ -23,6 +24,11 @@ export class ContainerComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.selectedCategoryChanged.pipe(switchMap(categoryId => {
         return this.productService.getAllFromCategoryWithId(categoryId)
+      })).subscribe(productsFromCategory => this.products = productsFromCategory)
+    );
+    this.subs.add(
+      this.writtenQueryChanged.pipe(switchMap(searchTerm => {
+        return this.productService.getAllFromSearchTerm(searchTerm)
       })).subscribe(productsFromCategory => this.products = productsFromCategory)
     );
   }
