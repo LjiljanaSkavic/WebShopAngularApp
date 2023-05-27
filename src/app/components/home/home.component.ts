@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { Category } from "../../models/Category";
 import { CategoryService } from "../../services/category.service";
 import { Router } from "@angular/router";
@@ -21,8 +21,7 @@ interface ExampleFlatNode {
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
-
-  allCategories: Category[] = [];
+  newCategorySelected = new EventEmitter<number>();
   subs = new Subscription();
   treeControl = new FlatTreeControl<ExampleFlatNode>(
     node => node.level,
@@ -59,10 +58,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     ));
   }
 
-  categoryTrack(index: number, item: Category): number {
-    return item.id;
-  }
-
   onProfileClick() {
     this.userService.isLoggedIn ? this.router.navigateByUrl('my-profile').then(r => console.log('my profile')) : this.router.navigateByUrl('login').then(r => console.log('login'));
   }
@@ -76,6 +71,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getNode(node: Category) {
-    console.log(node);
+    this.newCategorySelected.emit(node.id);
+  }
+
+  showAllButtonClicked() {
+    this.newCategorySelected.emit(0);
   }
 }

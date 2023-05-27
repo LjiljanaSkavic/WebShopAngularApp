@@ -26,6 +26,7 @@
 
 <mat-drawer-container autosize class="container">
   <mat-drawer #drawer class="sidenav" mode="side">
+    <button (click)="showAllButtonClicked()" mat-button>Show all</button>
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <!-- This is the tree node template for leaf nodes -->
       <mat-tree-node (click)="getNode(node)" *matTreeNodeDef="let node" matTreeNodePadding>
@@ -45,7 +46,7 @@
     </mat-tree>
   </mat-drawer>
   <mat-drawer-content class="sidenav-content">
-    <app-container>
+    <app-container [selectedCategoryChanged]="newCategorySelected.asObservable()">
     </app-container>
   </mat-drawer-content>
 </mat-drawer-container>
