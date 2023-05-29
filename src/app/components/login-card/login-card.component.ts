@@ -9,6 +9,8 @@ import {
 } from "@angular/forms";
 import { SharedService } from "../../services/shared.service";
 import { Router } from "@angular/router";
+import { UserService } from "../../services/user.service";
+import { LoginService } from "../../services/login.service";
 
 @Component({
   selector: 'app-login-card',
@@ -19,7 +21,7 @@ export class LoginCardComponent implements OnInit {
   hidePassword = true;
   loginForm: UntypedFormGroup;
 
-  constructor(private readonly _formBuilder: UntypedFormBuilder, private sharedService: SharedService, private router: Router) {
+  constructor(private readonly _formBuilder: UntypedFormBuilder, private sharedService: SharedService, private router: Router, private loginService: LoginService, private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -38,7 +40,7 @@ export class LoginCardComponent implements OnInit {
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username')?.value;
     const password = this.getPasswordHash();
-    console.log(username, password);
+    this.loginService.getUserByUsernameAndPassword(username, password).subscribe(res => console.log(res))
   }
 
   buildForm() {

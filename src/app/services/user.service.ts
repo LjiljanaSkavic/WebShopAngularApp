@@ -1,7 +1,5 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {User} from "../models/User";
+import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +20,4 @@ export class UserService {
   set isLoggedIn(value: boolean) {
     this._isLoggedIn = value;
   }
-
-  getAll(): Observable<User[]> {
-    return this.httpClient.get<User[]>(this.baseUrl);
-  }
-
 }
