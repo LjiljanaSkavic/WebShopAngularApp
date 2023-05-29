@@ -20,6 +20,7 @@ import { LoginService } from "../../services/login.service";
 export class LoginCardComponent implements OnInit {
   hidePassword = true;
   loginForm: UntypedFormGroup;
+  invalidCredentials = false;
 
   constructor(private readonly _formBuilder: UntypedFormBuilder, private sharedService: SharedService, private router: Router, private loginService: LoginService, private userService: UserService) {
   }
@@ -29,7 +30,11 @@ export class LoginCardComponent implements OnInit {
     this.loginForm = new FormGroup({
       username: new FormControl(null),
       password: new FormControl(null)
-    })
+    });
+
+    //TODO: Write this in better way
+    this.loginForm.get('username')?.valueChanges.subscribe(value => this.invalidCredentials = false);
+    this.loginForm.get('password')?.valueChanges.subscribe(value => this.invalidCredentials = false);
   }
 
 
@@ -40,7 +45,17 @@ export class LoginCardComponent implements OnInit {
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username')?.value;
     const password = this.getPasswordHash();
-    this.loginService.getUserByUsernameAndPassword(username, password).subscribe(res => console.log(res))
+    this.loginService.getUserByUsernameAndPassword(username, password).subscribe(user => {
+      if (user.isActivated) {
+        this.router.navigateByUrl('/web-shop').then(r => console.log('user logged in'));
+        this.userService.isLoggedIn = true;
+      } else {
+        this.router.navigateByUrl('profile-activation').then(r => console.log('you need to activate your profile'));
+      }
+      this.invalidCredentials = false;
+    }, err => {
+      this.invalidCredentials = true;
+    })
   }
 
   buildForm() {

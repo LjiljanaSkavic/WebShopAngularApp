@@ -13,6 +13,7 @@
       <mat-icon (click)="hidePassword = !hidePassword"
                 matSuffix>{{ hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
+    <mat-error *ngIf="invalidCredentials">You have entered an invalid username or password</mat-error>
 
 
     <button (click)="onLoginClick($event)" [disabled]="!loginForm.valid" mat-button>Login</button>
