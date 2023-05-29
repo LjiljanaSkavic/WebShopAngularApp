@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   onProfileClick() {
-    this.userService.isLoggedIn ? this.router.navigateByUrl('my-profile').then(r => console.log('my profile')) : this.router.navigateByUrl('login').then(r => console.log('login'));
+    this.userService.isLoggedIn ? this.router.navigateByUrl('profile-page').then(r => console.log('profile-page')) : this.router.navigateByUrl('login').then(r => console.log('login'));
   }
 
   onShoppingCartClick() {
