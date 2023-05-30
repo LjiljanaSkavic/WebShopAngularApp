@@ -8,7 +8,7 @@
   </mat-card-header>
   <mat-card-content>
     <mat-label>{{ product.description }}</mat-label>
-    <div class="button-wrapper">
+    <div *ngIf="isLoggedIn" class="button-wrapper">
       <button mat-button>Add to watchlist</button>
       <button mat-button>Add to card</button>
       <button mat-button></button>
