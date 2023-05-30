@@ -23,6 +23,10 @@ const routes: Routes = [
     component: ActivationCardComponent
   },
   {
+    path: "profile-activation/:id",
+    component: ActivationCardComponent
+  },
+  {
     path: "login",
     component: LoginCardComponent
   },

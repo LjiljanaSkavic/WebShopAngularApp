@@ -15,3 +15,9 @@ export interface User extends LoginUserInfo {
   isActivated: boolean;
   location: Location;
 }
+
+export interface NewUser extends LoginUserInfo {
+  firstName: string;
+  lastName: string;
+  email: string;
+}

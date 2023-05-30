@@ -1,31 +1,31 @@
 <mat-card class="sign-up-card">
   <mat-label>Create account</mat-label>
-  <form class="sign-up-form">
+  <form [formGroup]="signUpForm" class="sign-up-form">
     <mat-form-field appearance="fill">
       <mat-label>First name</mat-label>
-      <input matInput>
+      <input formControlName="firstName" matInput>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Last name</mat-label>
-      <input matInput>
+      <input formControlName="lastName" matInput>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Username</mat-label>
-      <input matInput>
+      <input formControlName="username" matInput>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input matInput type="email">
+      <input formControlName="email" matInput type="email">
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput>
+      <input formControlName="password" matInput>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Repeat password</mat-label>
-      <input matInput>
+      <input formControlName="repeatPassword" matInput>
     </mat-form-field>
-    <button (click)="onSignUp($event)" mat-button>Sign up</button>
+    <button (click)="onSignUpClick($event)" [disabled]="!signUpForm.valid" mat-button>Sign up</button>
   </form>
-  <button (click)="onLogIn($event)" mat-button>Already have a account? Sign in</button>
+  <button (click)="onLogInClick($event)" mat-button>Already have a account? Sign in</button>
 </mat-card>

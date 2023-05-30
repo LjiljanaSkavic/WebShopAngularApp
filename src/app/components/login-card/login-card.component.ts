@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,16 +11,18 @@ import { SharedService } from "../../services/shared.service";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { LoginService } from "../../services/login.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-login-card',
   templateUrl: './login-card.component.html',
   styleUrls: ['./login-card.component.scss']
 })
-export class LoginCardComponent implements OnInit {
+export class LoginCardComponent implements OnInit, OnDestroy {
   hidePassword = true;
   loginForm: UntypedFormGroup;
   invalidCredentials = false;
+  subs = new Subscription();
 
   constructor(private readonly _formBuilder: UntypedFormBuilder, private sharedService: SharedService, private router: Router, private loginService: LoginService, private userService: UserService) {
   }
@@ -28,13 +30,13 @@ export class LoginCardComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.loginForm = new FormGroup({
-      username: new FormControl(null),
-      password: new FormControl(null)
+      username: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required)
     });
 
     //TODO: Write this in better way
-    this.loginForm.get('username')?.valueChanges.subscribe(value => this.invalidCredentials = false);
-    this.loginForm.get('password')?.valueChanges.subscribe(value => this.invalidCredentials = false);
+    this.subs.add(this.loginForm.get('username')?.valueChanges.subscribe(value => this.invalidCredentials = false));
+    this.subs.add(this.loginForm.get('password')?.valueChanges.subscribe(value => this.invalidCredentials = false));
   }
 
 
@@ -45,7 +47,7 @@ export class LoginCardComponent implements OnInit {
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username')?.value;
     const password = this.getPasswordHash();
-    this.loginService.getUserByUsernameAndPassword(username, password).subscribe(user => {
+    this.subs.add(this.loginService.getUserByUsernameAndPassword(username, password).subscribe(user => {
       if (user.isActivated) {
         this.router.navigateByUrl('/web-shop').then(r => console.log('user logged in'));
         this.userService.isLoggedIn = true;
@@ -55,7 +57,7 @@ export class LoginCardComponent implements OnInit {
       this.invalidCredentials = false;
     }, err => {
       this.invalidCredentials = true;
-    })
+    }));
   }
 
   buildForm() {
@@ -67,5 +69,9 @@ export class LoginCardComponent implements OnInit {
 
   getPasswordHash(): string {
     return this.sharedService.getSha512Hash(this.loginForm.get('password')?.value);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

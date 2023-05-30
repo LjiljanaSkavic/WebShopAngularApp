@@ -19,4 +19,9 @@ export class LoginService {
     }
     return this.httpClient.put<User>(this.baseUrl, loginUserInfo);
   }
+
+  logInUser(id: number): Observable<User> {
+    const logInUrl = `http://localhost:9000/login/${ id }`;
+    return this.httpClient.put<User>(logInUrl, {});
+  }
 }
