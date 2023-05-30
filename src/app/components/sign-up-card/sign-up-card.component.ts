@@ -33,7 +33,7 @@ export class SignUpCardComponent implements OnInit, OnDestroy {
   }
 
   onLogInClick($event: MouseEvent) {
-    this.router.navigateByUrl('login').then(r => console.log('login'));
+    this.router.navigateByUrl('login').catch(err => console.log(err));
   }
 
   onSignUpClick($event: MouseEvent) {
@@ -49,7 +49,7 @@ export class SignUpCardComponent implements OnInit, OnDestroy {
       this.subs.add(this.registerService.createUser(user).subscribe(newUser => {
           this.registerService.activationPin = newUser.activationPin;
           this.registerService.email = newUser.email;
-          this.router.navigate(['profile-activation'], {queryParams: {id: newUser.id}}).then(r => console.log('profile activation'))
+          this.router.navigate(['profile-activation'], {queryParams: {id: newUser.id}}).catch(err => console.log(err));
         },
         err => {
           console.log('error');

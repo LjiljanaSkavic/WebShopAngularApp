@@ -40,7 +40,7 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
     if (+activationPinControlValue === this.activationPin) {
       console.log('if pin si valid if ', this.userId);
       this.subs.add(this.registerService.activateProfile(this.userId).subscribe(res => {
-        this.router.navigateByUrl('web-shop').then(r => console.log('logged in'));
+        this.router.navigateByUrl('web-shop').catch(err => console.log(err));
         this.userService.isLoggedIn = true;
         console.log('successful login');
       }))

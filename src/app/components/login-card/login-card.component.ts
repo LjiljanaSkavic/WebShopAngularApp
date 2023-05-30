@@ -41,7 +41,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
 
 
   onSignUpClick($event: MouseEvent) {
-    this.router.navigateByUrl('sign-up').then(r => console.log('sign-up'));
+    this.router.navigateByUrl('sign-up').catch(err => console.log(err));
   }
 
   onLoginClick($event: MouseEvent) {
@@ -49,10 +49,11 @@ export class LoginCardComponent implements OnInit, OnDestroy {
     const password = this.getPasswordHash();
     this.subs.add(this.loginService.getUserByUsernameAndPassword(username, password).subscribe(user => {
       if (user.isActivated) {
-        this.router.navigateByUrl('/web-shop').then(r => console.log('user logged in'));
+        this.router.navigateByUrl('/web-shop').catch(err => console.log(err));
         this.userService.isLoggedIn = true;
+        this.userService.isActivated = true;
       } else {
-        this.router.navigateByUrl('profile-activation').then(r => console.log('you need to activate your profile'));
+        this.router.navigate(['profile-activation']).catch(err => console.log(err));
       }
       this.invalidCredentials = false;
     }, err => {

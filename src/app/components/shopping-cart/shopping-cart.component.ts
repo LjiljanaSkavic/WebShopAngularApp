@@ -18,10 +18,10 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   onSignInYourAccountClick() {
-    this.router.navigateByUrl('login').then(r => console.log('login'))
+    this.router.navigateByUrl('login').catch(err => console.log(err));
   }
 
   onSignUpNowClick() {
-    this.router.navigateByUrl('sign-up').then(r => console.log('sign up'))
+    this.router.navigateByUrl('sign-up').catch(err => console.log(err));
   }
 }

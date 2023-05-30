@@ -58,6 +58,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   ngOnInit(): void {
+    if (this.userService.isLoggedIn) {
+
+    }
     this.subs.add(this.categoryService.getAll().subscribe(categories => {
       this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
       this.dataSource.data = categories;
@@ -72,11 +75,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   onProfileClick() {
-    this.userService.isLoggedIn ? this.router.navigateByUrl('profile-page').then(r => console.log('profile-page')) : this.router.navigateByUrl('login').then(r => console.log('login'));
+    this.userService.isLoggedIn ? this.router.navigateByUrl('profile-page').catch(err => console.log(err)) : this.router.navigateByUrl('login').catch(err => console.log(err));
   }
 
   onShoppingCartClick() {
-    this.router.navigateByUrl('shopping-cart').then(r => console.log('my cart'));
+    this.router.navigateByUrl('shopping-cart').catch(err => console.log(err));
   }
 
   ngOnDestroy() {

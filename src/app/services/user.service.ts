@@ -11,6 +11,16 @@ export class UserService {
 
   }
 
+  private _isActivated = false;
+
+  get isActivated(): boolean {
+    return this._isActivated;
+  }
+
+  set isActivated(value: boolean) {
+    this._isActivated = value;
+  }
+
   private _isLoggedIn = false;
 
   get isLoggedIn(): boolean {
