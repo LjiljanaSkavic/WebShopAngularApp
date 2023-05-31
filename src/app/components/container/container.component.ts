@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../models/Product";
-import { Subscription, switchMap } from "rxjs";
+import { Observable, Subscription, switchMap } from "rxjs";
 import { SharedService } from "../../services/shared.service";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 
 @Component({
   selector: 'app-container',
@@ -12,23 +14,47 @@ import { SharedService } from "../../services/shared.service";
 export class ContainerComponent implements OnInit, OnDestroy {
 
   products: Product[] = [];
+
+
+  pageSize = 10;
+  currentPage = 0;
+  totalSize = 0;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  productsObservable: Observable<any>;
+  productsDataSource: MatTableDataSource<Product> = new MatTableDataSource<Product>();
+
   subs = new Subscription();
 
   constructor(private productService: ProductService, private sharedService: SharedService) {
   }
 
   ngOnInit(): void {
+
     this.subs.add(
-      this.productService.getAll().subscribe(products => this.products = products));
+      this.productService.getAll().subscribe(products => {
+        this.products = products;
+        this.totalSize = this.products.length;
+
+        this.productsDataSource.data = products;
+        this.productsDataSource.paginator = this.paginator;
+        this.productsObservable = this.productsDataSource.connect();
+      }));
     this.subs.add(
       this.sharedService.newCategorySelected.pipe(switchMap(categoryId => {
         return this.productService.getAllFromCategoryWithId(categoryId)
-      })).subscribe(productsFromCategory => this.products = productsFromCategory)
+      })).subscribe(productsFromCategory => {
+        this.products = productsFromCategory;
+        this.totalSize = this.products.length;
+      })
     );
     this.subs.add(
       this.sharedService.newQueryWritten.pipe(switchMap(searchTerm => {
         return this.productService.getAllFromSearchTerm(searchTerm)
-      })).subscribe(productsFromCategory => this.products = productsFromCategory)
+      })).subscribe(productsFromCategory => {
+        this.products = productsFromCategory;
+        this.totalSize = this.products.length;
+      })
     );
   }
 

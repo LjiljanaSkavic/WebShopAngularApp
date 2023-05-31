@@ -27,6 +27,7 @@ import { ActivationCardComponent } from './components/activation-card/activation
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -64,6 +65,7 @@ const MATERIAL_MODULES = [
     MATERIAL_MODULES,
     AppRoutingModule,
     MatExpansionModule,
+    MatPaginatorModule,
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]
