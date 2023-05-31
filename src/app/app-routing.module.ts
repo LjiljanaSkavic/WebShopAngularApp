@@ -7,6 +7,7 @@ import { ShoppingCartComponent } from "./components/shopping-cart/shopping-cart.
 import { ActivationCardComponent } from "./components/activation-card/activation-card.component";
 import { ProfilePageComponent } from "./components/profile-page/profile-page.component";
 import { ContainerComponent } from "./components/container/container.component";
+import { ProductDetailsComponent } from "./components/product-details/product-details.component";
 
 
 const routes: Routes = [
@@ -41,6 +42,14 @@ const routes: Routes = [
   {
     path: "profile-page/:id",
     component: ProfilePageComponent
+  },
+  {
+    path: "product-details",
+    component: ProductDetailsComponent
+  },
+  {
+    path: "product-details/:id",
+    component: ProductDetailsComponent
   },
   {
     path: "shopping-cart",

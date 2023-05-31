@@ -16,6 +16,11 @@ export class ProductService {
     return this.httpClient.get<Product[]>(this.baseUrl);
   }
 
+  getById(id: number): Observable<Product> {
+    const getByIdUrl = `http://localhost:9000/products/${ id }`;
+    return this.httpClient.get<Product>(getByIdUrl);
+  }
+
   getAllFromCategoryWithId(categoryId: number) {
     const productsFromCategoryUrl = `http://localhost:9000/products/filter-by-category/${ categoryId }`
     return categoryId === 0 ? this.getAll() : this.httpClient.get<Product[]>(productsFromCategoryUrl);

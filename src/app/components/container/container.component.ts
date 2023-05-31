@@ -5,6 +5,7 @@ import { Observable, Subscription, switchMap } from "rxjs";
 import { SharedService } from "../../services/shared.service";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-container',
@@ -17,7 +18,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
   productsObservable: Observable<any>;
   productsDataSource: MatTableDataSource<Product> = new MatTableDataSource<Product>();
   products: Product[] = [];
-  
+
   pageSize = 10;
   currentPage = 0;
   totalSize = 0;
@@ -25,7 +26,8 @@ export class ContainerComponent implements OnInit, OnDestroy {
   subs = new Subscription();
 
   constructor(private productService: ProductService,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -58,6 +60,10 @@ export class ContainerComponent implements OnInit, OnDestroy {
         this.productsDataSource.data = productsFromSearch;
       })
     );
+  }
+
+  onCardClick(product: Product) {
+    this.router.navigate(['product-details'], {queryParams: {id: product.id}}).catch(err => console.log(err));
   }
 
   ngOnDestroy(): void {

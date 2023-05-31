@@ -1,5 +1,5 @@
 <div *ngFor="let product of productsObservable | async" class="container">
-  <app-product-card [product]="product"></app-product-card>
+  <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
 </div>
 <mat-paginator [length]="100"
                [pageSizeOptions]="[5, 10, 25, 100]"
