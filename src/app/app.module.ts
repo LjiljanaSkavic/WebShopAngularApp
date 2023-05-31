@@ -28,6 +28,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -56,6 +58,8 @@ const MATERIAL_MODULES = [
     ProfilePageComponent,
     ShoppingCartComponent,
     ActivationCardComponent,
+    ProductDetailsComponent,
+    CommentComponent,
   ],
   imports: [
     CommonModule,
