@@ -5,18 +5,18 @@ import { SignUpCardComponent } from "./components/sign-up-card/sign-up-card.comp
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { ShoppingCartComponent } from "./components/shopping-cart/shopping-cart.component";
 import { ActivationCardComponent } from "./components/activation-card/activation-card.component";
-import { HomeComponent } from "./components/home/home.component";
 import { ProfilePageComponent } from "./components/profile-page/profile-page.component";
+import { ContainerComponent } from "./components/container/container.component";
 
 
 const routes: Routes = [
   {
     path: "",
-    component: HomeComponent
+    component: ContainerComponent
   },
   {
     path: "web-shop",
-    component: HomeComponent
+    component: ContainerComponent
   },
   {
     path: "profile-activation",

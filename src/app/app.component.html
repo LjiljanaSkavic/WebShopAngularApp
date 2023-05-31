@@ -1,2 +1,55 @@
-<router-outlet></router-outlet>
+<mat-toolbar class="toolbar-container">
+  <div class="toolbar-container-left">
+    <button (click)="drawer.toggle()" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-label>Web shop</mat-label>
+  </div>
 
+  <form [formGroup]="searchBarGroup" class="search-bar">
+    <mat-icon class="search-bar__icon">search</mat-icon>
+    <input class="search-bar__input" formControlName="searchControl" placeholder="Search for products"/>
+  </form>
+
+  <div class="toolbar-container-right">
+    <button mat-icon-button>
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button (click)="onShoppingCartClick()" mat-icon-button>
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <button (click)="onProfileClick()" mat-icon-button>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-drawer-container autosize class="container">
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <button (click)="showAllButtonClicked()" mat-button>Show all</button>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="tree-node">
+      <!-- This is the tree node template for leaf nodes -->
+      <mat-tree-node (click)="getNode(node)" *matTreeNodeDef="let node" matTreeNodePadding>
+        <button disabled mat-icon-button></button>
+        {{node.name}}
+      </mat-tree-node>
+      <!-- This is the tree node template for expandable nodes -->
+      <mat-tree-node (click)="getNode(node)" *matTreeNodeDef="let node;when: hasChild" class="tree-node"
+                     matTreeNodePadding>
+        <button
+          [attr.aria-label]="'Toggle ' + node.name" mat-icon-button matTreeNodeToggle>
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+          </mat-icon>
+        </button>
+        {{node.name}}
+      </mat-tree-node>
+    </mat-tree>
+  </mat-drawer>
+  <mat-drawer-content class="sidenav-content">
+    <!--    <app-container [selectedCategoryChanged]="newCategorySelected"-->
+    <!--                   [writtenQueryChanged]="newQueryWritten">-->
+    <!--    </app-container>-->
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

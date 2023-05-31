@@ -20,13 +20,13 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { CommonModule } from "@angular/common";
 import { MatListModule } from "@angular/material/list";
-import { HomeComponent } from "./components/home/home.component";
 import { ContainerComponent } from './components/container/container.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { ActivationCardComponent } from './components/activation-card/activation-card.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -51,7 +51,6 @@ const MATERIAL_MODULES = [
     LoginCardComponent,
     SignUpCardComponent,
     PageNotFoundComponent,
-    HomeComponent,
     ContainerComponent,
     ProfilePageComponent,
     ShoppingCartComponent,
@@ -64,6 +63,7 @@ const MATERIAL_MODULES = [
     HttpClientModule,
     MATERIAL_MODULES,
     AppRoutingModule,
+    MatExpansionModule,
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]

@@ -1,7 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../models/Product";
-import { Observable, Subscription, switchMap } from "rxjs";
+import { Subscription, switchMap } from "rxjs";
+import { SharedService } from "../../services/shared.service";
 
 @Component({
   selector: 'app-container',
@@ -12,22 +13,20 @@ export class ContainerComponent implements OnInit, OnDestroy {
 
   products: Product[] = [];
   subs = new Subscription();
-  @Input() selectedCategoryChanged: Observable<number>;
-  @Input() writtenQueryChanged: Observable<string>;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private sharedService: SharedService) {
   }
 
   ngOnInit(): void {
     this.subs.add(
       this.productService.getAll().subscribe(products => this.products = products));
     this.subs.add(
-      this.selectedCategoryChanged.pipe(switchMap(categoryId => {
+      this.sharedService.newCategorySelected.pipe(switchMap(categoryId => {
         return this.productService.getAllFromCategoryWithId(categoryId)
       })).subscribe(productsFromCategory => this.products = productsFromCategory)
     );
     this.subs.add(
-      this.writtenQueryChanged.pipe(switchMap(searchTerm => {
+      this.sharedService.newQueryWritten.pipe(switchMap(searchTerm => {
         return this.productService.getAllFromSearchTerm(searchTerm)
       })).subscribe(productsFromCategory => this.products = productsFromCategory)
     );
