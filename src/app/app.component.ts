@@ -16,6 +16,8 @@ interface ExampleFlatNode {
   level: number;
 }
 
+export const SEARCH_DEBOUNCE_TIME = 500;
+
 
 @Component({
   selector: 'app-root',
@@ -58,15 +60,12 @@ export class AppComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   ngOnInit(): void {
-    if (this.userService.isLoggedIn) {
-
-    }
     this.subs.add(this.categoryService.getAll().subscribe(categories => {
       this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
       this.dataSource.data = categories;
     }));
-    this.subs.add(this.searchControl.valueChanges.pipe(debounceTime(500)).subscribe(query => {
-      console.log(query);
+
+    this.subs.add(this.searchControl.valueChanges.pipe(debounceTime(SEARCH_DEBOUNCE_TIME)).subscribe(query => {
       if (query != null) {
         this.sharedService.newQueryWritten.emit(query);
       }

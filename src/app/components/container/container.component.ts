@@ -13,24 +13,22 @@ import { MatTableDataSource } from "@angular/material/table";
 })
 export class ContainerComponent implements OnInit, OnDestroy {
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  productsObservable: Observable<any>;
+  productsDataSource: MatTableDataSource<Product> = new MatTableDataSource<Product>();
   products: Product[] = [];
-
-
+  
   pageSize = 10;
   currentPage = 0;
   totalSize = 0;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  productsObservable: Observable<any>;
-  productsDataSource: MatTableDataSource<Product> = new MatTableDataSource<Product>();
-
   subs = new Subscription();
 
-  constructor(private productService: ProductService, private sharedService: SharedService) {
+  constructor(private productService: ProductService,
+              private sharedService: SharedService) {
   }
 
   ngOnInit(): void {
-
     this.subs.add(
       this.productService.getAll().subscribe(products => {
         this.products = products;
@@ -40,20 +38,24 @@ export class ContainerComponent implements OnInit, OnDestroy {
         this.productsDataSource.paginator = this.paginator;
         this.productsObservable = this.productsDataSource.connect();
       }));
+
     this.subs.add(
       this.sharedService.newCategorySelected.pipe(switchMap(categoryId => {
         return this.productService.getAllFromCategoryWithId(categoryId)
       })).subscribe(productsFromCategory => {
         this.products = productsFromCategory;
         this.totalSize = this.products.length;
+        this.productsDataSource.data = productsFromCategory;
       })
     );
+
     this.subs.add(
       this.sharedService.newQueryWritten.pipe(switchMap(searchTerm => {
         return this.productService.getAllFromSearchTerm(searchTerm)
-      })).subscribe(productsFromCategory => {
-        this.products = productsFromCategory;
+      })).subscribe(productsFromSearch => {
+        this.products = productsFromSearch;
         this.totalSize = this.products.length;
+        this.productsDataSource.data = productsFromSearch;
       })
     );
   }
