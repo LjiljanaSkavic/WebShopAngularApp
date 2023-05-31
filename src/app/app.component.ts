@@ -8,6 +8,7 @@ import { CategoryService } from "./services/category.service";
 import { Router } from "@angular/router";
 import { UserService } from "./services/user.service";
 import { SharedService } from "./services/shared.service";
+import { LocalService } from "./services/local.service";
 
 interface ExampleFlatNode {
   id: number,
@@ -38,7 +39,11 @@ export class AppComponent implements OnInit, OnDestroy {
     searchControl: this.searchControl,
   });
 
-  constructor(private sharedService: SharedService, private categoryService: CategoryService, private router: Router, private userService: UserService) {
+  constructor(private localStore: LocalService,
+              private sharedService: SharedService,
+              private categoryService: CategoryService,
+              private router: Router,
+              private userService: UserService) {
   }
 
   _transformer = (node: Category, level: number) => {
@@ -74,7 +79,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   onProfileClick() {
-    this.userService.isLoggedIn ? this.router.navigateByUrl('profile-page').catch(err => console.log(err)) : this.router.navigateByUrl('login').catch(err => console.log(err));
+    const userId = this.localStore.getData('userId');
+    return userId !== null ? this.router.navigate(['profile-page'], {queryParams: {id: userId}}).catch(err => console.log(err)) : this.router.navigateByUrl('login').catch(err => console.log(err));
   }
 
   onShoppingCartClick() {
@@ -86,10 +92,18 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   getNode(node: Category) {
-    this.sharedService.newCategorySelected.next(node.id);
+    this.router.navigateByUrl('web-shop').then(res => {
+      this.sharedService.newCategorySelected.next(node.id);
+    });
   }
 
   showAllButtonClicked() {
-    this.sharedService.newCategorySelected.next(0);
+    this.router.navigateByUrl('web-shop').then(res => {
+      this.sharedService.newCategorySelected.next(0);
+    });
+  }
+
+  onWebShopClick() {
+    this.router.navigateByUrl('web-shop').catch(err => console.log(err));
   }
 }

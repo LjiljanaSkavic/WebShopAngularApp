@@ -12,6 +12,10 @@
 
 }
 
+.web-shop-label {
+  cursor: pointer;
+}
+
 .search-bar {
   display: flex;
   align-items: center;
@@ -30,7 +34,7 @@
 }
 
 .container {
-  display: flex;
+  height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 

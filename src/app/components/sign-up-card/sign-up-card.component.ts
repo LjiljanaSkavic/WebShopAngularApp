@@ -29,7 +29,6 @@ export class SignUpCardComponent implements OnInit, OnDestroy {
       password: new FormControl(null, Validators.required),
       repeatPassword: new FormControl(null, Validators.required),
     });
-
   }
 
   onLogInClick($event: MouseEvent) {

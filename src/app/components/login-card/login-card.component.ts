@@ -12,6 +12,7 @@ import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { LoginService } from "../../services/login.service";
 import { Subscription } from "rxjs";
+import { LocalService } from "../../services/local.service";
 
 @Component({
   selector: 'app-login-card',
@@ -24,7 +25,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   invalidCredentials = false;
   subs = new Subscription();
 
-  constructor(private readonly _formBuilder: UntypedFormBuilder, private sharedService: SharedService, private router: Router, private loginService: LoginService, private userService: UserService) {
+  constructor(private localStore: LocalService, private readonly _formBuilder: UntypedFormBuilder, private sharedService: SharedService, private router: Router, private loginService: LoginService, private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -51,6 +52,8 @@ export class LoginCardComponent implements OnInit, OnDestroy {
       if (user.isActivated) {
         this.router.navigateByUrl('/web-shop').catch(err => console.log(err));
         this.userService.isLoggedIn = true;
+        this.userService.userId = user.id;
+        this.localStore.saveData('userId', user.id.toString());
         this.userService.isActivated = true;
       } else {
         this.router.navigate(['profile-activation']).catch(err => console.log(err));

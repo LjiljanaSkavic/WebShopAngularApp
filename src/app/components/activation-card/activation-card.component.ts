@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { LoginService } from "../../services/login.service";
 import { Subscription } from "rxjs";
+import { LocalService } from "../../services/local.service";
 
 @Component({
   selector: 'app-activation-card',
@@ -18,7 +19,7 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
   userId: number;
   subs = new Subscription();
 
-  constructor(private activatedRoute: ActivatedRoute, private registerService: RegisterService, private router: Router, private userService: UserService, private loginService: LoginService) {
+  constructor(private localStore: LocalService, private activatedRoute: ActivatedRoute, private registerService: RegisterService, private router: Router, private userService: UserService, private loginService: LoginService) {
   }
 
   ngOnInit(): void {
@@ -38,11 +39,11 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
   onSubmitActivationCodeClick() {
     const activationPinControlValue = this.activationProfileForm.get('activationPinControl')?.value;
     if (+activationPinControlValue === this.activationPin) {
-      console.log('if pin si valid if ', this.userId);
       this.subs.add(this.registerService.activateProfile(this.userId).subscribe(res => {
         this.router.navigateByUrl('web-shop').catch(err => console.log(err));
         this.userService.isLoggedIn = true;
-        console.log('successful login');
+        this.userService.userId = this.userId;
+        this.localStore.saveData('userId', this.userId.toString());
       }))
     }
   }

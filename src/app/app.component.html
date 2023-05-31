@@ -3,7 +3,7 @@
     <button (click)="drawer.toggle()" mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
-    <mat-label>Web shop</mat-label>
+    <mat-label (click)="onWebShopClick()" class="web-shop-label">Web shop</mat-label>
   </div>
 
   <form [formGroup]="searchBarGroup" class="search-bar">
@@ -24,7 +24,7 @@
   </div>
 </mat-toolbar>
 
-<mat-drawer-container autosize class="container">
+<mat-drawer-container class="container">
   <mat-drawer #drawer class="sidenav" mode="side">
     <button (click)="showAllButtonClicked()" mat-button>Show all</button>
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="tree-node">

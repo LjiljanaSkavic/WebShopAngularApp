@@ -39,6 +39,10 @@ const routes: Routes = [
     component: ProfilePageComponent
   },
   {
+    path: "profile-page/:id",
+    component: ProfilePageComponent
+  },
+  {
     path: "shopping-cart",
     component: ShoppingCartComponent
   },

@@ -1,1 +1,44 @@
-<p>my-profile works!</p>
+<div class="profile-page">
+  <form [formGroup]="profileForm" class="profile-form">
+    <mat-card class="mat-card">
+      <mat-form-field appearance="fill">
+        <mat-label>First name</mat-label>
+        <input formControlName="firstName" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Last name</mat-label>
+        <input formControlName="lastName" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input formControlName="username" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput type="email">
+      </mat-form-field>
+    </mat-card>
+    <mat-card class="mat-card">
+      <mat-form-field appearance="fill">
+        <mat-label>Country</mat-label>
+        <input formControlName="country" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Postal code</mat-label>
+        <input formControlName="postalCode" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>City</mat-label>
+        <input formControlName="city" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Street address</mat-label>
+        <input formControlName="streetAddress" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Street number</mat-label>
+        <input formControlName="streetNumber" matInput>
+      </mat-form-field>
+    </mat-card>
+  </form>
+</div>
