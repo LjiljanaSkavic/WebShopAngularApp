@@ -3,6 +3,7 @@ import { Subscription, switchMap } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../models/Product";
+import { CommentService } from "../../services/comment.service";
 
 @Component({
   selector: 'app-product-details',
@@ -14,8 +15,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   subs = new Subscription();
   productId: number;
   product: Product;
+  comments: Comment[];
 
-  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) {
+  constructor(private commentService: CommentService, private activatedRoute: ActivatedRoute, private productService: ProductService) {
   }
 
   ngOnInit(): void {
@@ -23,9 +25,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       .pipe(switchMap(params => {
         this.productId = params['id'];
         return this.productService.getById(this.productId)
-      })).subscribe(product => {
+      })).pipe(switchMap(product => {
         this.product = product;
-        console.log(product);
+        return this.commentService.getCommentsByProductId(product.id)
+      })).subscribe(comments => {
+        this.comments = comments;
       }));
   }
 
