@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, UntypedFormGroup } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { SharedService } from "../../services/shared.service";
@@ -14,8 +14,10 @@ import { User } from "../../models/User";
 })
 export class ProfilePageComponent implements OnInit, OnDestroy {
 
-  profileForm: UntypedFormGroup;
+  profileForm: FormGroup;
+  resetPasswordForm: FormGroup;
   subs = new Subscription();
+  resetPasswordClicked = false;
 
   constructor(private router: Router,
               private sharedService: SharedService,
@@ -28,10 +30,19 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     const userIdString = this.localStore.getData('userId');
     if (userIdString != null) {
       this.subs.add(this.userService.getUser(+userIdString).subscribe(user => {
-        console.log(user);
-        this.buildForm(user);
+        this.buildProfileForm(user);
       }));
     }
+  }
+
+  disableForm() {
+    this.profileForm.get('firstName')?.disable();
+    this.profileForm.get('lastName')?.disable();
+    this.profileForm.get('username')?.disable();
+    this.profileForm.get('email')?.disable();
+    this.profileForm.get('postalCode')?.disable();
+    this.profileForm.get('streetAddress')?.disable();
+    this.profileForm.get('streetAddress')?.disable();
   }
 
   buildEmptyForm() {
@@ -48,8 +59,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     });
   }
 
-  buildForm(user: User) {
-    console.log(user.username);
+  buildProfileForm(user: User) {
     this.profileForm = new FormGroup({
       firstName: new FormControl(user.firstName),
       lastName: new FormControl(user.lastName),
@@ -61,10 +71,28 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       streetAddress: new FormControl(user.location.streetAddress),
       streetNumber: new FormControl(user.location.streetNumber),
     });
-
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  resetPasswordSelected() {
+    this.resetPasswordClicked = !this.resetPasswordClicked;
+    if (this.resetPasswordClicked) {
+      this.resetPasswordForm = new FormGroup({
+        oldPassword: new FormControl(null),
+        password: new FormControl(null),
+        repeatPassword: new FormControl(null)
+      });
+    }
+  }
+
+  onSubmitPasswordClick() {
+    this.resetPasswordClicked = false;
+  }
+
+  onDiscardPasswordClick() {
+    this.resetPasswordClicked = false;
   }
 }

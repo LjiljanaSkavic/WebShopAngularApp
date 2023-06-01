@@ -1,8 +1,45 @@
-.profile-page {
+.profile-page-card {
   display: flex;
   justify-content: center;
+  margin-top: 32px;
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+
+  }
+
+  &__content {
+    padding: 16px;
+  }
 }
 
 .profile-form {
   display: flex;
+  gap: 32px;
+
+  &--side {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+}
+
+.reset-password {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
 }
