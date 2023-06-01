@@ -25,7 +25,7 @@
 </mat-toolbar>
 
 <mat-drawer-container class="container">
-  <mat-drawer #drawer class="sidenav" mode="side">
+  <mat-drawer #drawer class="sidenav">
     <button (click)="showAllButtonClicked()" mat-button>Show all</button>
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="tree-node">
       <!-- This is the tree node template for leaf nodes -->
