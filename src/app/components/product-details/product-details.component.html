@@ -2,11 +2,24 @@
   <mat-card-header>
     <mat-card-title-group>
       <mat-card-title>{{ product.title }}</mat-card-title>
-      <mat-card-subtitle>{{ product.category.name }}</mat-card-subtitle>
-      <img [src]="product.image" mat-card-sm-image>
     </mat-card-title-group>
   </mat-card-header>
   <mat-card-content>
+    <img [src]="product.image" mat-card-sm-image>
+    <mat-card-subtitle>Category: {{ product.category.name }}</mat-card-subtitle>
     <mat-label>{{ product.description }}</mat-label>
+    <mat-label>{{ product.price }}</mat-label>
+    <div *ngFor="let comment of comments">
+      <app-comment [comment]="comment"></app-comment>
+    </div>
+    <button (click)="toggle()" mat-icon-button>
+      <mat-icon>comment</mat-icon>
+    </button>
+    <div [@collapse]="collapsed" class="comment-card">
+      <mat-form-field class="comment-card__field">
+        <mat-label>Leave a comment</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </div>
   </mat-card-content>
 </div>
