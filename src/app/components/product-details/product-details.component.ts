@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../models/Product";
 import { CommentService } from "../../services/comment.service";
+import { Comment } from "../../models/Comment";
 
 @Component({
   selector: 'app-product-details',
