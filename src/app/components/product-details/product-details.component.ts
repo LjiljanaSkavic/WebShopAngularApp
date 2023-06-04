@@ -8,6 +8,9 @@ import { Comment } from "../../models/Comment";
 import { animate, AUTO_STYLE, state, style, transition, trigger } from "@angular/animations";
 import { AttributeValue } from "../../models/AttributeValue";
 import { UserService } from "../../services/user.service";
+import { User } from "../../models/User";
+import { MatDialog } from "@angular/material/dialog";
+import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -34,11 +37,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   collapsed = true;
   isLoading = true;
   isLoggedIn = false;
+  isMyProduct = false;
 
   constructor(private commentService: CommentService,
               private activatedRoute: ActivatedRoute,
               private productService: ProductService,
-              private userService: UserService) {
+              private userService: UserService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -49,6 +54,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         return this.productService.getById(this.productId)
       })).pipe(switchMap(product => {
         this.product = product;
+        this.initializeIsMyProduct();
         return this.commentService.getCommentsByProductId(product.id)
       })).pipe(switchMap(comments => {
         this.comments = comments;
@@ -65,5 +71,32 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  onBuyNowClick() {
+
+    this.dialog.open(ConfirmationModalComponent, {
+      data: {
+        title: "Buy product",
+        text: "Are you sure that you want to buy this product?"
+      }
+    }).afterClosed().subscribe(result => console.log(result));
+  }
+
+  onDeleteProductClick() {
+    this.dialog.open(ConfirmationModalComponent, {
+      data: {
+        title: "Delete product",
+        text: "Are you sure that you want to delete this product?"
+      }
+    }).afterClosed().subscribe(result => console.log(result));
+  }
+
+  initializeIsMyProduct() {
+    const userString = this.userService.getLoggedUser();
+    if (userString != null) {
+      const user: User = JSON.parse(userString);
+      this.isMyProduct = user.id === this.product.sellerUser.id;
+    }
   }
 }

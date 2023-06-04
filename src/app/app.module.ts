@@ -32,6 +32,8 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { CommentComponent } from './components/comment/comment.component';
 import { StoreComponent } from './components/store/store.component';
 import { ManagePasswordComponent } from './components/manage-password/manage-password.component';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -64,6 +66,7 @@ const MATERIAL_MODULES = [
     CommentComponent,
     StoreComponent,
     ManagePasswordComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     CommonModule,
@@ -74,6 +77,7 @@ const MATERIAL_MODULES = [
     AppRoutingModule,
     MatExpansionModule,
     MatPaginatorModule,
+    MatDialogModule,
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]

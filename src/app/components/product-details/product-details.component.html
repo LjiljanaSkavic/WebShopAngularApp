@@ -21,8 +21,11 @@
         <textarea matInput></textarea>
       </mat-form-field>
     </div>
+    <mat-label>State : {{ product.isNew ? 'New' : 'Used' }}</mat-label>
     <div *ngFor="let attribute of attributes">
       <mat-label>{{ attribute.attributeName }} : {{ attribute.attributeValueName }}</mat-label>
     </div>
   </mat-card-content>
+  <button (click)="onBuyNowClick()" *ngIf="!isMyProduct" mat-button>Buy now</button>
+  <button (click)="onDeleteProductClick()" *ngIf="isMyProduct" mat-button>Delete</button>
 </div>
