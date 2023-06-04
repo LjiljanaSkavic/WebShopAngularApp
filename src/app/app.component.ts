@@ -99,7 +99,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onShoppingCartClick() {
-    this.router.navigateByUrl('shopping-cart').catch(err => console.log(err));
+    this.router.navigateByUrl('purchase-history').catch(err => console.log(err));
   }
 
   toggleAccountMenu() {
