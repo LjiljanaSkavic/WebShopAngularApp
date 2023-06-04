@@ -128,7 +128,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onWebShopClick() {
-    this.router.navigateByUrl('web-shop').catch(err => console.log(err));
+    this.showAllButtonClicked();
   }
 
   onLogOutClick() {

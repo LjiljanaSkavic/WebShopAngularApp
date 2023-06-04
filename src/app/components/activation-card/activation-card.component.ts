@@ -30,7 +30,6 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
 
     this.activationPin = this.registerService.activationPin;
     this.email = this.registerService.email;
-    console.log(this.registerService.email);
     this.activationProfileForm = new FormGroup({
       activationPinControl: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(4), Validators.pattern("^[0-9]*$")])
     });
