@@ -7,9 +7,5 @@
   <mat-card-content>
     <mat-label>Price : {{ product.price }} BAM</mat-label>
     <img [src]="product.image" mat-card-lg-image>
-    <div *ngIf="isLoggedIn" class="button-wrapper">
-      <button mat-button>Add to watchlist</button>
-      <button mat-button>Add to card</button>
-    </div>
   </mat-card-content>
 </mat-card>
