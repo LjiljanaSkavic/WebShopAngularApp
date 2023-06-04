@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { LoginCardComponent } from "./components/login-card/login-card.component";
 import { SignUpCardComponent } from "./components/sign-up-card/sign-up-card.component";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
-import { ShoppingCartComponent } from "./components/shopping-cart/shopping-cart.component";
+import { PurchaseHistoryComponent } from "./components/purchase-history/purchase-history.component";
 import { ActivationCardComponent } from "./components/activation-card/activation-card.component";
 import { ProfilePageComponent } from "./components/profile-page/profile-page.component";
 import { ContainerComponent } from "./components/container/container.component";
@@ -70,8 +70,8 @@ const routes: Routes = [
     component: ProductDetailsComponent
   },
   {
-    path: "shopping-cart",
-    component: ShoppingCartComponent
+    path: "purchase-history",
+    component: PurchaseHistoryComponent
   },
   {
     path: "**",

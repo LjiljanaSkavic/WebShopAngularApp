@@ -22,7 +22,7 @@ import { CommonModule } from "@angular/common";
 import { MatListModule } from "@angular/material/list";
 import { ContainerComponent } from './components/container/container.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { PurchaseHistoryComponent } from './components/purchase-history/purchase-history.component';
 import { ActivationCardComponent } from './components/activation-card/activation-card.component';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
@@ -58,7 +58,7 @@ const MATERIAL_MODULES = [
     PageNotFoundComponent,
     ContainerComponent,
     ProfilePageComponent,
-    ShoppingCartComponent,
+    PurchaseHistoryComponent,
     ActivationCardComponent,
     ProductDetailsComponent,
     CommentComponent,

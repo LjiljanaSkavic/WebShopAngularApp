@@ -38,7 +38,6 @@ export class StoreComponent implements OnInit, OnDestroy {
       })).subscribe(products => {
         this.products = products;
         this.totalSize = this.products.length;
-
         this.productsDataSource.data = products;
         this.productsDataSource.paginator = this.paginator;
         this.productsObservable = this.productsDataSource.connect();

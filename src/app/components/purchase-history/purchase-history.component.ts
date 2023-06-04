@@ -3,11 +3,11 @@ import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-shopping-cart',
-  templateUrl: './shopping-cart.component.html',
-  styleUrls: ['./shopping-cart.component.scss']
+  selector: 'app-purchase-history',
+  templateUrl: './purchase-history.component.html',
+  styleUrls: ['./purchase-history.component.scss']
 })
-export class ShoppingCartComponent implements OnInit {
+export class PurchaseHistoryComponent implements OnInit {
   isLoggedIn: boolean;
 
   constructor(private userService: UserService, private router: Router) {
