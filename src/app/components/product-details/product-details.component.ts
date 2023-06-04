@@ -7,7 +7,7 @@ import { CommentService } from "../../services/comment.service";
 import { Comment } from "../../models/Comment";
 import { animate, AUTO_STYLE, state, style, transition, trigger } from "@angular/animations";
 
-const DEFAULT_DURATION = 300;
+export const DEFAULT_ANIMATION_DURATION = 100;
 
 @Component({
   selector: 'app-product-details',
@@ -17,8 +17,8 @@ const DEFAULT_DURATION = 300;
     trigger('collapse', [
       state('false', style({height: AUTO_STYLE, visibility: AUTO_STYLE})),
       state('true', style({height: '0', visibility: 'hidden'})),
-      transition('false => true', animate(DEFAULT_DURATION + 'ms ease-in')),
-      transition('true => false', animate(DEFAULT_DURATION + 'ms ease-out'))
+      transition('false => true', animate(DEFAULT_ANIMATION_DURATION + 'ms ease-in')),
+      transition('true => false', animate(DEFAULT_ANIMATION_DURATION + 'ms ease-out'))
     ])
   ]
 })

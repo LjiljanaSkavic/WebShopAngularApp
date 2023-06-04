@@ -9,6 +9,8 @@ import { Router } from "@angular/router";
 import { UserService } from "./services/user.service";
 import { SharedService } from "./services/shared.service";
 import { LocalService } from "./services/local.service";
+import { animate, AUTO_STYLE, state, style, transition, trigger } from "@angular/animations";
+import { DEFAULT_ANIMATION_DURATION } from "./components/product-details/product-details.component"
 
 interface ExampleFlatNode {
   id: number,
@@ -23,10 +25,19 @@ export const SEARCH_DEBOUNCE_TIME = 500;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('collapse', [
+      state('false', style({height: AUTO_STYLE, visibility: AUTO_STYLE})),
+      state('true', style({height: '0', visibility: 'hidden'})),
+      transition('false => true', animate(DEFAULT_ANIMATION_DURATION + 'ms ease-in')),
+      transition('true => false', animate(DEFAULT_ANIMATION_DURATION + 'ms ease-out'))
+    ])
+  ]
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'WebShopAngularApp';
+  collapsed = true;
 
   subs = new Subscription();
   treeControl = new FlatTreeControl<ExampleFlatNode>(
@@ -78,13 +89,26 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 
-  onProfileClick() {
-    const userId = this.localStore.getData('userId');
-    return userId !== null ? this.router.navigate(['profile-page'], {queryParams: {id: userId}}).catch(err => console.log(err)) : this.router.navigateByUrl('login').catch(err => console.log(err));
+  onProfileDetailsClick() {
+    const user = this.userService.getLoggedUser();
+    if (user != null) {
+      const loggedUser = JSON.parse(user);
+      this.router.navigate(['profile-page'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
+    }
+    this.collapsed = true;
   }
 
   onShoppingCartClick() {
     this.router.navigateByUrl('shopping-cart').catch(err => console.log(err));
+  }
+
+  toggleAccountMenu() {
+    const user = this.userService.getLoggedUser();
+    if (user == null) {
+      this.router.navigateByUrl('login').catch(err => console.log(err));
+    } else {
+      this.collapsed = !this.collapsed;
+    }
   }
 
   ngOnDestroy() {
@@ -105,5 +129,28 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onWebShopClick() {
     this.router.navigateByUrl('web-shop').catch(err => console.log(err));
+  }
+
+  onLogOutClick() {
+    this.userService.setUserAsLoggedOut();
+    this.router.navigateByUrl('web-shop').catch(err => console.log(err));
+    this.collapsed = true;
+  }
+
+  onChangePasswordClick() {
+    const user = this.userService.getLoggedUser();
+    if (user != null) {
+      const loggedUser = JSON.parse(user);
+      this.router.navigate(['manage-password'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
+    }
+    this.collapsed = true;
+  }
+
+  onStoreClick() {
+    const user = this.userService.getLoggedUser();
+    if (user != null) {
+      const loggedUser = JSON.parse(user);
+      this.router.navigate(['store'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
+    }
   }
 }

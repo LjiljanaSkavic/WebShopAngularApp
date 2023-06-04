@@ -1,12 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  UntypedFormBuilder,
-  UntypedFormControl,
-  UntypedFormGroup,
-  Validators
-} from "@angular/forms";
+import { FormControl, FormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import { SharedService } from "../../services/shared.service";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
@@ -21,7 +14,7 @@ import { LocalService } from "../../services/local.service";
 })
 export class LoginCardComponent implements OnInit, OnDestroy {
   hidePassword = true;
-  loginForm: UntypedFormGroup;
+  loginForm: FormGroup;
   invalidCredentials = false;
   subs = new Subscription();
 
@@ -51,10 +44,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
     this.subs.add(this.loginService.getUserByUsernameAndPassword(username, password).subscribe(user => {
       if (user.isActivated) {
         this.router.navigateByUrl('/web-shop').catch(err => console.log(err));
-        this.userService.isLoggedIn = true;
-        this.userService.userId = user.id;
-        this.localStore.saveData('userId', user.id.toString());
-        this.userService.isActivated = true;
+        this.userService.setUserAsLoggedIn(user);
       } else {
         this.router.navigate(['profile-activation']).catch(err => console.log(err));
       }
@@ -66,8 +56,8 @@ export class LoginCardComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.loginForm = this._formBuilder.group({
-      username: new UntypedFormControl(null, [Validators.required]),
-      password: new UntypedFormControl(null, [Validators.required])
+      username: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required])
     });
   }
 

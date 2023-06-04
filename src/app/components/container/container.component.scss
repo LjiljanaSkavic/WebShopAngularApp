@@ -1,8 +1,16 @@
-.container {
-  margin: 32px;
+.products-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vh;
+}
+
+.products-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
 }
 
 .paginator {
   display: flex;
-  justify-content: center;
+  align-self: center;
 }

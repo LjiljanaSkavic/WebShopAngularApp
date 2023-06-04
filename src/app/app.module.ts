@@ -30,6 +30,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { StoreComponent } from './components/store/store.component';
+import { ManagePasswordComponent } from './components/manage-password/manage-password.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -60,6 +62,8 @@ const MATERIAL_MODULES = [
     ActivationCardComponent,
     ProductDetailsComponent,
     CommentComponent,
+    StoreComponent,
+    ManagePasswordComponent,
   ],
   imports: [
     CommonModule,

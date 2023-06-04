@@ -27,9 +27,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildEmptyForm();
-    const userIdString = this.localStore.getData('userId');
-    if (userIdString != null) {
-      this.subs.add(this.userService.getUser(+userIdString).subscribe(user => {
+    const userString = this.localStore.getData('loggedUser');
+    if (userString != null) {
+      this.subs.add(this.userService.getUser(JSON.parse(userString).id).subscribe(user => {
         this.buildProfileForm(user);
       }));
     }

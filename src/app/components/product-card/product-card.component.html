@@ -2,12 +2,11 @@
   <mat-card-header>
     <mat-card-title-group>
       <mat-card-title>{{ product.title }}</mat-card-title>
-      <mat-card-subtitle>{{ product.category.name }}</mat-card-subtitle>
-      <img [src]="product.image" mat-card-lg-image>
     </mat-card-title-group>
   </mat-card-header>
   <mat-card-content>
-    <mat-label>{{ product.description }}</mat-label>
+    <mat-label>Price : {{ product.price }} BAM</mat-label>
+    <img [src]="product.image" mat-card-lg-image>
     <div *ngIf="isLoggedIn" class="button-wrapper">
       <button mat-button>Add to watchlist</button>
       <button mat-button>Add to card</button>

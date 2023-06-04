@@ -41,9 +41,7 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
     if (+activationPinControlValue === this.activationPin) {
       this.subs.add(this.registerService.activateProfile(this.userId).subscribe(res => {
         this.router.navigateByUrl('web-shop').catch(err => console.log(err));
-        this.userService.isLoggedIn = true;
-        this.userService.userId = this.userId;
-        this.localStore.saveData('userId', this.userId.toString());
+        //ovdje staviti user-a u local storage
       }))
     }
   }

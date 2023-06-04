@@ -12,13 +12,13 @@
   </form>
 
   <div class="toolbar-container-right">
-    <button mat-icon-button>
-      <mat-icon>favorite</mat-icon>
+    <button (click)="onStoreClick()" mat-icon-button>
+      <mat-icon>storefront</mat-icon>
     </button>
     <button (click)="onShoppingCartClick()" mat-icon-button>
       <mat-icon>shopping_cart</mat-icon>
     </button>
-    <button (click)="onProfileClick()" mat-icon-button>
+    <button (click)="toggleAccountMenu()" mat-icon-button>
       <mat-icon>account_circle</mat-icon>
     </button>
   </div>
@@ -48,5 +48,10 @@
   </mat-drawer>
   <mat-drawer-content class="sidenav-content">
     <router-outlet></router-outlet>
+    <div [@collapse]="collapsed" class="quick-profile-view-card">
+      <button (click)="onProfileDetailsClick()" mat-button>Profile details</button>
+      <button (click)="onChangePasswordClick()" mat-button>Manage password</button>
+      <button (click)="onLogOutClick()" mat-button>Log out</button>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

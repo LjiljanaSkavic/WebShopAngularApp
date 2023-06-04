@@ -1,7 +1,5 @@
 .product-card-wrapper {
   display: flex;
-  width: 100%;
-  padding: 16px;
   border: 1px solid gray;
   cursor: pointer;
 }
@@ -11,6 +9,5 @@
 
   &__field {
     padding: 16px;
-    width: 100%;
   }
 }

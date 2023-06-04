@@ -19,7 +19,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
   productsDataSource: MatTableDataSource<Product> = new MatTableDataSource<Product>();
   products: Product[] = [];
 
-  pageSize = 10;
+  pageSize = 5;
   currentPage = 0;
   totalSize = 0;
 

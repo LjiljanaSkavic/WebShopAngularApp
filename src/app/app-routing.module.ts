@@ -8,6 +8,8 @@ import { ActivationCardComponent } from "./components/activation-card/activation
 import { ProfilePageComponent } from "./components/profile-page/profile-page.component";
 import { ContainerComponent } from "./components/container/container.component";
 import { ProductDetailsComponent } from "./components/product-details/product-details.component";
+import { ManagePasswordComponent } from "./components/manage-password/manage-password.component";
+import { StoreComponent } from "./components/store/store.component";
 
 
 const routes: Routes = [
@@ -42,6 +44,22 @@ const routes: Routes = [
   {
     path: "profile-page/:id",
     component: ProfilePageComponent
+  },
+  {
+    path: "manage-password",
+    component: ManagePasswordComponent
+  },
+  {
+    path: "manage-password/:id",
+    component: ManagePasswordComponent
+  },
+  {
+    path: "store",
+    component: StoreComponent
+  },
+  {
+    path: "store/:id",
+    component: StoreComponent
   },
   {
     path: "product-details",

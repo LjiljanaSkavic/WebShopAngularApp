@@ -1,8 +1,10 @@
-<div *ngFor="let product of productsObservable | async" class="container">
-  <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
+<div *ngIf="productsObservable" class="products-container">
+  <div *ngFor="let product of productsObservable | async" class="products-wrapper">
+    <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
+  </div>
+  <mat-paginator [length]="100"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 [pageSize]="pageSize"
+                 class="paginator">
+  </mat-paginator>
 </div>
-<mat-paginator [length]="100"
-               [pageSizeOptions]="[5, 10, 25, 100]"
-               [pageSize]="pageSize"
-               class="paginator">
-</mat-paginator>

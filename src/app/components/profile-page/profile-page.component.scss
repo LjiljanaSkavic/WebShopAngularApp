@@ -24,21 +24,6 @@
   }
 }
 
-.password-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 300px;
-}
-
-.reset-password {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
 .button-wrapper {
   display: flex;
   justify-content: flex-end;

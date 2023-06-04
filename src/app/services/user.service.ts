@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { User } from "../models/User";
+import { LocalService } from "./local.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,28 +10,8 @@ import { User } from "../models/User";
 export class UserService {
   private baseUrl = "http://localhost:9000/users"
 
-  constructor(private httpClient: HttpClient) {
-
-  }
-
-  private _userId: number;
-
-  get userId(): number {
-    return this._userId;
-  }
-
-  set userId(value: number) {
-    this._userId = value;
-  }
-
-  private _isActivated = false;
-
-  get isActivated(): boolean {
-    return this._isActivated;
-  }
-
-  set isActivated(value: boolean) {
-    this._isActivated = value;
+  constructor(private httpClient: HttpClient,
+              private localStore: LocalService) {
   }
 
   private _isLoggedIn = false;
@@ -46,5 +27,19 @@ export class UserService {
   getUser(id: number): Observable<User> {
     const userWithIdUrl = `http://localhost:9000/users/${ id }`
     return this.httpClient.get<User>(userWithIdUrl);
+  }
+
+  getLoggedUser(): string | null {
+    return this.localStore.getData('loggedUser');
+  }
+
+  setUserAsLoggedIn(user: User) {
+    this.localStore.saveData('loggedUser', JSON.stringify(user));
+    this._isLoggedIn = true;
+  }
+
+  setUserAsLoggedOut() {
+    this.localStore.removeData('loggedUser');
+    this._isLoggedIn = false;
   }
 }
