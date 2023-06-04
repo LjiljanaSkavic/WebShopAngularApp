@@ -8,20 +8,11 @@ import { Router } from "@angular/router";
   styleUrls: ['./purchase-history.component.scss']
 })
 export class PurchaseHistoryComponent implements OnInit {
-  isLoggedIn: boolean;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.isLoggedIn = this.userService.isLoggedIn;
-  }
-
-  onSignInYourAccountClick() {
-    this.router.navigateByUrl('login').catch(err => console.log(err));
-  }
-
-  onSignUpNowClick() {
-    this.router.navigateByUrl('sign-up').catch(err => console.log(err));
   }
 }
