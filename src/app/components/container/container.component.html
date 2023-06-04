@@ -2,8 +2,7 @@
   <div *ngFor="let product of productsObservable | async" class="products-wrapper">
     <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
   </div>
-  <mat-paginator [length]="100"
-                 [pageSizeOptions]="[5, 10, 25, 100]"
+  <mat-paginator [length]="totalSize"
                  [pageSize]="pageSize"
                  class="paginator">
   </mat-paginator>

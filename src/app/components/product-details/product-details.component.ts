@@ -6,6 +6,8 @@ import { Product } from "../../models/Product";
 import { CommentService } from "../../services/comment.service";
 import { Comment } from "../../models/Comment";
 import { animate, AUTO_STYLE, state, style, transition, trigger } from "@angular/animations";
+import { AttributeValue } from "../../models/AttributeValue";
+import { UserService } from "../../services/user.service";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -28,12 +30,19 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   productId: number;
   product: Product;
   comments: Comment[];
+  attributes: AttributeValue[];
   collapsed = true;
+  isLoading = true;
+  isLoggedIn = false;
 
-  constructor(private commentService: CommentService, private activatedRoute: ActivatedRoute, private productService: ProductService) {
+  constructor(private commentService: CommentService,
+              private activatedRoute: ActivatedRoute,
+              private productService: ProductService,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
+    this.isLoading = this.userService.isLoggedIn;
     this.subs.add(this.activatedRoute.queryParams
       .pipe(switchMap(params => {
         this.productId = params['id'];
@@ -41,8 +50,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       })).pipe(switchMap(product => {
         this.product = product;
         return this.commentService.getCommentsByProductId(product.id)
-      })).subscribe(comments => {
+      })).pipe(switchMap(comments => {
         this.comments = comments;
+        return this.productService.getAllAttributes(this.productId)
+      })).subscribe(attributes => {
+        this.attributes = attributes;
+        this.isLoading = false;
       }));
   }
 

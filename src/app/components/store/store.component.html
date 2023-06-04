@@ -1,1 +1,9 @@
-<p>store works!</p>
+<div *ngIf="productsObservable" class="products-container">
+  <div *ngFor="let product of productsObservable | async" class="products-wrapper">
+    <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
+  </div>
+  <mat-paginator [length]="totalSize"
+                 [pageSize]="pageSize"
+                 class="paginator">
+  </mat-paginator>
+</div>
