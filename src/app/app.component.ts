@@ -111,11 +111,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   toggleAccountMenu() {
     const user = this.userService.getLoggedUser();
-    if (user == null) {
-      this.router.navigateByUrl('login').catch(err => console.log(err));
-    } else {
-      this.collapsed = !this.collapsed;
-    }
+    user === null ? this.router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
   }
 
   ngOnDestroy() {

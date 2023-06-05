@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from "@angular/forms";
-import { Subscription } from "rxjs";
+import { Subscription, switchMap } from "rxjs";
 import { Router } from "@angular/router";
 import { SharedService } from "../../services/shared.service";
 import { UserService } from "../../services/user.service";
@@ -18,6 +18,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   resetPasswordForm: FormGroup;
   subs = new Subscription();
   resetPasswordClicked = false;
+  formChanged = false;
+
 
   constructor(private router: Router,
               private sharedService: SharedService,
@@ -29,20 +31,14 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     this.buildEmptyForm();
     const userString = this.localStore.getData('loggedUser');
     if (userString != null) {
-      this.subs.add(this.userService.getUser(JSON.parse(userString).id).subscribe(user => {
+      this.subs.add(this.userService.getUser(JSON.parse(userString).id).pipe(switchMap(user => {
         this.buildProfileForm(user);
+        return this.profileForm.valueChanges;
+      })).subscribe(formChanged => {
+        this.formChanged = true;
+        console.log(formChanged);
       }));
     }
-  }
-
-  disableForm() {
-    this.profileForm.get('firstName')?.disable();
-    this.profileForm.get('lastName')?.disable();
-    this.profileForm.get('username')?.disable();
-    this.profileForm.get('email')?.disable();
-    this.profileForm.get('postalCode')?.disable();
-    this.profileForm.get('streetAddress')?.disable();
-    this.profileForm.get('streetAddress')?.disable();
   }
 
   buildEmptyForm() {
@@ -73,26 +69,15 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     });
   }
 
+  onDiscardProfileChanges() {
+
+  }
+
+  onSaveProfileChanges() {
+
+  }
+
   ngOnDestroy(): void {
     this.subs.unsubscribe();
-  }
-
-  resetPasswordSelected() {
-    this.resetPasswordClicked = !this.resetPasswordClicked;
-    if (this.resetPasswordClicked) {
-      this.resetPasswordForm = new FormGroup({
-        oldPassword: new FormControl(null),
-        password: new FormControl(null),
-        repeatPassword: new FormControl(null)
-      });
-    }
-  }
-
-  onSubmitPasswordClick() {
-    this.resetPasswordClicked = false;
-  }
-
-  onDiscardPasswordClick() {
-    this.resetPasswordClicked = false;
   }
 }
