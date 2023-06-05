@@ -35,6 +35,7 @@ import { ManagePasswordComponent } from './components/manage-password/manage-pas
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { ProductPurchaseCardComponent } from './components/product-purchase-card/product-purchase-card.component';
+import { ContactSupportModalComponent } from './components/contact-support-modal/contact-support-modal.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -72,6 +73,7 @@ const MATERIAL_MODULES = [
     ManagePasswordComponent,
     ConfirmationModalComponent,
     ProductPurchaseCardComponent,
+    ContactSupportModalComponent,
   ],
   imports: [
     CommonModule,

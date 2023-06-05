@@ -11,6 +11,8 @@ import { SharedService } from "./services/shared.service";
 import { LocalService } from "./services/local.service";
 import { animate, AUTO_STYLE, state, style, transition, trigger } from "@angular/animations";
 import { DEFAULT_ANIMATION_DURATION } from "./components/product-details/product-details.component"
+import { MatDialog } from "@angular/material/dialog";
+import { ContactSupportModalComponent } from "./components/contact-support-modal/contact-support-modal.component";
 
 interface ExampleFlatNode {
   id: number,
@@ -54,7 +56,8 @@ export class AppComponent implements OnInit, OnDestroy {
               private sharedService: SharedService,
               private categoryService: CategoryService,
               private router: Router,
-              private userService: UserService) {
+              private userService: UserService,
+              public dialog: MatDialog,) {
   }
 
   _transformer = (node: Category, level: number) => {
@@ -152,5 +155,10 @@ export class AppComponent implements OnInit, OnDestroy {
       const loggedUser = JSON.parse(user);
       this.router.navigate(['store'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
     }
+  }
+
+  onContactSupportClick() {
+    this.dialog.open(ContactSupportModalComponent,
+    ).afterClosed().subscribe(res => console.log(res));
   }
 }

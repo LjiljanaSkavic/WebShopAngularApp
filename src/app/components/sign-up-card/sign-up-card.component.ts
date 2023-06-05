@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { FormControl, FormGroup, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { RegisterService } from "../../services/register.service";
 import { NewUser } from "../../models/User";
@@ -14,7 +14,7 @@ import { UserService } from "../../services/user.service";
 })
 export class SignUpCardComponent implements OnInit, OnDestroy {
 
-  signUpForm: UntypedFormGroup;
+  signUpForm: FormGroup;
   subs = new Subscription();
 
   constructor(private router: Router, private registerService: RegisterService, private sharedService: SharedService, private userService: UserService) {
