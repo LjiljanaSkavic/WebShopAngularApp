@@ -1,1 +1,11 @@
-<p>product-purchase-container works!</p>
+<div class="product-purchase-card-wrapper">
+  <mat-card>
+    <mat-label>Order number: {{ productPurchase.orderId }}</mat-label>
+    <mat-label>Order date: {{ productPurchase.dateTime }}</mat-label>
+    <mat-label>Payment
+      type: {{ productPurchase.paymentType === PAYMENT_TYPE.COD ? 'Cash on delivery (COD)' : 'Credit card' }}</mat-label>
+  </mat-card>
+  <button (click)="onDeleteProductPurchaseClick()" mat-icon-button matTooltip="Delete purchase">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>

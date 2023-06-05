@@ -98,7 +98,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.collapsed = true;
   }
 
-  onShoppingCartClick() {
+  onPurchaseHistoryClick() {
     this.router.navigateByUrl('purchase-history').catch(err => console.log(err));
   }
 

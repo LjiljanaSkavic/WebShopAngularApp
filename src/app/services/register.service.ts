@@ -37,7 +37,6 @@ export class RegisterService {
   }
 
   activateProfile(id: number): Observable<User> {
-    console.log('activate profile', id);
     const activationUrl = `http://localhost:9000/register/${ id }`;
     return this.httpClient.put<User>(activationUrl, {});
   }
