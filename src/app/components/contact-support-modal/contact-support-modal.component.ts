@@ -1,23 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from "@angular/forms";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-contact-support-modal',
   templateUrl: './contact-support-modal.component.html',
   styleUrls: ['./contact-support-modal.component.scss']
 })
-export class ContactSupportModalComponent implements OnInit {
-  contactSupportFrom: FormGroup;
+export class ContactSupportModalComponent {
+  subs = new Subscription();
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-    this.contactSupportFrom = new FormGroup({
-      messageControl: new FormControl(null)
-    });
-  }
-
-  onCloseContactSupport() {
-  }
+  messageControl = new FormControl('');
+  contactSupportFrom = new FormGroup({
+    messageControl: this.messageControl,
+  });
 }

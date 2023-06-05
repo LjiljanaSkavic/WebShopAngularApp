@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { debounceTime, Subscription } from "rxjs";
+import { debounceTime, Observable, Subscription, switchMap } from "rxjs";
 import { FlatTreeControl } from "@angular/cdk/tree";
 import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
 import { Category } from "./models/Category";
@@ -13,6 +13,9 @@ import { animate, AUTO_STYLE, state, style, transition, trigger } from "@angular
 import { DEFAULT_ANIMATION_DURATION } from "./components/product-details/product-details.component"
 import { MatDialog } from "@angular/material/dialog";
 import { ContactSupportModalComponent } from "./components/contact-support-modal/contact-support-modal.component";
+import { ContactSupportService } from "./services/contact-support.service";
+import { Message } from "./models/Message";
+import { User } from "./models/User";
 
 interface ExampleFlatNode {
   id: number,
@@ -57,6 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
               private categoryService: CategoryService,
               private router: Router,
               private userService: UserService,
+              private contactSupport: ContactSupportService,
               public dialog: MatDialog,) {
   }
 
@@ -159,6 +163,27 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onContactSupportClick() {
     this.dialog.open(ContactSupportModalComponent,
-    ).afterClosed().subscribe(res => console.log(res));
+    ).afterClosed().pipe(switchMap(message => {
+        if (message != null) {
+          //TODO refactor this
+          const userString = this.userService.getLoggedUser();
+          if (userString != null) {
+            const user: User = JSON.parse(userString);
+
+            const contactSupportMessage: Message = {
+              text: message,
+              isRead: false,
+              senderUserId: user.id,
+            }
+            return this.contactSupport.createMessage(contactSupportMessage)
+          } else {
+            return new Observable<null>()
+          }
+        } else return new Observable<null>();
+      }
+    )).subscribe(result => {
+      //TODO: add notification
+      console.log(result);
+    });
   }
 }
