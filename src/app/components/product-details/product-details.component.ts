@@ -74,7 +74,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   onBuyNowClick() {
-
+    //TODO add to constants and show message
     this.dialog.open(ConfirmationModalComponent, {
       data: {
         title: "Buy product",
@@ -84,6 +84,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   onDeleteProductClick() {
+    //TODO add to constants and show message
     this.dialog.open(ConfirmationModalComponent, {
       data: {
         title: "Delete product",
