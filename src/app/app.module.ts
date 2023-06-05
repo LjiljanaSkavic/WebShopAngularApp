@@ -34,6 +34,7 @@ import { StoreComponent } from './components/store/store.component';
 import { ManagePasswordComponent } from './components/manage-password/manage-password.component';
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { MatDialogModule } from "@angular/material/dialog";
+import { ProductPurchaseCardComponent } from './components/product-purchase-card/product-purchase-card.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -48,7 +49,10 @@ const MATERIAL_MODULES = [
   MatSidenavModule,
   MatListModule,
   MatTooltipModule,
-  MatTreeModule
+  MatTreeModule,
+  MatExpansionModule,
+  MatPaginatorModule,
+  MatDialogModule,
 ];
 
 @NgModule({
@@ -67,6 +71,7 @@ const MATERIAL_MODULES = [
     StoreComponent,
     ManagePasswordComponent,
     ConfirmationModalComponent,
+    ProductPurchaseCardComponent,
   ],
   imports: [
     CommonModule,
@@ -75,9 +80,6 @@ const MATERIAL_MODULES = [
     HttpClientModule,
     MATERIAL_MODULES,
     AppRoutingModule,
-    MatExpansionModule,
-    MatPaginatorModule,
-    MatDialogModule,
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]
