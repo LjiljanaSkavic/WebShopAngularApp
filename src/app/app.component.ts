@@ -16,6 +16,7 @@ import { ContactSupportModalComponent } from "./components/contact-support-modal
 import { ContactSupportService } from "./services/contact-support.service";
 import { Message } from "./models/Message";
 import { User } from "./models/User";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 interface ExampleFlatNode {
   id: number,
@@ -61,7 +62,8 @@ export class AppComponent implements OnInit, OnDestroy {
               private router: Router,
               private userService: UserService,
               private contactSupport: ContactSupportService,
-              public dialog: MatDialog,) {
+              public dialog: MatDialog,
+              private _snackBar: MatSnackBar) {
   }
 
   _transformer = (node: Category, level: number) => {
@@ -177,9 +179,18 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         } else return new Observable<null>();
       }
-    )).subscribe(result => {
-      //TODO: add notification
-      console.log(result);
-    });
+    )).subscribe((result) => {
+        //TODO: add notification
+        this._snackBar.open("Message successfully sent.", "OK", {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        })
+      },
+      (err) => {
+        this._snackBar.open("An error has occurred.", "Try again", {
+          duration: 3000,
+        })
+      });
   }
 }

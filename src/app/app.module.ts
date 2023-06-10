@@ -38,6 +38,7 @@ import { ProductPurchaseCardComponent } from './components/product-purchase-card
 import { ContactSupportModalComponent } from './components/contact-support-modal/contact-support-modal.component';
 import { BuyProductModalComponent } from './components/buy-product-modal/buy-product-modal.component';
 import { MatRadioModule } from "@angular/material/radio";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -56,6 +57,8 @@ const MATERIAL_MODULES = [
   MatExpansionModule,
   MatPaginatorModule,
   MatDialogModule,
+  MatSnackBarModule,
+  MatRadioModule
 ];
 
 @NgModule({
@@ -85,7 +88,6 @@ const MATERIAL_MODULES = [
     HttpClientModule,
     MATERIAL_MODULES,
     AppRoutingModule,
-    MatRadioModule,
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]
