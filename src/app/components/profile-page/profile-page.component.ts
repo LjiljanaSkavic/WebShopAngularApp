@@ -36,7 +36,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         return this.profileForm.valueChanges;
       })).subscribe(formChanged => {
         this.formChanged = true;
-        console.log(formChanged);
       }));
     }
   }

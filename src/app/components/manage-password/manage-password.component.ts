@@ -30,7 +30,6 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
     if (userString != null) {
       const user = JSON.parse(userString);
       this.oldPassword = user.password;
-      console.log(this.oldPassword);
     }
   }
 

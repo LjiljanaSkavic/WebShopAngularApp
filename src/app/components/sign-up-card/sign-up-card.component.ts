@@ -44,15 +44,12 @@ export class SignUpCardComponent implements OnInit, OnDestroy {
         password: this.sharedService.getSha512Hash(this.signUpForm.get('password')?.value),
         username: this.signUpForm.get('username')?.value
       }
-      console.log(user);
       this.subs.add(this.registerService.createUser(user).subscribe(newUser => {
           this.registerService.activationPin = newUser.activationPin;
           this.registerService.email = newUser.email;
           this.router.navigate(['profile-activation'], {queryParams: {id: newUser.id}}).catch(err => console.log(err));
         },
         err => {
-          console.log('error');
-          console.log(err);
         }
       ));
     }

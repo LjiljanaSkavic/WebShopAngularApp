@@ -25,7 +25,6 @@ export class PurchaseHistoryComponent implements OnInit, OnDestroy {
       const user: User = JSON.parse(userString);
       this.subs.add(this.productPurchaseService.getPurchasesByCustomerId(user.id).subscribe(productPurchases => {
         this.productPurchases = productPurchases;
-        console.log(productPurchases);
       }));
     }
   }
