@@ -20,6 +20,18 @@ import { ERROR_HAS_OCCURRED_MESSAGE } from "../product-purchase-card/product-pur
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
+export const BUY_PRODUCT_MODAL = {
+  TITLE: 'Buy product',
+  TEXT: 'Are you sure that you want to buy this product?',
+  SUCCESS: 'Product successfully purchased.'
+}
+
+export const DELETE_PRODUCT_MODAL = {
+  TITLE: 'Delete product',
+  TEXT: 'Are you sure that you want to delete this product?',
+  SUCCESS: 'Product successfully deleted.'
+}
+
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
@@ -91,11 +103,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   onBuyNowClick() {
-    //TODO add to constants and show message
     this.dialog.open(ConfirmationModalComponent, {
       data: {
-        title: "Buy product",
-        text: "Are you sure that you want to buy this product?"
+        title: BUY_PRODUCT_MODAL.TITLE,
+        text: BUY_PRODUCT_MODAL.TEXT
       }
     }).afterClosed().pipe(switchMap(result => {
       if (result != DIALOG_RESPONSE.NO) {
@@ -121,7 +132,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
           userId: this.userId
         }
         this.subs.add(this.productPurchaseService.insertPurchase(productPurchaseRequest).subscribe((res) => {
-            this._snackBar.open("Successfully purchased.");
+            this._snackBar.open(BUY_PRODUCT_MODAL.SUCCESS);
           },
           (err) => {
             this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE)
@@ -132,11 +143,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   onDeleteProductClick() {
-    //TODO add to constants and show message
+    //TODO: Show message and implement delete
     this.dialog.open(ConfirmationModalComponent, {
       data: {
-        title: "Delete product",
-        text: "Are you sure that you want to delete this product?"
+        title: DELETE_PRODUCT_MODAL.TITLE,
+        text: DELETE_PRODUCT_MODAL.TEXT
       }
     }).afterClosed().subscribe(result => console.log(result));
   }

@@ -13,7 +13,6 @@ export enum DIALOG_RESPONSE {
   Save = 'Save'
 }
 
-
 @Component({
   selector: 'app-confirmation-modal',
   templateUrl: './confirmation-modal.component.html',
@@ -28,7 +27,6 @@ export class ConfirmationModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.dialogData);
   }
 
 

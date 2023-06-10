@@ -18,6 +18,7 @@ import { Message } from "./models/Message";
 import { User } from "./models/User";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ERROR_HAS_OCCURRED_MESSAGE } from "./components/product-purchase-card/product-purchase-card.component";
+import { DIALOG_RESPONSE } from "./components/confirmation-modal/confirmation-modal.component";
 
 interface ExampleFlatNode {
   id: number,
@@ -27,6 +28,8 @@ interface ExampleFlatNode {
 }
 
 export const SEARCH_DEBOUNCE_TIME = 500;
+
+export const MESSAGE_SUCCESS = 'Message successfully sent.';
 
 @Component({
   selector: 'app-root',
@@ -162,30 +165,28 @@ export class AppComponent implements OnInit, OnDestroy {
   onContactSupportClick() {
     this.dialog.open(ContactSupportModalComponent,
     ).afterClosed().pipe(switchMap(message => {
-        if (message != null) {
-          //TODO refactor this
-          const userString = this.userService.getLoggedUser();
-          if (userString != null) {
-            const user: User = JSON.parse(userString);
+        const userString = this.userService.getLoggedUser();
+        if (message !== DIALOG_RESPONSE.DISCARD && userString !== null) {
+          const user: User = JSON.parse(userString);
 
-            const contactSupportMessage: Message = {
-              text: message,
-              isRead: false,
-              senderUserId: user.id,
-            }
-            return this.contactSupport.createMessage(contactSupportMessage)
-          } else {
-            return new Observable<null>()
+          const contactSupportMessage: Message = {
+            text: message,
+            isRead: false,
+            senderUserId: user.id,
           }
-        } else return new Observable<null>();
+          
+          return this.contactSupport.createMessage(contactSupportMessage)
+        }
+        return new Observable<null>();
       }
     )).subscribe((result) => {
-        //TODO: add notification
-        this._snackBar.open("Message successfully sent.", "OK", {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        })
+        if (result !== null) {
+          this._snackBar.open(MESSAGE_SUCCESS, "OK", {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          })
+        }
       },
       (err) => {
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", {
