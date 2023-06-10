@@ -11,6 +11,9 @@ import { UserService } from "../../services/user.service";
 import { User } from "../../models/User";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
+import { ProductPurchase } from "../../models/ProductPurchase";
+import { SharedService } from "../../services/shared.service";
+import { BuyProductModalComponent } from "../buy-product-modal/buy-product-modal.component";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -43,11 +46,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private productService: ProductService,
               private userService: UserService,
+              private sharedService: SharedService,
               public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.isLoading = this.userService.isLoggedIn;
+    this.isLoggedIn = this.userService.isLoggedIn;
     this.subs.add(this.activatedRoute.queryParams
       .pipe(switchMap(params => {
         this.productId = params['id'];
@@ -80,7 +84,19 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         title: "Buy product",
         text: "Are you sure that you want to buy this product?"
       }
-    }).afterClosed().subscribe(result => console.log(result));
+    }).afterClosed().pipe(switchMap(result => {
+      return this.dialog.open(BuyProductModalComponent, {}).afterClosed()
+    })).subscribe(result => {
+      console.log(result);
+      const productPurchase: ProductPurchase = {
+        dateTime: new Date(),
+        id: 0,
+        isDeleted: false,
+        orderId: this.sharedService.getRandomEightCharactersLongString(),
+        paymentType: 0
+      }
+      console.log(productPurchase);
+    });
   }
 
   onDeleteProductClick() {

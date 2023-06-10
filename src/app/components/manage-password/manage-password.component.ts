@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
+import { UserService } from "../../services/user.service";
+import { SharedService } from "../../services/shared.service";
 
 @Component({
   selector: 'app-manage-password',
@@ -12,20 +14,33 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   resetPasswordForm: FormGroup;
   subs = new Subscription();
   resetPasswordClicked = false;
+  oldPassword: string;
+  protected readonly Validators = Validators;
 
-  constructor() {
+  constructor(private userService: UserService,
+              private sharedService: SharedService) {
+  }
+
+  get formDirty() {
+    return this.resetPasswordForm.dirty;
   }
 
   ngOnInit(): void {
+    const userString = this.userService.getLoggedUser();
+    if (userString != null) {
+      const user = JSON.parse(userString);
+      this.oldPassword = user.password;
+      console.log(this.oldPassword);
+    }
   }
 
   resetPasswordSelected() {
     this.resetPasswordClicked = !this.resetPasswordClicked;
     if (this.resetPasswordClicked) {
       this.resetPasswordForm = new FormGroup({
-        oldPassword: new FormControl(null),
-        password: new FormControl(null),
-        repeatPassword: new FormControl(null)
+        oldPassword: new FormControl(null, [Validators.required]),
+        newPassword: new FormControl(null, [Validators.required]),
+        repeatNewPassword: new FormControl(null, [Validators.required])
       });
     }
   }
@@ -41,5 +56,5 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
-
 }
+

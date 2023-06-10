@@ -36,6 +36,8 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
 import { MatDialogModule } from "@angular/material/dialog";
 import { ProductPurchaseCardComponent } from './components/product-purchase-card/product-purchase-card.component';
 import { ContactSupportModalComponent } from './components/contact-support-modal/contact-support-modal.component';
+import { BuyProductModalComponent } from './components/buy-product-modal/buy-product-modal.component';
+import { MatRadioModule } from "@angular/material/radio";
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -74,6 +76,7 @@ const MATERIAL_MODULES = [
     ConfirmationModalComponent,
     ProductPurchaseCardComponent,
     ContactSupportModalComponent,
+    BuyProductModalComponent,
   ],
   imports: [
     CommonModule,
@@ -82,6 +85,7 @@ const MATERIAL_MODULES = [
     HttpClientModule,
     MATERIAL_MODULES,
     AppRoutingModule,
+    MatRadioModule,
   ],
   providers: [CountryService],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { PAYMENT_TYPE, ProductPurchase } from "../../models/ProductPurchase";
+import { PAYMENT_TYPE, PAYMENT_TYPE_OPTIONS, ProductPurchase } from "../../models/ProductPurchase";
 import { Observable, Subscription, switchMap } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmationModalComponent, DIALOG_RESPONSE } from "../confirmation-modal/confirmation-modal.component";
@@ -14,6 +14,7 @@ export class ProductPurchaseCardComponent implements OnInit, OnDestroy {
   @Input() productPurchase: ProductPurchase;
   subs = new Subscription();
   protected readonly PAYMENT_TYPE = PAYMENT_TYPE;
+  protected readonly PAYMENT_TYPE_OPTIONS = PAYMENT_TYPE_OPTIONS;
 
   constructor(public dialog: MatDialog,
               private productPurchaseService: ProductPurchaseService) {
