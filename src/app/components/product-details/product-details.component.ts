@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, switchMap } from "rxjs";
+import { Observable, Subscription, switchMap } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../models/Product";
@@ -10,10 +10,12 @@ import { AttributeValue } from "../../models/AttributeValue";
 import { UserService } from "../../services/user.service";
 import { User } from "../../models/User";
 import { MatDialog } from "@angular/material/dialog";
-import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
-import { ProductPurchase } from "../../models/ProductPurchase";
+import { ConfirmationModalComponent, DIALOG_RESPONSE } from "../confirmation-modal/confirmation-modal.component";
+import { ProductPurchaseRequest } from "../../models/ProductPurchase";
 import { SharedService } from "../../services/shared.service";
 import { BuyProductModalComponent } from "../buy-product-modal/buy-product-modal.component";
+import { ProductPurchaseService } from "../../services/product-purchase.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -48,7 +50,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
               private productService: ProductService,
               private userService: UserService,
               private sharedService: SharedService,
-              public dialog: MatDialog) {
+              private productPurchaseService: ProductPurchaseService,
+              public dialog: MatDialog,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -86,7 +90,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   onBuyNowClick() {
-
     //TODO add to constants and show message
     this.dialog.open(ConfirmationModalComponent, {
       data: {
@@ -94,22 +97,36 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         text: "Are you sure that you want to buy this product?"
       }
     }).afterClosed().pipe(switchMap(result => {
-      return this.dialog.open(BuyProductModalComponent, {
-        data: {
-          userId: this.userId,
-          productId: this.productId
-        }
-      }).afterClosed()
-    })).subscribe(result => {
-      console.log(result);
-      const productPurchase: ProductPurchase = {
-        dateTime: new Date(),
-        id: 0,
-        isDeleted: false,
-        orderId: this.sharedService.getRandomEightCharactersLongString(),
-        paymentType: 0
+      if (result != DIALOG_RESPONSE.NO) {
+        return this.dialog.open(BuyProductModalComponent, {
+          data: {
+            userId: this.userId,
+            productId: this.productId
+          }
+        }).afterClosed()
+      } else {
+        return new Observable<DIALOG_RESPONSE.NO>();
       }
-      console.log(productPurchase);
+    })).subscribe(result => {
+      if ((result !== DIALOG_RESPONSE.DISCARD) && (result !== DIALOG_RESPONSE.NO)) {
+        const paymentType: string = result
+        const productPurchaseRequest: ProductPurchaseRequest = {
+          id: 0,
+          dateTime: new Date(),
+          isDeleted: false,
+          orderId: this.sharedService.getRandomEightCharactersLongString(),
+          paymentType: parseInt(paymentType),
+          productId: this.productId,
+          userId: this.userId
+        }
+        this.subs.add(this.productPurchaseService.insertPurchase(productPurchaseRequest).subscribe((res) => {
+            this._snackBar.open("Successfully purchased.");
+          },
+          (err) => {
+            this._snackBar.open("An error has occurred.")
+          }
+        ));
+      }
     });
   }
 

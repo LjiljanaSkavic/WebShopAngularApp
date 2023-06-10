@@ -12,11 +12,7 @@ export interface ProductPurchaseDetails extends ProductPurchase {
   product: Product,
 }
 
-export interface ProductPurchaseRequest {
-  orderId: string,
-  dateTime: Date,
-  isDeleted: boolean,
-  paymentType: PAYMENT_TYPE,
+export interface ProductPurchaseRequest extends ProductPurchase {
   productId: number,
   userId: number
 }

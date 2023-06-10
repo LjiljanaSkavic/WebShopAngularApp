@@ -7,8 +7,10 @@ export interface DialogData {
 }
 
 export enum DIALOG_RESPONSE {
-  NO = 0,
-  YES = 1
+  NO = 'No',
+  YES = 'Yes',
+  DISCARD = 'Discard',
+  Save = 'Save'
 }
 
 
