@@ -5,7 +5,7 @@
       <mat-radio-button value="1">Credit card</mat-radio-button>
     </mat-radio-group>
   </form>
-  <div [ngSwitch]="codPaying">
+  <div [ngSwitch]="codPayingSelected">
     <ng-container *ngSwitchCase="true">
       <form [formGroup]="codPayingForm" class="buy-product-form">
         <mat-label>Please enter your address data:</mat-label>
@@ -57,7 +57,8 @@
   </div>
   <div class="button-wrapper">
     <button (click)="onDiscardBuyProductClick()" mat-button>Discard</button>
-    <button (click)="onSubmitBuyProductClick()" [disabled]="!codPayingForm.valid || !creditCardPayingForm.valid"
+    <button (click)="onSubmitBuyProductClick()"
+            [disabled]="selectedFormValid"
             mat-button>Save
     </button>
   </div>

@@ -8,7 +8,7 @@ import { Subscription } from "rxjs";
   styleUrls: ['./buy-product-modal.component.scss']
 })
 export class BuyProductModalComponent implements OnInit, OnDestroy {
-  codPaying = true;
+  codPayingSelected = true;
 
   codPayingForm: FormGroup;
   creditCardPayingForm: FormGroup;
@@ -18,6 +18,10 @@ export class BuyProductModalComponent implements OnInit, OnDestroy {
   constructor() {
   }
 
+  get selectedFormValid(): boolean {
+    return this.codPayingSelected ? !this.codPayingForm.valid : !this.creditCardPayingForm.valid;
+  }
+
   ngOnInit(): void {
     this.selectPayingForm = new FormGroup(
       {
@@ -25,35 +29,34 @@ export class BuyProductModalComponent implements OnInit, OnDestroy {
       });
 
     this.codPayingForm = new FormGroup({
-      country: new FormControl(null, [Validators.required]),
-      city: new FormControl(null, [Validators.required]),
-      postalCode: new FormControl(null, [Validators.required]),
-      streetAddress: new FormControl(null, [Validators.required]),
-      streetNumber: new FormControl(null, [Validators.required])
+      country: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      postalCode: new FormControl('', [Validators.required]),
+      streetAddress: new FormControl('', [Validators.required]),
+      streetNumber: new FormControl('', [Validators.required])
     });
 
     this.creditCardPayingForm = new FormGroup({
-      creditCardNumber: new FormControl(null, [Validators.required]),
-      firstAndLastName: new FormControl(null, [Validators.required]),
-      cvvNumber: new FormControl(null, [Validators.required]),
-      confirmProcessing: new FormControl(null, [Validators.required]),
+      creditCardNumber: new FormControl('', [Validators.required]),
+      firstAndLastName: new FormControl('', [Validators.required]),
+      cvvNumber: new FormControl('', [Validators.required]),
+      confirmProcessing: new FormControl(1, [Validators.required]),
     });
 
-    this.selectPayingForm.get('payingOption')?.valueChanges.subscribe(selectedOption => {
-      console.log(selectedOption);
+    this.subs.add(this.selectPayingForm.get('payingOption')?.valueChanges.subscribe(selectedOption => {
       const option = parseInt(selectedOption);
-      this.codPaying = option === 0;
-    });
+      this.codPayingSelected = option === 0;
+    }));
   }
 
   onDiscardBuyProductClick() {
-
   }
 
   onSubmitBuyProductClick() {
   }
 
   ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
-
 }
+
