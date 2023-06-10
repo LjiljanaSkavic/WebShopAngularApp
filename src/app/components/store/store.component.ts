@@ -19,6 +19,7 @@ export class StoreComponent implements OnInit, OnDestroy {
   sellerId: number;
   subs = new Subscription();
   products: Product[] = [];
+  isLoading = true;
 
   pageSize = 5;
   currentPage = 0;
@@ -41,6 +42,7 @@ export class StoreComponent implements OnInit, OnDestroy {
         this.productsDataSource.data = products;
         this.productsDataSource.paginator = this.paginator;
         this.productsObservable = this.productsDataSource.connect();
+        this.isLoading = false;
       }));
   }
 

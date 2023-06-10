@@ -18,6 +18,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
   productsObservable: Observable<any>;
   productsDataSource: MatTableDataSource<Product> = new MatTableDataSource<Product>();
   products: Product[] = [];
+  isLoading = true;
 
   pageSize = 5;
   currentPage = 0;
@@ -39,6 +40,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
         this.productsDataSource.data = products;
         this.productsDataSource.paginator = this.paginator;
         this.productsObservable = this.productsDataSource.connect();
+        this.isLoading = false;
       }));
 
     this.subs.add(

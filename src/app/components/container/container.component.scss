@@ -1,16 +1,13 @@
 .products-container {
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
   width: 100vh;
-}
-
-.products-wrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 32px;
 }
 
 .paginator {
   display: flex;
+  align-items: center;
   align-self: center;
 }

@@ -1,3 +1,5 @@
-<div *ngFor="let productPurchase of productPurchases">
-  <app-product-purchase-card [productPurchase]="productPurchase"></app-product-purchase-card>
+<div class="product-purchases-history-wrapper">
+  <ng-container *ngFor="let productPurchase of productPurchases">
+    <app-product-purchase-card [productPurchase]="productPurchase"></app-product-purchase-card>
+  </ng-container>
 </div>

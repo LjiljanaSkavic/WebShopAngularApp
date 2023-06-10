@@ -1,7 +1,7 @@
-<div *ngIf="productsObservable" class="products-container">
-  <div *ngFor="let product of productsObservable | async" class="products-wrapper">
+<div *ngIf="!isLoading" class="products-container">
+  <ng-container *ngFor="let product of productsObservable | async">
     <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
-  </div>
+  </ng-container>
   <mat-paginator [length]="totalSize"
                  [pageSize]="pageSize"
                  class="paginator">

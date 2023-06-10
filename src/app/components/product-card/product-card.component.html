@@ -1,11 +1,11 @@
 <mat-card class="product-card-wrapper">
-  <mat-card-header>
-    <mat-card-title-group>
-      <mat-card-title>{{ product.title }}</mat-card-title>
-    </mat-card-title-group>
+  <mat-card-header class="product-card-wrapper__header">
+    <mat-label>{{ product.title }}</mat-label>
   </mat-card-header>
-  <mat-card-content>
-    <mat-label>Price : {{ product.price }} BAM</mat-label>
-    <img [src]="product.image" mat-card-lg-image>
+  <mat-card-content class="product-card-wrapper__container">
+    <img [src]="product.image" mat-card-sm-image>
+    <div>
+      <mat-label>Price : {{ product.price }} BAM</mat-label>
+    </div>
   </mat-card-content>
 </mat-card>

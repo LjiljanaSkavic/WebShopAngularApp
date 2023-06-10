@@ -1,11 +1,18 @@
-<div class="product-purchase-card-wrapper">
-  <mat-card>
-    <mat-label>Order number: {{ productPurchase.orderId }}</mat-label>
-    <mat-label>Order date: {{ productPurchase.dateTime }}</mat-label>
-    <mat-label>Payment
-      type: {{ productPurchase.paymentType === PAYMENT_TYPE.COD ? PAYMENT_TYPE_OPTIONS.COD : PAYMENT_TYPE_OPTIONS.CREDIT_CARD }}</mat-label>
-  </mat-card>
-  <button (click)="onDeleteProductPurchaseClick()" mat-icon-button matTooltip="Delete purchase">
-    <mat-icon>delete</mat-icon>
-  </button>
-</div>
+<mat-card class="product-purchase-card-wrapper">
+  <mat-card-header class="product-purchase-card-wrapper__header">
+    <mat-label>Order shipped</mat-label>
+    <button (click)="onDeleteProductPurchaseClick()" mat-icon-button matTooltip="Delete purchase">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-card-content class="product-purchase-card-wrapper__container">
+    <img [src]="productPurchase.product.image" mat-card-sm-image>
+    <div class="order-details-text-wrapper">
+      <mat-label>Product name: {{ productPurchase.product.title }}</mat-label>
+      <mat-label>Order number: {{ productPurchase.orderId }}</mat-label>
+      <mat-label>Order date: {{ productPurchase.dateTime | date:'fullDate' }}</mat-label>
+      <mat-label>Payment
+        type: {{ productPurchase.paymentType === PAYMENT_TYPE.COD ? PAYMENT_TYPE_OPTIONS.COD : PAYMENT_TYPE_OPTIONS.CREDIT_CARD }}</mat-label>
+    </div>
+  </mat-card-content>
+</mat-card>

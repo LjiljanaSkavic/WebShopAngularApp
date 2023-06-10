@@ -1,4 +1,24 @@
 .product-purchase-card-wrapper {
+  display: flex;
   border: 1px solid gray;
-  padding: 16px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+
+  &__container {
+    display: flex;
+    gap: 32px;
+
+  }
+}
+
+.order-details-text-wrapper {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+
 }
