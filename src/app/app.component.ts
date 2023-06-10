@@ -188,7 +188,7 @@ export class AppComponent implements OnInit, OnDestroy {
         })
       },
       (err) => {
-        this._snackBar.open("An error has occurred.", "Try again", {
+        this._snackBar.open("An error has occurred.", "OK", {
           duration: 3000,
         })
       });
