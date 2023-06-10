@@ -1,0 +1,13 @@
+.store-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+  width: 100vh;
+}
+
+.paginator {
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
