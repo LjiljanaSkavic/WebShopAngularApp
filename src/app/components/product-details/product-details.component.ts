@@ -34,6 +34,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   subs = new Subscription();
   productId: number;
+  userId = 0;
   product: Product;
   comments: Comment[];
   attributes: AttributeValue[];
@@ -52,6 +53,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoggedIn = this.userService.isLoggedIn;
+
+    const userString = this.userService.getLoggedUser();
+    if (userString != null) {
+      const user: User = JSON.parse(userString);
+      this.userId = user.id;
+    }
+
     this.subs.add(this.activatedRoute.queryParams
       .pipe(switchMap(params => {
         this.productId = params['id'];
@@ -78,6 +86,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   onBuyNowClick() {
+
     //TODO add to constants and show message
     this.dialog.open(ConfirmationModalComponent, {
       data: {
@@ -85,7 +94,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         text: "Are you sure that you want to buy this product?"
       }
     }).afterClosed().pipe(switchMap(result => {
-      return this.dialog.open(BuyProductModalComponent, {}).afterClosed()
+      return this.dialog.open(BuyProductModalComponent, {
+        data: {
+          userId: this.userId,
+          productId: this.productId
+        }
+      }).afterClosed()
     })).subscribe(result => {
       console.log(result);
       const productPurchase: ProductPurchase = {

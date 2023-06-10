@@ -1,6 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
+import { ProductPurchaseService } from "../../services/product-purchase.service";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { ProductPurchaseRequest } from "../../models/ProductPurchase";
+import { SharedService } from "../../services/shared.service";
+
+export interface DialogData {
+  productId: number,
+  userId: number
+}
 
 @Component({
   selector: 'app-buy-product-modal',
@@ -9,13 +18,16 @@ import { Subscription } from "rxjs";
 })
 export class BuyProductModalComponent implements OnInit, OnDestroy {
   codPayingSelected = true;
-
+  dialogData: DialogData;
   codPayingForm: FormGroup;
   creditCardPayingForm: FormGroup;
   selectPayingForm: FormGroup;
   subs = new Subscription();
 
-  constructor() {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
+              private productPurchaseService: ProductPurchaseService,
+              private sharedService: SharedService) {
+    this.dialogData = data;
   }
 
   get selectedFormValid(): boolean {
@@ -53,6 +65,20 @@ export class BuyProductModalComponent implements OnInit, OnDestroy {
   }
 
   onSubmitBuyProductClick() {
+    const paymentType = this.selectPayingForm.get('payingOption')?.value;
+    const productPurchaseRequest: ProductPurchaseRequest = {
+      dateTime: new Date(),
+      isDeleted: false,
+      orderId: this.sharedService.getRandomEightCharactersLongString(),
+      paymentType: parseInt(paymentType),
+      productId: this.data.productId,
+      userId: this.data.userId
+    }
+    console.log(productPurchaseRequest)
+    this.subs.add(this.productPurchaseService.insertPurchase(productPurchaseRequest).subscribe(res => {
+      console.log(res);
+      console.log('uspjesno dodavanje')
+    }))
   }
 
   ngOnDestroy(): void {

@@ -1,9 +1,24 @@
+import { Product } from "./Product";
+
 export interface ProductPurchase {
-  id: number;
-  orderId: string;
-  dateTime: Date;
-  isDeleted: boolean;
-  paymentType: PAYMENT_TYPE;
+  id: number,
+  orderId: string,
+  dateTime: Date,
+  isDeleted: boolean,
+  paymentType: PAYMENT_TYPE,
+}
+
+export interface ProductPurchaseDetails extends ProductPurchase {
+  product: Product,
+}
+
+export interface ProductPurchaseRequest {
+  orderId: string,
+  dateTime: Date,
+  isDeleted: boolean,
+  paymentType: PAYMENT_TYPE,
+  productId: number,
+  userId: number
 }
 
 
