@@ -17,6 +17,7 @@ import { ContactSupportService } from "./services/contact-support.service";
 import { Message } from "./models/Message";
 import { User } from "./models/User";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ERROR_HAS_OCCURRED_MESSAGE } from "./components/product-purchase-card/product-purchase-card.component";
 
 interface ExampleFlatNode {
   id: number,
@@ -26,7 +27,6 @@ interface ExampleFlatNode {
 }
 
 export const SEARCH_DEBOUNCE_TIME = 500;
-
 
 @Component({
   selector: 'app-root',
@@ -188,7 +188,7 @@ export class AppComponent implements OnInit, OnDestroy {
         })
       },
       (err) => {
-        this._snackBar.open("An error has occurred.", "OK", {
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", {
           duration: 3000,
         })
       });

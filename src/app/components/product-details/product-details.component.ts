@@ -16,6 +16,7 @@ import { SharedService } from "../../services/shared.service";
 import { BuyProductModalComponent } from "../buy-product-modal/buy-product-modal.component";
 import { ProductPurchaseService } from "../../services/product-purchase.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ERROR_HAS_OCCURRED_MESSAGE } from "../product-purchase-card/product-purchase-card.component";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -123,7 +124,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
             this._snackBar.open("Successfully purchased.");
           },
           (err) => {
-            this._snackBar.open("An error has occurred.")
+            this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE)
           }
         ));
       }

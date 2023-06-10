@@ -6,6 +6,14 @@ import { ConfirmationModalComponent, DIALOG_RESPONSE } from "../confirmation-mod
 import { ProductPurchaseService } from "../../services/product-purchase.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
+export const DELETE_MODAL_PURCHASE = {
+  TITLE: 'Delete purchase',
+  TEXT: 'Are you sure that you want to delete this purchase?',
+  SUCCESS: 'Purchase successfully deleted.'
+}
+
+export const ERROR_HAS_OCCURRED_MESSAGE = 'An error has occurred.';
+
 @Component({
   selector: 'app-product-purchase-card',
   templateUrl: './product-purchase-card.component.html',
@@ -26,11 +34,10 @@ export class ProductPurchaseCardComponent implements OnInit, OnDestroy {
   }
 
   onDeleteProductPurchaseClick() {
-    //TODO add to constants 
     this.dialog.open(ConfirmationModalComponent, {
       data: {
-        title: "Delete purchase",
-        text: "Are you sure that you want to delete this purchase?"
+        title: DELETE_MODAL_PURCHASE.TITLE,
+        text: DELETE_MODAL_PURCHASE.TEXT
       }
     }).afterClosed().pipe(switchMap(dialogResponse => {
       if (dialogResponse === DIALOG_RESPONSE.YES) {
@@ -40,7 +47,7 @@ export class ProductPurchaseCardComponent implements OnInit, OnDestroy {
       }
     })).subscribe((result) => {
         if (result !== DIALOG_RESPONSE.NO) {
-          this._snackBar.open("An error has occurred.", "OK", {
+          this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", {
             duration: 3000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
@@ -48,7 +55,7 @@ export class ProductPurchaseCardComponent implements OnInit, OnDestroy {
         }
       },
       (err) => {
-        this._snackBar.open("Purchase successfully deleted.", "OK", {
+        this._snackBar.open(DELETE_MODAL_PURCHASE.SUCCESS, "OK", {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'top',
