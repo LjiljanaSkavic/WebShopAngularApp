@@ -1,31 +1,43 @@
-<div *ngIf="!isLoading" class="product-details-wrapper">
-  <mat-card-header>
-    <mat-card-title-group>
-      <mat-card-title>{{ product.title }}</mat-card-title>
-    </mat-card-title-group>
+<mat-card *ngIf="!isLoading" class="product-details-wrapper">
+  <mat-card-header class="product-details-wrapper__header">
+    <mat-label>{{ product.title }}</mat-label>
+    <div class="button-wrapper">
+      <button (click)="onDeleteProductClick()" *ngIf="isMyProduct" mat-icon-button matTooltip="Delete">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button (click)="onBuyNowClick()" *ngIf="!isMyProduct" mat-icon-button matTooltip="Buy">
+        <mat-icon>shopping_bag</mat-icon>
+      </button>
+    </div>
   </mat-card-header>
-  <mat-card-content>
-    <img [src]="product.image" mat-card-sm-image>
-    <mat-card-subtitle>Category: {{ product.category.name }}</mat-card-subtitle>
-    <mat-label>Description: {{ product.description }}</mat-label>
-    <mat-label>Price: {{ product.price }}</mat-label>
-    <div *ngFor="let comment of comments">
-      <app-comment [comment]="comment"></app-comment>
+  <mat-card-content class="product-details-wrapper__container">
+    <div class="product-info">
+      <img [src]="product.image" class="product-info-image" mat-card-md-image>
+      <div class="product-info__main-info">
+        <mat-label>Category: {{ product.category.name }}</mat-label>
+        <mat-label>Description: {{ product.description }}</mat-label>
+        <mat-label>Price: {{ product.price }}</mat-label>
+      </div>
+      <div class="product-info__details-info">
+        <mat-label>State : {{ product.isNew ? 'New' : 'Used' }}</mat-label>
+        <div *ngFor="let attribute of attributes">
+          <mat-label>{{ attribute.attributeName }} : {{ attribute.attributeValueName }}</mat-label>
+        </div>
+      </div>
     </div>
-    <button (click)="toggle()" *ngIf="isLoggedIn" mat-icon-button>
-      <mat-icon>comment</mat-icon>
-    </button>
-    <div [@collapse]="collapsed" class="comment-card">
-      <mat-form-field class="comment-card__field">
-        <mat-label>Leave a comment</mat-label>
-        <textarea matInput></textarea>
-      </mat-form-field>
-    </div>
-    <mat-label>State : {{ product.isNew ? 'New' : 'Used' }}</mat-label>
-    <div *ngFor="let attribute of attributes">
-      <mat-label>{{ attribute.attributeName }} : {{ attribute.attributeValueName }}</mat-label>
+    <div class="comment-wrapper">
+      <div *ngFor="let comment of comments">
+        <app-comment [comment]="comment"></app-comment>
+      </div>
+      <button (click)="toggle()" *ngIf="isLoggedIn" mat-icon-button>
+        <mat-icon>comment</mat-icon>
+      </button>
+      <div [@collapse]="collapsed" class="comment-card">
+        <mat-form-field class="comment-card__field">
+          <mat-label>Leave a comment</mat-label>
+          <textarea matInput></textarea>
+        </mat-form-field>
+      </div>
     </div>
   </mat-card-content>
-  <button (click)="onBuyNowClick()" *ngIf="!isMyProduct" mat-button>Buy now</button>
-  <button (click)="onDeleteProductClick()" *ngIf="isMyProduct" mat-button>Delete</button>
-</div>
+</mat-card>

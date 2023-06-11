@@ -135,7 +135,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
             this._snackBar.open(BUY_PRODUCT_MODAL.SUCCESS);
           },
           (err) => {
-            this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE)
+            this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE);
           }
         ));
       }
