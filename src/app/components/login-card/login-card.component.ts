@@ -18,7 +18,12 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   invalidCredentials = false;
   subs = new Subscription();
 
-  constructor(private localStore: LocalService, private readonly _formBuilder: UntypedFormBuilder, private sharedService: SharedService, private router: Router, private loginService: LoginService, private userService: UserService) {
+  constructor(private localStore: LocalService,
+              private readonly _formBuilder: UntypedFormBuilder,
+              private sharedService: SharedService,
+              private router: Router,
+              private loginService: LoginService,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
