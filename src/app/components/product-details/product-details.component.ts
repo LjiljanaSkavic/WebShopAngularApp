@@ -153,11 +153,15 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }).afterClosed().pipe(switchMap(result => {
       return result === DIALOG_RESPONSE.YES ? this.productService.delete(this.productId) : new Observable<DIALOG_RESPONSE.NO>()
     })).subscribe((res) => {
-      if (res !== DIALOG_RESPONSE.NO) {
-        this._snackBar.open(DELETE_PRODUCT_MODAL.SUCCESS, "OK", snackBarConfig);
-        this.router.navigateByUrl("web-shop").catch(res => console.log(res));
-      }
-    }, (err) => this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig));
+        console.log('res', res);
+        if (res !== DIALOG_RESPONSE.NO) {
+          this._snackBar.open(DELETE_PRODUCT_MODAL.SUCCESS, "OK", snackBarConfig);
+          this.router.navigateByUrl("web-shop").catch(res => console.log(res));
+        } else {
+          console.log('after no', this.activatedRoute);
+        }
+      },
+      (err) => this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig));
   }
 
   initializeIsMyProduct() {

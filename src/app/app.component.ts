@@ -183,9 +183,7 @@ export class AppComponent implements OnInit, OnDestroy {
         return new Observable<null>();
       }
     )).subscribe((result) => {
-        if (result !== null) {
-          this._snackBar.open(MESSAGE_SUCCESS, "OK", snackBarConfig)
-        }
+        this._snackBar.open(MESSAGE_SUCCESS, "OK", snackBarConfig)
       },
       (err) => {
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
