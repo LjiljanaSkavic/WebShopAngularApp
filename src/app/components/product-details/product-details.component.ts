@@ -134,7 +134,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         }
         this.subs.add(this.productPurchaseService.insertPurchase(productPurchaseRequest).subscribe((res) => {
             this._snackBar.open(BUY_PRODUCT_MODAL.SUCCESS);
-            this.router.navigateByUrl('/web-shop').catch(err => console.log(err));
+            this.router.navigateByUrl('/purchase-history').catch(err => console.log(err));
           },
           (err) => {
             this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE);
