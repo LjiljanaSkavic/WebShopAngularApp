@@ -143,13 +143,18 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   onDeleteProductClick() {
-    //TODO: Show message and implement delete
     this.dialog.open(ConfirmationModalComponent, {
       data: {
         title: DELETE_PRODUCT_MODAL.TITLE,
         text: DELETE_PRODUCT_MODAL.TEXT
       }
-    }).afterClosed().subscribe(result => console.log(result));
+    }).afterClosed().pipe(switchMap(result => {
+      return result === DIALOG_RESPONSE.YES ? this.productService.delete(this.productId) : new Observable<DIALOG_RESPONSE.NO>()
+    })).subscribe((res) => {
+      if (res !== DIALOG_RESPONSE.NO) {
+        this._snackBar.open(DELETE_PRODUCT_MODAL.SUCCESS, "OK");
+      }
+    }, (err) => this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE));
   }
 
   initializeIsMyProduct() {

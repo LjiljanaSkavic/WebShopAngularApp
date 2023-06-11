@@ -46,4 +46,9 @@ export class ProductService {
     return this.httpClient.get<AttributeValue[]>(getAttributesUrl);
   }
 
+  delete(id: number): Observable<Product> {
+    const deleteProductUrl = `http://localhost:9000/products/delete/${ id }`;
+    return this.httpClient.put<Product>(deleteProductUrl, {});
+  }
+
 }
