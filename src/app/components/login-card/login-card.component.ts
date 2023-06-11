@@ -48,7 +48,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
     const password = this.getPasswordHash();
     this.subs.add(this.loginService.getUserByUsernameAndPassword(username, password).subscribe(user => {
       if (user.isActivated) {
-        this.router.navigateByUrl('/web-shop').catch(err => console.log(err));
+        this.router.navigateByUrl('web-shop').catch(err => console.log(err));
         this.userService.setUserAsLoggedIn(user);
       } else {
         this.router.navigate(['profile-activation']).catch(err => console.log(err));

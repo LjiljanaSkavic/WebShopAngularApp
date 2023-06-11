@@ -174,7 +174,7 @@ export class AppComponent implements OnInit, OnDestroy {
             isRead: false,
             senderUserId: user.id,
           }
-          
+
           return this.contactSupport.createMessage(contactSupportMessage)
         }
         return new Observable<null>();
@@ -191,6 +191,8 @@ export class AppComponent implements OnInit, OnDestroy {
       (err) => {
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", {
           duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
         })
       });
   }

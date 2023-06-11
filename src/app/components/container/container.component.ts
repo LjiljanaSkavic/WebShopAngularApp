@@ -44,9 +44,10 @@ export class ContainerComponent implements OnInit, OnDestroy {
       }));
 
     this.subs.add(
-      this.sharedService.newCategorySelected.pipe(switchMap(categoryId => {
-        return this.productService.getAllFromCategoryWithId(categoryId)
-      })).subscribe(productsFromCategory => {
+      this.sharedService.newCategorySelected.pipe(
+        switchMap(categoryId => {
+          return this.productService.getAllFromCategoryWithId(categoryId)
+        })).subscribe(productsFromCategory => {
         this.products = productsFromCategory;
         this.totalSize = this.products.length;
         this.productsDataSource.data = productsFromCategory;

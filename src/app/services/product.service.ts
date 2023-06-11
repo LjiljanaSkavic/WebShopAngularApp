@@ -14,7 +14,8 @@ export class ProductService {
   }
 
   getAll(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.baseUrl);
+    const getAllUrl = "http://localhost:9000/products/all"
+    return this.httpClient.get<Product[]>(getAllUrl);
   }
 
   getById(id: number): Observable<Product> {

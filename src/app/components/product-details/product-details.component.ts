@@ -133,11 +133,19 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
           userId: this.userId
         }
         this.subs.add(this.productPurchaseService.insertPurchase(productPurchaseRequest).subscribe((res) => {
-            this._snackBar.open(BUY_PRODUCT_MODAL.SUCCESS);
+            this._snackBar.open(BUY_PRODUCT_MODAL.SUCCESS, "OK", {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
             this.router.navigateByUrl('/purchase-history').catch(err => console.log(err));
           },
           (err) => {
-            this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE);
+            this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
           }
         ));
       }
@@ -154,9 +162,18 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       return result === DIALOG_RESPONSE.YES ? this.productService.delete(this.productId) : new Observable<DIALOG_RESPONSE.NO>()
     })).subscribe((res) => {
       if (res !== DIALOG_RESPONSE.NO) {
-        this._snackBar.open(DELETE_PRODUCT_MODAL.SUCCESS, "OK");
+        this._snackBar.open(DELETE_PRODUCT_MODAL.SUCCESS, "OK", {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+        this.router.navigateByUrl("web-shop").catch(res => console.log(res));
       }
-    }, (err) => this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE));
+    }, (err) => this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top'
+    }));
   }
 
   initializeIsMyProduct() {
