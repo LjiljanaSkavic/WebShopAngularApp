@@ -52,9 +52,19 @@
   <mat-drawer-content class="sidenav-content">
     <router-outlet></router-outlet>
     <div [@collapse]="collapsed" class="quick-profile-view-card">
-      <button (click)="onProfileDetailsClick()" mat-button>Profile details</button>
-      <button (click)="onChangePasswordClick()" mat-button>Manage password</button>
-      <button (click)="onLogOutClick()" mat-button>Log out</button>
+      <button (click)="onProfileDetailsClick()" class="icon-label-wrapper" mat-button>
+        <mat-icon>settings</mat-icon>
+        Profile details
+      </button>
+
+      <button (click)="onChangePasswordClick()" class="icon-label-wrapper" mat-button>
+        <mat-icon>password</mat-icon>
+        Manage password
+      </button>
+      <button (click)="onLogOutClick()" class="icon-label-wrapper" mat-button>
+        <mat-icon>logout</mat-icon>
+        Log out
+      </button>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
