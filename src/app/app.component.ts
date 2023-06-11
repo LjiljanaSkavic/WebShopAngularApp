@@ -17,7 +17,10 @@ import { ContactSupportService } from "./services/contact-support.service";
 import { Message } from "./models/Message";
 import { User } from "./models/User";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ERROR_HAS_OCCURRED_MESSAGE } from "./components/product-purchase-card/product-purchase-card.component";
+import {
+  ERROR_HAS_OCCURRED_MESSAGE,
+  snackBarConfig
+} from "./components/product-purchase-card/product-purchase-card.component";
 import { DIALOG_RESPONSE } from "./components/confirmation-modal/confirmation-modal.component";
 
 interface ExampleFlatNode {
@@ -181,19 +184,11 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     )).subscribe((result) => {
         if (result !== null) {
-          this._snackBar.open(MESSAGE_SUCCESS, "OK", {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          })
+          this._snackBar.open(MESSAGE_SUCCESS, "OK", snackBarConfig)
         }
       },
       (err) => {
-        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top'
-        })
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
       });
   }
 }

@@ -16,7 +16,7 @@ import { SharedService } from "../../services/shared.service";
 import { BuyProductModalComponent } from "../buy-product-modal/buy-product-modal.component";
 import { ProductPurchaseService } from "../../services/product-purchase.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ERROR_HAS_OCCURRED_MESSAGE } from "../product-purchase-card/product-purchase-card.component";
+import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -133,19 +133,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
           userId: this.userId
         }
         this.subs.add(this.productPurchaseService.insertPurchase(productPurchaseRequest).subscribe((res) => {
-            this._snackBar.open(BUY_PRODUCT_MODAL.SUCCESS, "OK", {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top'
-            });
+            this._snackBar.open(BUY_PRODUCT_MODAL.SUCCESS, "OK", snackBarConfig);
             this.router.navigateByUrl('/purchase-history').catch(err => console.log(err));
           },
           (err) => {
-            this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top'
-            });
+            this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
           }
         ));
       }
@@ -162,18 +154,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       return result === DIALOG_RESPONSE.YES ? this.productService.delete(this.productId) : new Observable<DIALOG_RESPONSE.NO>()
     })).subscribe((res) => {
       if (res !== DIALOG_RESPONSE.NO) {
-        this._snackBar.open(DELETE_PRODUCT_MODAL.SUCCESS, "OK", {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top'
-        });
+        this._snackBar.open(DELETE_PRODUCT_MODAL.SUCCESS, "OK", snackBarConfig);
         this.router.navigateByUrl("web-shop").catch(res => console.log(res));
       }
-    }, (err) => this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top'
-    }));
+    }, (err) => this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig));
   }
 
   initializeIsMyProduct() {
