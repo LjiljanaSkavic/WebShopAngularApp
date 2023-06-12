@@ -5,6 +5,11 @@ import { UserService } from "../../services/user.service";
 import { SharedService } from "../../services/shared.service";
 import { User } from "../../models/User";
 
+export const PASSWORD_ERROR_MESSAGES = {
+  PASSWORDS_DONT_MATCH: "Passwords don't match.",
+  INVALID_OLD_PASSWORD: "Old password is not correct."
+}
+
 @Component({
   selector: 'app-manage-password',
   templateUrl: './manage-password.component.html',
@@ -16,7 +21,9 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   subs = new Subscription();
   resetPasswordClicked = false;
   oldPassword: string;
+  oldPasswordInputHash: string;
   user: User;
+  protected readonly PASSWORD_ERROR_MESSAGES = PASSWORD_ERROR_MESSAGES;
 
   constructor(private _userService: UserService,
               private _sharedService: SharedService) {
@@ -31,20 +38,20 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
     if (userString != null) {
       const user = JSON.parse(userString);
       this.oldPassword = user.password;
+      console.log('old password', this.oldPassword);
       this.user = user;
       console.log(user);
     }
+    this.buildEmptyForm();
+
+    this.subs.add(this.resetPasswordForm.get('oldPassword')?.valueChanges.subscribe(input => {
+      this.oldPasswordInputHash = this._sharedService.getSha512Hash(input);
+      console.log(this.oldPasswordInputHash);
+    }));
   }
 
   resetPasswordSelected() {
     this.resetPasswordClicked = !this.resetPasswordClicked;
-    if (this.resetPasswordClicked) {
-      this.resetPasswordForm = new FormGroup({
-        oldPassword: new FormControl(null, [Validators.required]),
-        newPassword: new FormControl(null, [Validators.required]),
-        repeatNewPassword: new FormControl(null, [Validators.required])
-      });
-    }
   }
 
   onSubmitPasswordClick() {
@@ -57,12 +64,31 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
     });
   }
 
+  hasOldPasswordError(): boolean {
+    return this.resetPasswordForm.get('oldPassword')?.dirty ?
+      this.oldPasswordInputHash !== this.oldPassword : false;
+  }
+
+  hasPasswordsMatchError(): boolean {
+    return this.resetPasswordForm.get('newPassword')?.dirty && this.resetPasswordForm.get('repeatNewPassword')?.dirty ?
+      this.resetPasswordForm.get('newPassword')?.value !== this.resetPasswordForm.get('repeatNewPassword')?.value : false;
+  }
+
   onDiscardPasswordClick() {
     this.resetPasswordClicked = false;
+    this.buildEmptyForm();
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  buildEmptyForm() {
+    this.resetPasswordForm = new FormGroup({
+      oldPassword: new FormControl(null, [Validators.required]),
+      newPassword: new FormControl(null, [Validators.required]),
+      repeatNewPassword: new FormControl(null, [Validators.required])
+    });
   }
 }
 
