@@ -4,6 +4,8 @@ import { Subscription } from "rxjs";
 import { UserService } from "../../services/user.service";
 import { SharedService } from "../../services/shared.service";
 import { User } from "../../models/User";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
 
 export const PASSWORD_ERROR_MESSAGES = {
   PASSWORDS_DONT_MATCH: "Passwords don't match.",
@@ -26,7 +28,8 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   protected readonly PASSWORD_ERROR_MESSAGES = PASSWORD_ERROR_MESSAGES;
 
   constructor(private _userService: UserService,
-              private _sharedService: SharedService) {
+              private _sharedService: SharedService,
+              private _snackBar: MatSnackBar) {
   }
 
   get formDirty() {
@@ -58,9 +61,10 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
     this.resetPasswordClicked = false;
     const newPasswordValue = this.resetPasswordForm.get('newPassword')?.value
     const newPasswordHash = this._sharedService.getSha512Hash(newPasswordValue);
-    this._userService.changePassword(this.user, newPasswordHash).subscribe(res => {
-      //TODO add success message
-      console.log('response', res);
+    this._userService.changePassword(this.user, newPasswordHash).subscribe((res) => {
+      this._snackBar.open("Password successfully changed", "OK", snackBarConfig);
+    }, (err) => {
+      this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
     });
   }
 
