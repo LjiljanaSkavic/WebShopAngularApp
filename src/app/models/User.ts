@@ -22,3 +22,14 @@ export interface NewUser extends LoginUserInfo {
   lastName: string;
   email: string;
 }
+
+export interface UserRequest extends NewUser {
+  imageAvatar: string;
+  activationPin: number;
+  isLoggedIn: boolean;
+  isActivated: boolean;
+  locationId: number;
+  countryId: number;
+}
+
+

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { UserService } from "../../services/user.service";
 import { SharedService } from "../../services/shared.service";
+import { User } from "../../models/User";
 
 @Component({
   selector: 'app-manage-password',
@@ -15,7 +16,7 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   subs = new Subscription();
   resetPasswordClicked = false;
   oldPassword: string;
-  protected readonly Validators = Validators;
+  user: User;
 
   constructor(private userService: UserService,
               private sharedService: SharedService) {
@@ -30,6 +31,8 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
     if (userString != null) {
       const user = JSON.parse(userString);
       this.oldPassword = user.password;
+      this.user = user;
+      console.log(user);
     }
   }
 
@@ -46,6 +49,11 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
 
   onSubmitPasswordClick() {
     this.resetPasswordClicked = false;
+    const newPasswordValue = this.resetPasswordForm.get('newPassword')?.value
+    const newPasswordHash = this.sharedService.getSha512Hash(newPasswordValue);
+    this.userService.changePassword(this.user, newPasswordHash).subscribe(res => {
+      console.log('response', res);
+    });
   }
 
   onDiscardPasswordClick() {

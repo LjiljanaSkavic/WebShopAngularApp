@@ -6,6 +6,7 @@ import { SharedService } from "../../services/shared.service";
 import { UserService } from "../../services/user.service";
 import { LocalService } from "../../services/local.service";
 import { User } from "../../models/User";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-profile-page',
@@ -15,16 +16,16 @@ import { User } from "../../models/User";
 export class ProfilePageComponent implements OnInit, OnDestroy {
 
   profileForm: FormGroup;
-  resetPasswordForm: FormGroup;
   subs = new Subscription();
-  resetPasswordClicked = false;
   formChanged = false;
+  user: User;
 
 
   constructor(private router: Router,
               private sharedService: SharedService,
               private userService: UserService,
-              private localStore: LocalService) {
+              private localStore: LocalService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -33,11 +34,33 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     if (userString != null) {
       this.subs.add(this.userService.getUser(JSON.parse(userString).id).pipe(switchMap(user => {
         this.buildProfileForm(user);
+        this.user = user;
         return this.profileForm.valueChanges;
       })).subscribe(formChanged => {
         this.formChanged = true;
       }));
     }
+
+
+    //   this.router.events.pipe(
+    //     filter(event => event instanceof NavigationEnd)).pipe(switchMap(res => {
+    //     console.log('ejj');
+    //     if (this.formChanged) {
+    //       console.log('form changed');
+    //       return this.dialog.open(ConfirmationModalComponent, {
+    //         data: {
+    //           title: "Leave change password",
+    //           text: "Are you sure that you want to leave this page and discard changes?"
+    //         }
+    //       }).afterClosed()
+    //     } else {
+    //       return new Observable<null>()
+    //     }
+    //   })).subscribe(res => {
+    //     if (res === DIALOG_RESPONSE.NO) {
+    //       console.log('stay on the page');
+    //     }
+    //   });
   }
 
   buildEmptyForm() {
@@ -69,7 +92,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   onDiscardProfileChanges() {
-
+    this.buildProfileForm(this.user);
   }
 
   onSaveProfileChanges() {
