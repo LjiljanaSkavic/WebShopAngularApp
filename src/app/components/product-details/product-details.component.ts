@@ -187,6 +187,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       ));
   }
 
+  commentTrack(index: number, item: Comment): Comment {
+    return item;
+  }
+
+  attributeValueTrack(index: number, item: AttributeValue): AttributeValue {
+    return item;
+  }
+
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

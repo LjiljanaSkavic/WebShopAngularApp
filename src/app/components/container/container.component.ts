@@ -69,6 +69,10 @@ export class ContainerComponent implements OnInit, OnDestroy {
     this.router.navigate(['product-details'], {queryParams: {id: product.id}}).catch(err => console.log(err));
   }
 
+  productTrack(index: number, item: Product): Product {
+    return item;
+  }
+
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

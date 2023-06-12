@@ -1,5 +1,5 @@
 <div class="product-purchases-history-wrapper">
-  <ng-container *ngFor="let productPurchase of productPurchases">
+  <ng-container *ngFor="let productPurchase of productPurchases trackBy: productPurchaseTrack">
     <app-product-purchase-card [productPurchase]="productPurchase"></app-product-purchase-card>
   </ng-container>
 </div>

@@ -1,5 +1,5 @@
 <div *ngIf="!isLoading" class="store-container">
-  <ng-container *ngFor="let product of productsObservable | async">
+  <ng-container *ngFor="let product of productsObservable | async trackBy: productTrack">
     <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
   </ng-container>
   <mat-paginator [length]="totalSize"

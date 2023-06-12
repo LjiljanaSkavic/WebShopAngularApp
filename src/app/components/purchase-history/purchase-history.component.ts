@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
-import { ProductPurchaseDetails } from "../../models/ProductPurchase";
+import { ProductPurchase, ProductPurchaseDetails } from "../../models/ProductPurchase";
 import { ProductPurchaseService } from "../../services/product-purchase.service";
 import { Subscription } from "rxjs";
 import { User } from "../../models/User";
@@ -17,6 +17,10 @@ export class PurchaseHistoryComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
               private router: Router, private productPurchaseService: ProductPurchaseService) {
+  }
+
+  productPurchaseTrack(index: number, item: ProductPurchase): ProductPurchase {
+    return item;
   }
 
   ngOnInit() {

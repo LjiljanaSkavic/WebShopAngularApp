@@ -20,13 +20,13 @@
       </div>
       <div class="product-info__details-info">
         <mat-label>State : {{ product.isNew ? 'New' : 'Used' }}</mat-label>
-        <div *ngFor="let attribute of attributes">
+        <div *ngFor="let attribute of attributes trackBy: attributeValueTrack">
           <mat-label>{{ attribute.attributeName }} : {{ attribute.attributeValueName }}</mat-label>
         </div>
       </div>
     </div>
     <form [formGroup]="leaveCommentForm" class="comment-wrapper">
-      <div *ngFor="let comment of comments">
+      <div *ngFor="let comment of comments trackBy: commentTrack">
         <app-comment [comment]="comment"></app-comment>
       </div>
       <div *ngIf="isLoggedIn" class="comment-card">
