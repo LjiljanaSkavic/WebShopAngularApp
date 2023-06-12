@@ -7,7 +7,7 @@ import { User } from "../../models/User";
 
 export const PASSWORD_ERROR_MESSAGES = {
   PASSWORDS_DONT_MATCH: "Passwords don't match.",
-  INVALID_OLD_PASSWORD: "Old password is not correct."
+  INVALID_OLD_PASSWORD: "Old password doesn't match."
 }
 
 @Component({
@@ -21,7 +21,7 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   subs = new Subscription();
   resetPasswordClicked = false;
   oldPassword: string;
-  oldPasswordInputHash: string;
+  oldPasswordInputHash = "";
   user: User;
   protected readonly PASSWORD_ERROR_MESSAGES = PASSWORD_ERROR_MESSAGES;
 
@@ -65,6 +65,9 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   }
 
   hasOldPasswordError(): boolean {
+    console.log('old', this.oldPasswordInputHash);
+    console.log('new', this.oldPassword);
+    console.log(this.resetPasswordForm.get('oldPassword')?.dirty);
     return this.resetPasswordForm.get('oldPassword')?.dirty ?
       this.oldPasswordInputHash !== this.oldPassword : false;
   }
