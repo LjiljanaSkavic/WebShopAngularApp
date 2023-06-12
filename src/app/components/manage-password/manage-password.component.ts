@@ -18,8 +18,8 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   oldPassword: string;
   user: User;
 
-  constructor(private userService: UserService,
-              private sharedService: SharedService) {
+  constructor(private _userService: UserService,
+              private _sharedService: SharedService) {
   }
 
   get formDirty() {
@@ -27,7 +27,7 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const userString = this.userService.getLoggedUser();
+    const userString = this._userService.getLoggedUser();
     if (userString != null) {
       const user = JSON.parse(userString);
       this.oldPassword = user.password;
@@ -50,8 +50,9 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   onSubmitPasswordClick() {
     this.resetPasswordClicked = false;
     const newPasswordValue = this.resetPasswordForm.get('newPassword')?.value
-    const newPasswordHash = this.sharedService.getSha512Hash(newPasswordValue);
-    this.userService.changePassword(this.user, newPasswordHash).subscribe(res => {
+    const newPasswordHash = this._sharedService.getSha512Hash(newPasswordValue);
+    this._userService.changePassword(this.user, newPasswordHash).subscribe(res => {
+      //TODO add success message
       console.log('response', res);
     });
   }

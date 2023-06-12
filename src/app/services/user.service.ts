@@ -10,8 +10,8 @@ import { LocalService } from "./local.service";
 export class UserService {
   private baseUrl = "http://localhost:9000/users"
 
-  constructor(private httpClient: HttpClient,
-              private localStore: LocalService) {
+  constructor(private _httpClient: HttpClient,
+              private _localStore: LocalService) {
   }
 
   private _isLoggedIn = false;
@@ -26,11 +26,11 @@ export class UserService {
 
   getUser(id: number): Observable<User> {
     const userWithIdUrl = `http://localhost:9000/users/${ id }`
-    return this.httpClient.get<User>(userWithIdUrl);
+    return this._httpClient.get<User>(userWithIdUrl);
   }
 
   getLoggedUser(): string | null {
-    return this.localStore.getData('loggedUser');
+    return this._localStore.getData('loggedUser');
   }
 
   changePassword(user: User, passwordHash: string): Observable<User> {
@@ -48,16 +48,16 @@ export class UserService {
       password: passwordHash,
       username: user.username
     }
-    return this.httpClient.put<User>(changePasswordUrl, userRequest);
+    return this._httpClient.put<User>(changePasswordUrl, userRequest);
   }
 
   setUserAsLoggedIn(user: User) {
-    this.localStore.saveData('loggedUser', JSON.stringify(user));
+    this._localStore.saveData('loggedUser', JSON.stringify(user));
     this._isLoggedIn = true;
   }
 
   setUserAsLoggedOut() {
-    this.localStore.removeData('loggedUser');
+    this._localStore.removeData('loggedUser');
     this._isLoggedIn = false;
   }
 }

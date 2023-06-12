@@ -15,8 +15,9 @@ export class PurchaseHistoryComponent implements OnInit, OnDestroy {
   productPurchases: ProductPurchaseDetails[] = []
   subs = new Subscription();
 
-  constructor(private userService: UserService,
-              private router: Router, private productPurchaseService: ProductPurchaseService) {
+  constructor(private _userService: UserService,
+              private _router: Router,
+              private _productPurchaseService: ProductPurchaseService) {
   }
 
   productPurchaseTrack(index: number, item: ProductPurchase): ProductPurchase {
@@ -24,10 +25,10 @@ export class PurchaseHistoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const userString = this.userService.getLoggedUser();
+    const userString = this._userService.getLoggedUser();
     if (userString != null) {
       const user: User = JSON.parse(userString);
-      this.subs.add(this.productPurchaseService.getPurchasesByCustomerId(user.id).subscribe(productPurchases => {
+      this.subs.add(this._productPurchaseService.getPurchasesByCustomerId(user.id).subscribe(productPurchases => {
         this.productPurchases = productPurchases;
       }));
     }

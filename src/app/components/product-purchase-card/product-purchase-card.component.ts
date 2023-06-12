@@ -1,10 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PAYMENT_TYPE, PAYMENT_TYPE_OPTIONS, ProductPurchaseDetails } from "../../models/ProductPurchase";
 import { Observable, Subscription, switchMap } from "rxjs";
-import { MatDialog } from "@angular/material/dialog";
 import { ConfirmationModalComponent, DIALOG_RESPONSE } from "../confirmation-modal/confirmation-modal.component";
 import { ProductPurchaseService } from "../../services/product-purchase.service";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
+import { MatDialog } from "@angular/material/dialog";
 
 export const snackBarConfig: MatSnackBarConfig = {
   duration: 3000,
@@ -30,9 +30,9 @@ export class ProductPurchaseCardComponent implements OnInit, OnDestroy {
   protected readonly PAYMENT_TYPE = PAYMENT_TYPE;
   protected readonly PAYMENT_TYPE_OPTIONS = PAYMENT_TYPE_OPTIONS;
 
-  constructor(public dialog: MatDialog,
-              private productPurchaseService: ProductPurchaseService,
-              private _snackBar: MatSnackBar) {
+  constructor(private _productPurchaseService: ProductPurchaseService,
+              private _snackBar: MatSnackBar,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -46,7 +46,7 @@ export class ProductPurchaseCardComponent implements OnInit, OnDestroy {
       }
     }).afterClosed().pipe(switchMap(dialogResponse => {
       if (dialogResponse === DIALOG_RESPONSE.YES) {
-        return this.productPurchaseService.deleteProductPurchaseById(this.productPurchase.id)
+        return this._productPurchaseService.deleteProductPurchaseById(this.productPurchase.id)
       } else {
         return new Observable<DIALOG_RESPONSE.NO>;
       }

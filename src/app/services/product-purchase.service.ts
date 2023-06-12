@@ -8,21 +8,21 @@ import { ProductPurchase, ProductPurchaseDetails, ProductPurchaseRequest } from 
 })
 export class ProductPurchaseService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   getPurchasesByCustomerId(customerId: number): Observable<ProductPurchaseDetails[]> {
     const productPurchaseByCustomerIdUrl = `http://localhost:9000/product-purchase/customer/${ customerId }`;
-    return this.httpClient.get<ProductPurchaseDetails[]>(productPurchaseByCustomerIdUrl);
+    return this._httpClient.get<ProductPurchaseDetails[]>(productPurchaseByCustomerIdUrl);
   }
 
   insertPurchase(productPurchase: ProductPurchaseRequest): Observable<ProductPurchase> {
     const productPurchaseInsertUrl = `http://localhost:9000/product-purchase`;
-    return this.httpClient.post<ProductPurchase>(productPurchaseInsertUrl, productPurchase);
+    return this._httpClient.post<ProductPurchase>(productPurchaseInsertUrl, productPurchase);
   }
 
   deleteProductPurchaseById(productPurchaseId: number): Observable<ProductPurchase> {
     const deleteProductPurchaseByIdUrl = `http://localhost:9000/product-purchase/delete/${ productPurchaseId }`;
-    return this.httpClient.put<ProductPurchase>(deleteProductPurchaseByIdUrl, {});
+    return this._httpClient.put<ProductPurchase>(deleteProductPurchaseByIdUrl, {});
   }
 }

@@ -21,18 +21,18 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   user: User;
 
 
-  constructor(private router: Router,
-              private sharedService: SharedService,
-              private userService: UserService,
-              private localStore: LocalService,
+  constructor(private _router: Router,
+              private _sharedService: SharedService,
+              private _userService: UserService,
+              private _localStore: LocalService,
               public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.buildEmptyForm();
-    const userString = this.localStore.getData('loggedUser');
+    const userString = this._localStore.getData('loggedUser');
     if (userString != null) {
-      this.subs.add(this.userService.getUser(JSON.parse(userString).id).pipe(switchMap(user => {
+      this.subs.add(this._userService.getUser(JSON.parse(userString).id).pipe(switchMap(user => {
         this.buildProfileForm(user);
         this.user = user;
         return this.profileForm.valueChanges;
@@ -42,7 +42,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     }
 
 
-    //   this.router.events.pipe(
+    //   this._router.events.pipe(
     //     filter(event => event instanceof NavigationEnd)).pipe(switchMap(res => {
     //     console.log('ejj');
     //     if (this.formChanged) {

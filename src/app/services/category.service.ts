@@ -10,15 +10,15 @@ export class CategoryService {
 
   private baseUrl = "http://localhost:9000/categories/all"
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   getAll(): Observable<Category[]> {
-    return this.httpClient.get<Category[]>(this.baseUrl);
+    return this._httpClient.get<Category[]>(this.baseUrl);
   }
 
   getChildren(parentId: number): Observable<Category[]> {
     const childrenUrl = `http://localhost:9000/categories/${ parentId }/children`;
-    return this.httpClient.get<Category[]>(childrenUrl);
+    return this._httpClient.get<Category[]>(childrenUrl);
   }
 }

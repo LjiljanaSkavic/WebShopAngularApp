@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 export class LoginService {
   baseUrl = "http://localhost:9000/login";
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   getUserByUsernameAndPassword(username: string, password: string): Observable<User> {
@@ -17,11 +17,11 @@ export class LoginService {
       username: username,
       password: password
     }
-    return this.httpClient.put<User>(this.baseUrl, loginUserInfo);
+    return this._httpClient.put<User>(this.baseUrl, loginUserInfo);
   }
 
   logInUser(id: number): Observable<User> {
     const logInUrl = `http://localhost:9000/login/${ id }`;
-    return this.httpClient.put<User>(logInUrl, {});
+    return this._httpClient.put<User>(logInUrl, {});
   }
 }

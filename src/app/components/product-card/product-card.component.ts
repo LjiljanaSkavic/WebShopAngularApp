@@ -11,10 +11,10 @@ export class ProductCardComponent implements OnInit {
   @Input() product: Product;
   isLoggedIn: boolean;
 
-  constructor(private userService: UserService) {
+  constructor(private _userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.userService.isLoggedIn;
+    this.isLoggedIn = this._userService.isLoggedIn;
   }
 }

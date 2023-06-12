@@ -25,17 +25,17 @@ export class StoreComponent implements OnInit, OnDestroy {
   currentPage = 0;
   totalSize = 0;
 
-  constructor(private productService: ProductService,
-              private sharedService: SharedService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private _productService: ProductService,
+              private _sharedService: SharedService,
+              private _router: Router,
+              private _activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.subs.add(this.activatedRoute.queryParams
+    this.subs.add(this._activatedRoute.queryParams
       .pipe(switchMap(params => {
         this.sellerId = params['id'];
-        return this.productService.getBySellerId(this.sellerId)
+        return this._productService.getBySellerId(this.sellerId)
       })).subscribe(products => {
         this.products = products;
         this.totalSize = this.products.length;
@@ -47,13 +47,13 @@ export class StoreComponent implements OnInit, OnDestroy {
   }
 
   onCardClick(product: Product) {
-    this.router.navigate(['product-details'], {queryParams: {id: product.id}}).catch(err => console.log(err));
+    this._router.navigate(['product-details'], {queryParams: {id: product.id}}).catch(err => console.log(err));
   }
 
   productTrack(index: number, item: Product): Product {
     return item;
   }
-  
+
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

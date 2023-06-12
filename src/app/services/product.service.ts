@@ -10,32 +10,32 @@ import { AttributeValue } from "../models/AttributeValue";
 export class ProductService {
   private baseUrl = "http://localhost:9000/products"
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   getAll(): Observable<Product[]> {
     const getAllUrl = "http://localhost:9000/products/all"
-    return this.httpClient.get<Product[]>(getAllUrl);
+    return this._httpClient.get<Product[]>(getAllUrl);
   }
 
   getById(id: number): Observable<Product> {
     const getByIdUrl = `http://localhost:9000/products/${ id }`;
-    return this.httpClient.get<Product>(getByIdUrl);
+    return this._httpClient.get<Product>(getByIdUrl);
   }
 
   getBySellerId(id: number): Observable<Product[]> {
     const getBySellerId = `http://localhost:9000/products/seller/${ id }`;
-    return this.httpClient.get<Product[]>(getBySellerId);
+    return this._httpClient.get<Product[]>(getBySellerId);
   }
 
   getAllFromCategoryWithId(categoryId: number) {
     const productsFromCategoryUrl = `http://localhost:9000/products/filter-by-category/${ categoryId }`
-    return categoryId === 0 ? this.getAll() : this.httpClient.get<Product[]>(productsFromCategoryUrl);
+    return categoryId === 0 ? this.getAll() : this._httpClient.get<Product[]>(productsFromCategoryUrl);
   }
 
   getAllFromSearchTerm(query: string) {
     const productsFromQuery = `http://localhost:9000/products/search-by-query/${ query }`
-    return query === "" ? this.getAll() : this.httpClient.get<Product[]>(productsFromQuery);
+    return query === "" ? this.getAll() : this._httpClient.get<Product[]>(productsFromQuery);
   }
 
   getAllByCategoryAndSearchTerm(categoryId: number, query: string) {
@@ -44,12 +44,12 @@ export class ProductService {
 
   getAllAttributes(productId: number): Observable<AttributeValue[]> {
     const getAttributesUrl = `http://localhost:9000/attributes/of-product/${ productId }`;
-    return this.httpClient.get<AttributeValue[]>(getAttributesUrl);
+    return this._httpClient.get<AttributeValue[]>(getAttributesUrl);
   }
 
   delete(id: number): Observable<Product> {
     const deleteProductUrl = `http://localhost:9000/products/delete/${ id }`;
-    return this.httpClient.put<Product>(deleteProductUrl, {});
+    return this._httpClient.put<Product>(deleteProductUrl, {});
   }
 
 }

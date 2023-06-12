@@ -18,12 +18,12 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   invalidCredentials = false;
   subs = new Subscription();
 
-  constructor(private localStore: LocalService,
+  constructor(private _localStore: LocalService,
               private readonly _formBuilder: UntypedFormBuilder,
-              private sharedService: SharedService,
-              private router: Router,
-              private loginService: LoginService,
-              private userService: UserService) {
+              private _sharedService: SharedService,
+              private _router: Router,
+              private _loginService: LoginService,
+              private _userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -40,18 +40,18 @@ export class LoginCardComponent implements OnInit, OnDestroy {
 
 
   onSignUpClick($event: MouseEvent) {
-    this.router.navigateByUrl('sign-up').catch(err => console.log(err));
+    this._router.navigateByUrl('sign-up').catch(err => console.log(err));
   }
 
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username')?.value;
     const password = this.getPasswordHash();
-    this.subs.add(this.loginService.getUserByUsernameAndPassword(username, password).subscribe(user => {
+    this.subs.add(this._loginService.getUserByUsernameAndPassword(username, password).subscribe(user => {
       if (user.isActivated) {
-        this.router.navigateByUrl('web-shop').catch(err => console.log(err));
-        this.userService.setUserAsLoggedIn(user);
+        this._router.navigateByUrl('web-shop').catch(err => console.log(err));
+        this._userService.setUserAsLoggedIn(user);
       } else {
-        this.router.navigate(['profile-activation']).catch(err => console.log(err));
+        this._router.navigate(['profile-activation']).catch(err => console.log(err));
       }
       this.invalidCredentials = false;
     }, err => {
@@ -67,7 +67,7 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   }
 
   getPasswordHash(): string {
-    return this.sharedService.getSha512Hash(this.loginForm.get('password')?.value);
+    return this._sharedService.getSha512Hash(this.loginForm.get('password')?.value);
   }
 
   ngOnDestroy(): void {

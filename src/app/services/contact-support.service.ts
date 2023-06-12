@@ -9,10 +9,10 @@ import { Message } from "../models/Message";
 export class ContactSupportService {
   baseUrl = "http://localhost:9000/contact-support-messages";
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   createMessage(message: Message): Observable<Message> {
-    return this.httpClient.post<Message>(this.baseUrl, message);
+    return this._httpClient.post<Message>(this.baseUrl, message);
   }
 }

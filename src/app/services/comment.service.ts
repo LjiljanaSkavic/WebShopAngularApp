@@ -8,17 +8,17 @@ import { Comment, CommentRequest } from "../models/Comment";
 })
 export class CommentService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   getCommentsByProductId(productId: number): Observable<Comment[]> {
     const getByProductId = `http://localhost:9000/comments/product/${ productId }`
-    return this.httpClient.get<Comment[]>(getByProductId);
+    return this._httpClient.get<Comment[]>(getByProductId);
   }
 
   insertComment(commentRequest: CommentRequest): Observable<Comment> {
     const insertCommentUrl = `http://localhost:9000/comments`
-    return this.httpClient.post<Comment>(insertCommentUrl, commentRequest);
+    return this._httpClient.post<Comment>(insertCommentUrl, commentRequest);
   }
 
 }

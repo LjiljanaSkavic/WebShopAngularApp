@@ -26,17 +26,16 @@ export class ContainerComponent implements OnInit, OnDestroy {
 
   subs = new Subscription();
 
-  constructor(private productService: ProductService,
-              private sharedService: SharedService,
-              private router: Router) {
+  constructor(private _productService: ProductService,
+              private _sharedService: SharedService,
+              private _router: Router) {
   }
 
   ngOnInit(): void {
     this.subs.add(
-      this.productService.getAll().subscribe(products => {
+      this._productService.getAll().subscribe(products => {
         this.products = products;
         this.totalSize = this.products.length;
-
         this.productsDataSource.data = products;
         this.productsDataSource.paginator = this.paginator;
         this.productsObservable = this.productsDataSource.connect();
@@ -44,9 +43,9 @@ export class ContainerComponent implements OnInit, OnDestroy {
       }));
 
     this.subs.add(
-      this.sharedService.newCategorySelected.pipe(
+      this._sharedService.newCategorySelected.pipe(
         switchMap(categoryId => {
-          return this.productService.getAllFromCategoryWithId(categoryId)
+          return this._productService.getAllFromCategoryWithId(categoryId)
         })).subscribe(productsFromCategory => {
         this.products = productsFromCategory;
         this.totalSize = this.products.length;
@@ -55,8 +54,8 @@ export class ContainerComponent implements OnInit, OnDestroy {
     );
 
     this.subs.add(
-      this.sharedService.newQueryWritten.pipe(switchMap(searchTerm => {
-        return this.productService.getAllFromSearchTerm(searchTerm)
+      this._sharedService.newQueryWritten.pipe(switchMap(searchTerm => {
+        return this._productService.getAllFromSearchTerm(searchTerm)
       })).subscribe(productsFromSearch => {
         this.products = productsFromSearch;
         this.totalSize = this.products.length;
@@ -66,7 +65,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
   }
 
   onCardClick(product: Product) {
-    this.router.navigate(['product-details'], {queryParams: {id: product.id}}).catch(err => console.log(err));
+    this._router.navigate(['product-details'], {queryParams: {id: product.id}}).catch(err => console.log(err));
   }
 
   productTrack(index: number, item: Product): Product {

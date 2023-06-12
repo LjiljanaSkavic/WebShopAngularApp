@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
 export class RegisterService {
   baseUrl = "http://localhost:9000/register";
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   private _activationPin: number;
@@ -33,11 +33,11 @@ export class RegisterService {
   }
 
   createUser(user: NewUser): Observable<User> {
-    return this.httpClient.post<User>(this.baseUrl, user);
+    return this._httpClient.post<User>(this.baseUrl, user);
   }
 
   activateProfile(id: number): Observable<User> {
     const activationUrl = `http://localhost:9000/register/${ id }`;
-    return this.httpClient.put<User>(activationUrl, {});
+    return this._httpClient.put<User>(activationUrl, {});
   }
 }

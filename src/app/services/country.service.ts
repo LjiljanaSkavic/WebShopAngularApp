@@ -10,10 +10,10 @@ export class CountryService {
 
   private baseUrl = "http://localhost:9000/countries"
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   getAll(): Observable<Country[]> {
-    return this.httpClient.get<Country[]>(this.baseUrl);
+    return this._httpClient.get<Country[]>(this.baseUrl);
   }
 }

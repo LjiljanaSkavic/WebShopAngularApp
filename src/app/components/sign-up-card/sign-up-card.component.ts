@@ -5,7 +5,6 @@ import { Subscription } from "rxjs";
 import { RegisterService } from "../../services/register.service";
 import { NewUser } from "../../models/User";
 import { SharedService } from "../../services/shared.service";
-import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-sign-up-card',
@@ -17,7 +16,9 @@ export class SignUpCardComponent implements OnInit, OnDestroy {
   signUpForm: FormGroup;
   subs = new Subscription();
 
-  constructor(private router: Router, private registerService: RegisterService, private sharedService: SharedService, private userService: UserService) {
+  constructor(private _router: Router,
+              private _registerService: RegisterService,
+              private _sharedService: SharedService) {
   }
 
   ngOnInit(): void {
@@ -32,7 +33,7 @@ export class SignUpCardComponent implements OnInit, OnDestroy {
   }
 
   onLogInClick($event: MouseEvent) {
-    this.router.navigateByUrl('login').catch(err => console.log(err));
+    this._router.navigateByUrl('login').catch(err => console.log(err));
   }
 
   onSignUpClick($event: MouseEvent) {
@@ -41,13 +42,13 @@ export class SignUpCardComponent implements OnInit, OnDestroy {
         email: this.signUpForm.get('email')?.value,
         firstName: this.signUpForm.get('firstName')?.value,
         lastName: this.signUpForm.get('lastName')?.value,
-        password: this.sharedService.getSha512Hash(this.signUpForm.get('password')?.value),
+        password: this._sharedService.getSha512Hash(this.signUpForm.get('password')?.value),
         username: this.signUpForm.get('username')?.value
       }
-      this.subs.add(this.registerService.createUser(user).subscribe(newUser => {
-          this.registerService.activationPin = newUser.activationPin;
-          this.registerService.email = newUser.email;
-          this.router.navigate(['profile-activation'], {queryParams: {id: newUser.id}}).catch(err => console.log(err));
+      this.subs.add(this._registerService.createUser(user).subscribe(newUser => {
+          this._registerService.activationPin = newUser.activationPin;
+          this._registerService.email = newUser.email;
+          this._router.navigate(['profile-activation'], {queryParams: {id: newUser.id}}).catch(err => console.log(err));
         },
         err => {
         }

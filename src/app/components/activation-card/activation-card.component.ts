@@ -2,8 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormGroup, Validators } from "@angular/forms";
 import { RegisterService } from "../../services/register.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { UserService } from "../../services/user.service";
-import { LoginService } from "../../services/login.service";
 import { Subscription } from "rxjs";
 import { LocalService } from "../../services/local.service";
 
@@ -19,17 +17,20 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
   userId: number;
   subs = new Subscription();
 
-  constructor(private localStore: LocalService, private activatedRoute: ActivatedRoute, private registerService: RegisterService, private router: Router, private userService: UserService, private loginService: LoginService) {
+  constructor(private _localStore: LocalService,
+              private _activatedRoute: ActivatedRoute,
+              private _registerService: RegisterService,
+              private _router: Router) {
   }
 
   ngOnInit(): void {
-    this.subs.add(this.activatedRoute.queryParams
+    this.subs.add(this._activatedRoute.queryParams
       .subscribe(params => {
         this.userId = params['id'];
       }));
 
-    this.activationPin = this.registerService.activationPin;
-    this.email = this.registerService.email;
+    this.activationPin = this._registerService.activationPin;
+    this.email = this._registerService.email;
     this.activationProfileForm = new FormGroup({
       activationPinControl: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(4), Validators.pattern("^[0-9]*$")])
     });
@@ -38,8 +39,8 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
   onSubmitActivationCodeClick() {
     const activationPinControlValue = this.activationProfileForm.get('activationPinControl')?.value;
     if (+activationPinControlValue === this.activationPin) {
-      this.subs.add(this.registerService.activateProfile(this.userId).subscribe(res => {
-        this.router.navigateByUrl('web-shop').catch(err => console.log(err));
+      this.subs.add(this._registerService.activateProfile(this.userId).subscribe(res => {
+        this._router.navigateByUrl('web-shop').catch(err => console.log(err));
         //todo ovdje staviti user-a u local storage
       }))
     }

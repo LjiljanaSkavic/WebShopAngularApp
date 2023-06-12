@@ -61,18 +61,18 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
 
   constructor(private _commentService: CommentService,
-              private activatedRoute: ActivatedRoute,
-              private productService: ProductService,
-              private userService: UserService,
-              private sharedService: SharedService,
-              private productPurchaseService: ProductPurchaseService,
+              private _activatedRoute: ActivatedRoute,
+              private _productService: ProductService,
+              private _userService: UserService,
+              private _sharedService: SharedService,
+              private _productPurchaseService: ProductPurchaseService,
               private _snackBar: MatSnackBar,
-              private router: Router,
+              private _router: Router,
               public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    const userString = this.userService.getLoggedUser();
+    const userString = this._userService.getLoggedUser();
     if (userString != null) {
       const user: User = JSON.parse(userString);
       this.userId = user.id;
@@ -83,17 +83,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
-    this.subs.add(this.activatedRoute.queryParams
+    this.subs.add(this._activatedRoute.queryParams
       .pipe(switchMap(params => {
         this.productId = parseInt(params['id']);
-        return this.productService.getById(this.productId)
+        return this._productService.getById(this.productId)
       })).pipe(switchMap(product => {
         this.product = product;
         this.initializeIsMyProduct();
         return this._commentService.getCommentsByProductId(product.id)
       })).pipe(switchMap(comments => {
         this.comments = comments;
-        return this.productService.getAllAttributes(this.productId)
+        return this._productService.getAllAttributes(this.productId)
       })).subscribe(attributes => {
         this.attributes = attributes;
         this.isLoading = false;
@@ -124,14 +124,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
           id: 0,
           dateTime: new Date(),
           isDeleted: false,
-          orderId: this.sharedService.getRandomEightCharactersLongString(),
+          orderId: this._sharedService.getRandomEightCharactersLongString(),
           paymentType: parseInt(paymentType),
           productId: this.productId,
           userId: this.userId
         }
-        this.subs.add(this.productPurchaseService.insertPurchase(productPurchaseRequest).subscribe((res) => {
+        this.subs.add(this._productPurchaseService.insertPurchase(productPurchaseRequest).subscribe((res) => {
             this._snackBar.open(BUY_PRODUCT_MODAL.SUCCESS, "OK", snackBarConfig);
-            this.router.navigateByUrl('/purchase-history').catch(err => console.log(err));
+            this._router.navigateByUrl('/purchase-history').catch(err => console.log(err));
           },
           (err) => {
             this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
@@ -148,18 +148,18 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         text: DELETE_PRODUCT_MODAL.TEXT
       }
     }).afterClosed().pipe(switchMap(result => {
-      return result === DIALOG_RESPONSE.YES ? this.productService.delete(this.productId) : new Observable<DIALOG_RESPONSE.NO>()
+      return result === DIALOG_RESPONSE.YES ? this._productService.delete(this.productId) : new Observable<DIALOG_RESPONSE.NO>()
     })).subscribe((res) => {
         if (res !== DIALOG_RESPONSE.NO) {
           this._snackBar.open(DELETE_PRODUCT_MODAL.SUCCESS, "OK", snackBarConfig);
-          this.router.navigateByUrl("web-shop").catch(res => console.log(res));
+          this._router.navigateByUrl("web-shop").catch(res => console.log(res));
         }
       },
       (err) => this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig));
   }
 
   initializeIsMyProduct() {
-    const userString = this.userService.getLoggedUser();
+    const userString = this._userService.getLoggedUser();
     if (userString != null) {
       const user: User = JSON.parse(userString);
       this.isMyProduct = user.id === this.product.sellerUser.id;
