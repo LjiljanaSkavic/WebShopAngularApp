@@ -179,12 +179,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       this._commentService.insertComment(commentRequest).subscribe(
         res => {
           this._snackBar.open("Comment successfully added.", "OK", snackBarConfig);
+          this.reloadComments();
           this.leaveCommentForm.reset();
         },
         err => {
           this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
         }
       ));
+  }
+
+  reloadComments() {
+    this.subs.add(this._commentService.getCommentsByProductId(this.product.id).subscribe(res => this.comments = res));
   }
 
   commentTrack(index: number, item: Comment): Comment {
