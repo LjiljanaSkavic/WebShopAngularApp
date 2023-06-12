@@ -25,19 +25,17 @@
         </div>
       </div>
     </div>
-    <div class="comment-wrapper">
+    <form [formGroup]="leaveCommentForm" class="comment-wrapper">
       <div *ngFor="let comment of comments">
         <app-comment [comment]="comment"></app-comment>
       </div>
-      <button (click)="toggle()" *ngIf="isLoggedIn" mat-icon-button>
-        <mat-icon>comment</mat-icon>
-      </button>
-      <div [@collapse]="collapsed" class="comment-card">
+      <div *ngIf="isLoggedIn" class="comment-card">
         <mat-form-field class="comment-card__field">
           <mat-label>Leave a comment</mat-label>
-          <textarea matInput></textarea>
+          <textarea formControlName="commentContent" matInput></textarea>
         </mat-form-field>
+        <button (click)="onPostCommentClick()" mat-button>Post</button>
       </div>
-    </div>
+    </form>
   </mat-card-content>
 </mat-card>

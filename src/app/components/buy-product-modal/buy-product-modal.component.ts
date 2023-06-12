@@ -1,9 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
-import { ProductPurchaseService } from "../../services/product-purchase.service";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { SharedService } from "../../services/shared.service";
 import { DIALOG_RESPONSE } from "../confirmation-modal/confirmation-modal.component";
 
 
@@ -18,12 +15,9 @@ export class BuyProductModalComponent implements OnInit, OnDestroy {
   creditCardPayingForm: FormGroup;
   selectPayingForm: FormGroup;
   subs = new Subscription();
-  protected readonly MAT_DIALOG_DATA = MAT_DIALOG_DATA;
   protected readonly DIALOG_RESPONSE = DIALOG_RESPONSE;
 
-  constructor(
-    private productPurchaseService: ProductPurchaseService,
-    private sharedService: SharedService) {
+  constructor() {
   }
 
   get selectedFormValid(): boolean {

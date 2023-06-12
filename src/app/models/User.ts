@@ -10,6 +10,7 @@ export interface User extends LoginUserInfo {
   firstName: string;
   lastName: string;
   email: string;
+  imageAvatar: string;
   activationPin: number;
   isLoggedIn: boolean;
   isActivated: boolean;

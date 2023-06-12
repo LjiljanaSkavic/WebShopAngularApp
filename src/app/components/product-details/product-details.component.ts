@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../models/Product";
 import { CommentService } from "../../services/comment.service";
-import { Comment } from "../../models/Comment";
+import { Comment, CommentRequest } from "../../models/Comment";
 import { animate, AUTO_STYLE, state, style, transition, trigger } from "@angular/animations";
 import { AttributeValue } from "../../models/AttributeValue";
 import { UserService } from "../../services/user.service";
@@ -17,6 +17,7 @@ import { BuyProductModalComponent } from "../buy-product-modal/buy-product-modal
 import { ProductPurchaseService } from "../../services/product-purchase.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
+import { FormControl, FormGroup } from "@angular/forms";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
@@ -53,39 +54,43 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   product: Product;
   comments: Comment[];
   attributes: AttributeValue[];
-  collapsed = true;
   isLoading = true;
   isLoggedIn = false;
   isMyProduct = false;
+  leaveCommentForm: FormGroup;
 
-  constructor(private commentService: CommentService,
+
+  constructor(private _commentService: CommentService,
               private activatedRoute: ActivatedRoute,
               private productService: ProductService,
               private userService: UserService,
               private sharedService: SharedService,
               private productPurchaseService: ProductPurchaseService,
-              public dialog: MatDialog,
               private _snackBar: MatSnackBar,
-              private router: Router) {
+              private router: Router,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.userService.isLoggedIn;
-
     const userString = this.userService.getLoggedUser();
     if (userString != null) {
       const user: User = JSON.parse(userString);
       this.userId = user.id;
+      this.isLoggedIn = true;
+      this.leaveCommentForm = new FormGroup(
+        {
+          commentContent: new FormControl('')
+        });
     }
 
     this.subs.add(this.activatedRoute.queryParams
       .pipe(switchMap(params => {
-        this.productId = params['id'];
+        this.productId = parseInt(params['id']);
         return this.productService.getById(this.productId)
       })).pipe(switchMap(product => {
         this.product = product;
         this.initializeIsMyProduct();
-        return this.commentService.getCommentsByProductId(product.id)
+        return this._commentService.getCommentsByProductId(product.id)
       })).pipe(switchMap(comments => {
         this.comments = comments;
         return this.productService.getAllAttributes(this.productId)
@@ -93,14 +98,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         this.attributes = attributes;
         this.isLoading = false;
       }));
-  }
-
-  toggle() {
-    this.collapsed = !this.collapsed;
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
   }
 
   onBuyNowClick() {
@@ -153,12 +150,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }).afterClosed().pipe(switchMap(result => {
       return result === DIALOG_RESPONSE.YES ? this.productService.delete(this.productId) : new Observable<DIALOG_RESPONSE.NO>()
     })).subscribe((res) => {
-        console.log('res', res);
         if (res !== DIALOG_RESPONSE.NO) {
           this._snackBar.open(DELETE_PRODUCT_MODAL.SUCCESS, "OK", snackBarConfig);
           this.router.navigateByUrl("web-shop").catch(res => console.log(res));
-        } else {
-          console.log('after no', this.activatedRoute);
         }
       },
       (err) => this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig));
@@ -171,4 +165,30 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       this.isMyProduct = user.id === this.product.sellerUser.id;
     }
   }
+
+  onPostCommentClick() {
+    const commentContent = this.leaveCommentForm.get('commentContent')?.value;
+    const commentRequest: CommentRequest = {
+      content: commentContent,
+      dateTime: new Date(),
+      productId: this.productId,
+      userId: this.userId
+    }
+
+    this.subs.add(
+      this._commentService.insertComment(commentRequest).subscribe(
+        res => {
+          this._snackBar.open("Comment successfully added.", "OK", snackBarConfig);
+          this.leaveCommentForm.reset();
+        },
+        err => {
+          this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+        }
+      ));
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
 }

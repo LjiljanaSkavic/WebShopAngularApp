@@ -1,3 +1,9 @@
-<div class="comment-wrapper">
-  <mat-label>{{ comment.content }}</mat-label>
+<div class="comment">
+  <div [ngClass]="isMyComment ? 'my-comment-wrapper' : 'other-people-comment-wrapper'">
+    <div class="avatar-wrapper">
+      <img [matTooltip]="comment.user.username" [src]="comment.user.imageAvatar"
+           class="avatar-wrapper__image">
+    </div>
+    <mat-label class="comment-content">{{ comment.content }}</mat-label>
+  </div>
 </div>

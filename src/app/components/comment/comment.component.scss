@@ -1,4 +1,27 @@
-.comment-wrapper {
-  border: 1px solid gray;
-  padding: 16px;
+.my-comment-wrapper {
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.other-people-comment-wrapper {
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+}
+
+.avatar-wrapper {
+  display: flex;
+  align-items: center;
+
+  &__image {
+    height: 32px;
+    width: 32px;
+  }
+
+  &__label {
+    margin-left: 8px;
+
+  }
 }
