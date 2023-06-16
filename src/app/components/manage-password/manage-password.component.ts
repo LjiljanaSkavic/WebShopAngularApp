@@ -5,7 +5,8 @@ import { UserService } from "../../services/user.service";
 import { SharedService } from "../../services/shared.service";
 import { User } from "../../models/User";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
+import { snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
+import { ERROR_HAS_OCCURRED_MESSAGE } from "../../shared/constants";
 
 export const PASSWORD_ERROR_MESSAGES = {
   PASSWORDS_DONT_MATCH: "Passwords don't match.",

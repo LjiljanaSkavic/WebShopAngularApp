@@ -5,6 +5,7 @@ import { ConfirmationModalComponent, DIALOG_RESPONSE } from "../confirmation-mod
 import { ProductPurchaseService } from "../../services/product-purchase.service";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
+import { ERROR_HAS_OCCURRED_MESSAGE } from "../../shared/constants";
 
 export const snackBarConfig: MatSnackBarConfig = {
   duration: 3000,
@@ -17,7 +18,6 @@ export const DELETE_MODAL_PURCHASE = {
   SUCCESS: 'Purchase successfully deleted.'
 }
 
-export const ERROR_HAS_OCCURRED_MESSAGE = 'An error has occurred.';
 
 @Component({
   selector: 'app-product-purchase-card',

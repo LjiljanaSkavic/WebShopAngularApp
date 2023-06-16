@@ -17,11 +17,9 @@ import { ContactSupportService } from "./services/contact-support.service";
 import { Message } from "./models/Message";
 import { User } from "./models/User";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import {
-  ERROR_HAS_OCCURRED_MESSAGE,
-  snackBarConfig
-} from "./components/product-purchase-card/product-purchase-card.component";
+import { snackBarConfig } from "./components/product-purchase-card/product-purchase-card.component";
 import { DIALOG_RESPONSE } from "./components/confirmation-modal/confirmation-modal.component";
+import { ERROR_HAS_OCCURRED_MESSAGE, MESSAGE_SUCCESS } from "./shared/constants";
 
 interface ExampleFlatNode {
   id: number,
@@ -32,7 +30,6 @@ interface ExampleFlatNode {
 
 export const SEARCH_DEBOUNCE_TIME = 500;
 
-export const MESSAGE_SUCCESS = 'Message successfully sent.';
 
 @Component({
   selector: 'app-root',

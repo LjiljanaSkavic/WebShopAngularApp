@@ -16,8 +16,9 @@ import { SharedService } from "../../services/shared.service";
 import { BuyProductModalComponent } from "../buy-product-modal/buy-product-modal.component";
 import { ProductPurchaseService } from "../../services/product-purchase.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ERROR_HAS_OCCURRED_MESSAGE, snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
+import { snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
 import { FormControl, FormGroup } from "@angular/forms";
+import { ERROR_HAS_OCCURRED_MESSAGE } from "../../shared/constants";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
 
