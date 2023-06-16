@@ -1,6 +1,9 @@
 .toolbar-container {
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 150;
 }
 
 .toolbar-container-left {
@@ -52,6 +55,9 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding: 8px;
+  position: fixed;
+  right: 0px;
 }
 
 .sidenav {
@@ -83,4 +89,12 @@
   justify-content: flex-start;
   padding: 8px;
   cursor: pointer;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar {
+  display: none;
+}
+
+.mat-drawer-content::-webkit-scrollbar {
+  display: none;
 }
