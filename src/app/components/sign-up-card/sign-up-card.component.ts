@@ -3,7 +3,6 @@ import { Router } from "@angular/router";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { RegisterService } from "../../services/register.service";
-import { NewUser } from "../../models/User";
 import { SharedService } from "../../services/shared.service";
 
 @Component({
@@ -38,12 +37,15 @@ export class SignUpCardComponent implements OnInit, OnDestroy {
 
   onSignUpClick($event: MouseEvent) {
     if (this.signUpForm.valid) {
-      const user: NewUser = {
+      //TODO: FIx this mess
+      const user = {
         email: this.signUpForm.get('email')?.value,
         firstName: this.signUpForm.get('firstName')?.value,
         lastName: this.signUpForm.get('lastName')?.value,
         password: this._sharedService.getSha512Hash(this.signUpForm.get('password')?.value),
-        username: this.signUpForm.get('username')?.value
+        username: this.signUpForm.get('username')?.value,
+        isActivated: false,
+        isLoggedIn: false
       }
       this.subs.add(this._registerService.createUser(user).subscribe(newUser => {
           this._registerService.activationPin = newUser.activationPin;
