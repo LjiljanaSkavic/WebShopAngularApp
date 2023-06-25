@@ -59,14 +59,14 @@ export class AppComponent implements OnInit, OnDestroy {
     searchControl: this.searchControl,
   });
 
-  constructor(private localStore: LocalService,
-              private sharedService: SharedService,
-              private categoryService: CategoryService,
-              private router: Router,
-              private userService: UserService,
-              private contactSupport: ContactSupportService,
-              public dialog: MatDialog,
-              private _snackBar: MatSnackBar) {
+  constructor(private _localStore: LocalService,
+              private _sharedService: SharedService,
+              private _categoryService: CategoryService,
+              private _router: Router,
+              private _userService: UserService,
+              private _contactSupport: ContactSupportService,
+              private _snackBar: MatSnackBar,
+              public dialog: MatDialog) {
   }
 
   _transformer = (node: Category, level: number) => {
@@ -88,35 +88,35 @@ export class AppComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   ngOnInit(): void {
-    this.subs.add(this.categoryService.getAll().subscribe(categories => {
+    this.subs.add(this._categoryService.getAll().subscribe(categories => {
       this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
       this.dataSource.data = categories;
     }));
 
     this.subs.add(this.searchControl.valueChanges.pipe(debounceTime(SEARCH_DEBOUNCE_TIME)).subscribe(query => {
       if (query != null) {
-        this.sharedService.newQueryWritten.emit(query);
+        this._sharedService.newQueryWritten.emit(query);
       }
     }));
   }
 
 
   onProfileDetailsClick() {
-    const user = this.userService.getLoggedUser();
+    const user = this._userService.getLoggedUser();
     if (user != null) {
       const loggedUser = JSON.parse(user);
-      this.router.navigate(['profile-page'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
+      this._router.navigate(['profile-page'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
     }
     this.collapsed = true;
   }
 
   onPurchaseHistoryClick() {
-    this.router.navigateByUrl('purchase-history').catch(err => console.log(err));
+    this._router.navigateByUrl('purchase-history').catch(err => console.log(err));
   }
 
   toggleAccountMenu() {
-    const user = this.userService.getLoggedUser();
-    user === null ? this.router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
+    const user = this._userService.getLoggedUser();
+    user === null ? this._router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
   }
 
   ngOnDestroy() {
@@ -124,14 +124,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   getNode(node: Category) {
-    this.router.navigateByUrl('web-shop').then(res => {
-      this.sharedService.newCategorySelected.next(node.id);
+    this._router.navigateByUrl('web-shop').then(res => {
+      this._sharedService.newCategorySelected.next(node.id);
     });
   }
 
   showAllButtonClicked() {
-    this.router.navigateByUrl('web-shop').then(res => {
-      this.sharedService.newCategorySelected.next(0);
+    this._router.navigateByUrl('web-shop').then(res => {
+      this._sharedService.newCategorySelected.next(0);
     });
   }
 
@@ -140,33 +140,33 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onLogOutClick() {
-    this.userService.setUserAsLoggedOut();
-    this.router.navigateByUrl('web-shop').catch(err => console.log(err));
+    this._userService.setUserAsLoggedOut();
+    this._router.navigateByUrl('web-shop').catch(err => console.log(err));
     this.collapsed = true;
-    this._snackBar.open("Successfully logged out", "OK", snackBarConfig)
+    this._snackBar.open("Successfully logged out", "OK", snackBarConfig);
   }
 
   onChangePasswordClick() {
-    const user = this.userService.getLoggedUser();
+    const user = this._userService.getLoggedUser();
     if (user != null) {
       const loggedUser = JSON.parse(user);
-      this.router.navigate(['manage-password'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
+      this._router.navigate(['manage-password'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
     }
     this.collapsed = true;
   }
 
   onStoreClick() {
-    const user = this.userService.getLoggedUser();
+    const user = this._userService.getLoggedUser();
     if (user != null) {
       const loggedUser = JSON.parse(user);
-      this.router.navigate(['store'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
+      this._router.navigate(['store'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
     }
   }
 
   onContactSupportClick() {
     this.dialog.open(ContactSupportModalComponent,
     ).afterClosed().pipe(switchMap(message => {
-        const userString = this.userService.getLoggedUser();
+        const userString = this._userService.getLoggedUser();
         if (!!message && message !== DIALOG_RESPONSE.DISCARD && userString !== null) {
           const user: User = JSON.parse(userString);
 
@@ -176,7 +176,7 @@ export class AppComponent implements OnInit, OnDestroy {
             senderUserId: user.id,
           }
 
-          return this.contactSupport.createMessage(contactSupportMessage)
+          return this._contactSupport.createMessage(contactSupportMessage)
         }
         return new Observable<null>();
       }
