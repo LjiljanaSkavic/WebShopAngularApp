@@ -12,6 +12,26 @@ export class RegisterService {
   constructor(private _httpClient: HttpClient) {
   }
 
+  private _username: string;
+
+  get username(): string {
+    return this._username;
+  }
+
+  set username(value: string) {
+    this._username = value;
+  }
+
+  private _password: string;
+
+  get password(): string {
+    return this._password;
+  }
+
+  set password(value: string) {
+    this._password = value;
+  }
+
   private _activationPin: number;
 
   get activationPin(): number {

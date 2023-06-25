@@ -81,22 +81,24 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     this.profileForm = new FormGroup({
       firstName: new FormControl(user.firstName),
       lastName: new FormControl(user.lastName),
-      username: new FormControl(user.username),
+      username: new FormControl({value: user.username, disabled: true}),
       email: new FormControl(user.email),
-      country: new FormControl(user.location.country.name),
-      city: new FormControl(user.location.city),
-      postalCode: new FormControl(user.location.postalCode),
-      streetAddress: new FormControl(user.location.streetAddress),
-      streetNumber: new FormControl(user.location.streetNumber),
+      country: new FormControl(user.location?.country.name),
+      city: new FormControl(user.location?.city),
+      postalCode: new FormControl(user.location?.postalCode),
+      streetAddress: new FormControl(user.location?.streetAddress),
+      streetNumber: new FormControl(user.location?.streetNumber),
     });
   }
 
   onDiscardProfileChanges() {
     this.buildProfileForm(this.user);
+    this.formChanged = false;
   }
 
   onSaveProfileChanges() {
-
+    //TODO: Implement post on profile
+    this.formChanged = false;
   }
 
   ngOnDestroy(): void {

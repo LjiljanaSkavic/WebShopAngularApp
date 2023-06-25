@@ -19,11 +19,11 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
-      <input formControlName="password" matInput>
+      <input formControlName="password" matInput type="password">
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Repeat password</mat-label>
-      <input formControlName="repeatPassword" matInput>
+      <input formControlName="repeatPassword" matInput type="password">
     </mat-form-field>
     <button (click)="onSignUpClick($event)" [disabled]="!signUpForm.valid" mat-button>Sign up</button>
   </form>
