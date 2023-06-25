@@ -167,7 +167,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dialog.open(ContactSupportModalComponent,
     ).afterClosed().pipe(switchMap(message => {
         const userString = this.userService.getLoggedUser();
-        if (message !== DIALOG_RESPONSE.DISCARD && userString !== null) {
+        if (!!message && message !== DIALOG_RESPONSE.DISCARD && userString !== null) {
           const user: User = JSON.parse(userString);
 
           const contactSupportMessage: Message = {
