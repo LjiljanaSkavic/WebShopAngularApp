@@ -35,7 +35,7 @@ export class ProductService {
 
   getAllFromSearchTerm(query: string) {
     const productsFromQueryUrl = `http://localhost:9000/products/search-by-query/${ query }`
-    return this._httpClient.get<Product[]>(productsFromQueryUrl);
+    return query === "" ? this.getAll() : this._httpClient.get<Product[]>(productsFromQueryUrl);
   }
 
   getAllByCategoryAndSearchTerm(categoryId: number, query: string) {
