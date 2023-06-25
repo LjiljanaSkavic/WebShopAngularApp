@@ -74,7 +74,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const userString = this._userService.getLoggedUser();
-    if (userString != null) {
+    if (userString !== null) {
       const user: User = JSON.parse(userString);
       this.userId = user.id;
       this.isLoggedIn = true;
@@ -108,7 +108,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         text: BUY_PRODUCT_MODAL.TEXT
       }
     }).afterClosed().pipe(switchMap(result => {
-      if (result != DIALOG_RESPONSE.NO) {
+      if (result !== DIALOG_RESPONSE.NO) {
         return this.dialog.open(BuyProductModalComponent, {
           data: {
             userId: this.userId,
@@ -161,7 +161,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   initializeIsMyProduct() {
     const userString = this._userService.getLoggedUser();
-    if (userString != null) {
+    if (userString !== null) {
       const user: User = JSON.parse(userString);
       this.isMyProduct = user.id === this.product.sellerUser.id;
     }

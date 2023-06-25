@@ -26,7 +26,7 @@ export class PurchaseHistoryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const userString = this._userService.getLoggedUser();
-    if (userString != null) {
+    if (userString !== null) {
       const user: User = JSON.parse(userString);
       this.subs.add(this._productPurchaseService.getPurchasesByCustomerId(user.id).subscribe(productPurchases => {
         this.productPurchases = productPurchases;

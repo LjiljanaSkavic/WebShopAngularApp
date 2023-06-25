@@ -39,7 +39,7 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const userString = this._userService.getLoggedUser();
-    if (userString != null) {
+    if (userString !== null) {
       const user = JSON.parse(userString);
       this.oldPassword = user.password;
       console.log('old password', this.oldPassword);

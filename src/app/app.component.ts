@@ -94,7 +94,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }));
 
     this.subs.add(this.searchControl.valueChanges.pipe(debounceTime(SEARCH_DEBOUNCE_TIME)).subscribe(query => {
-      if (query != null) {
+      if (query !== null) {
         this._sharedService.newQueryWritten.emit(query);
       }
     }));
@@ -103,7 +103,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onProfileDetailsClick() {
     const user = this._userService.getLoggedUser();
-    if (user != null) {
+    if (user !== null) {
       const loggedUser = JSON.parse(user);
       this._router.navigate(['profile-page'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
     }
@@ -140,15 +140,25 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onLogOutClick() {
-    this._userService.setUserAsLoggedOut();
-    this._router.navigateByUrl('web-shop').catch(err => console.log(err));
-    this.collapsed = true;
-    this._snackBar.open("Successfully logged out", "OK", snackBarConfig);
+    const user = this._userService.getLoggedUser();
+    if (user !== null) {
+      const loggedUser = JSON.parse(user);
+      this._userService.logoutUser(loggedUser.id).subscribe(res => () => {
+        this.collapsed = true;
+        this._userService.setUserAsLoggedOut();
+        this._router.navigateByUrl('web-shop').catch(err => console.log(err));
+        this._snackBar.open("Successfully logged out", "OK", snackBarConfig);
+      }, err => {
+        this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+      });
+    } else {
+      this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
+    }
   }
 
   onChangePasswordClick() {
     const user = this._userService.getLoggedUser();
-    if (user != null) {
+    if (user !== null) {
       const loggedUser = JSON.parse(user);
       this._router.navigate(['manage-password'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
     }
@@ -157,7 +167,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onStoreClick() {
     const user = this._userService.getLoggedUser();
-    if (user != null) {
+    if (user !== null) {
       const loggedUser = JSON.parse(user);
       this._router.navigate(['store'], {queryParams: {id: loggedUser.id}}).catch(err => console.log(err));
     }

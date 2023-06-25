@@ -31,7 +31,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.buildEmptyForm();
     const userString = this._localStore.getData('loggedUser');
-    if (userString != null) {
+    if (userString !== null) {
       this.subs.add(this._userService.getUser(JSON.parse(userString).id).pipe(switchMap(user => {
         this.buildProfileForm(user);
         this.user = user;

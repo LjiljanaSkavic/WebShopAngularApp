@@ -33,6 +33,11 @@ export class UserService {
     return this._localStore.getData('loggedUser');
   }
 
+  logoutUser(id: number): Observable<User> {
+    const userWithIdUrl = `http://localhost:9000/users/sign-out/${ id }`
+    return this._httpClient.post<User>(userWithIdUrl, {});
+  }
+
   changePassword(user: User, passwordHash: string): Observable<User> {
     const changePasswordUrl = `http://localhost:9000/users/${ user.id }`;
     const userRequest: UserRequest = {
