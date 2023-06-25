@@ -34,12 +34,17 @@ export class ProductService {
   }
 
   getAllFromSearchTerm(query: string) {
-    const productsFromQuery = `http://localhost:9000/products/search-by-query/${ query }`
-    return query === "" ? this.getAll() : this._httpClient.get<Product[]>(productsFromQuery);
+    const productsFromQueryUrl = `http://localhost:9000/products/search-by-query/${ query }`
+    return this._httpClient.get<Product[]>(productsFromQueryUrl);
   }
 
   getAllByCategoryAndSearchTerm(categoryId: number, query: string) {
-    const productsFromCategoryAndQuery = `http://localhost:9000/filter-by-category/${ categoryId }/search-by-query/${ query }"`;
+    if (categoryId === 0) {
+      return this.getAllFromSearchTerm(query);
+    } else {
+      const productsFromCategoryAndQuery = `http://localhost:9000/filter-by-category/${ categoryId }/search-by-query/${ query }"`;
+      return this._httpClient.get<Product[]>(productsFromCategoryAndQuery);
+    }
   }
 
   getAllAttributes(productId: number): Observable<AttributeValue[]> {

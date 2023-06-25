@@ -1,9 +1,17 @@
-<div *ngIf="productsObservable" class="products-container">
-  <div *ngFor="let product of productsObservable | async trackBy: productTrack">
-    <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
+<div class="products-container">
+  <div *ngIf="hasContent; else noContentImage">
+    <div *ngFor="let product of products trackBy: productTrack">
+      <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
+    </div>
   </div>
-  <mat-paginator [length]="totalSize"
+  <ng-template #noContentImage>
+    <img src="https://cdn.dribbble.com/users/2382015/screenshots/6065978/no_result.gif">
+  </ng-template>
+  <mat-paginator (page)="onPageChangedClick($event)" *ngIf="hasContent"
+                 [length]="totalSize"
+                 [pageIndex]="pageIndex"
                  [pageSize]="pageSize"
-                 class="paginator">
+                 class="paginator"
+                 hidePageSize="true">
   </mat-paginator>
 </div>

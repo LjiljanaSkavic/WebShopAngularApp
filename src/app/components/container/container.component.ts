@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../models/Product";
-import { Observable, Subscription, switchMap } from "rxjs";
+import { Subscription, switchMap } from "rxjs";
 import { SharedService } from "../../services/shared.service";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 
 @Component({
@@ -15,14 +14,15 @@ import { Router } from "@angular/router";
 export class ContainerComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  productsObservable: Observable<any>;
-  productsDataSource: MatTableDataSource<Product> = new MatTableDataSource<Product>();
+  allProducts: Product[] = [];
   products: Product[] = [];
   isLoading = true;
 
   pageSize = 5;
-  currentPage = 0;
-  totalSize = 0;
+  pageIndex = 0;
+  totalSize: number;
+
+  hasContent = false;
 
   subs = new Subscription();
 
@@ -34,11 +34,10 @@ export class ContainerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subs.add(
       this._productService.getAll().subscribe(products => {
-        this.products = products;
-        this.totalSize = this.products.length;
-        this.productsDataSource.data = products;
-        this.productsDataSource.paginator = this.paginator;
-        this.productsObservable = this.productsDataSource.connect();
+        this.allProducts = products;
+        this.totalSize = products.length;
+        this.products = products.slice(0, this.pageSize);
+        this.hasContent = products.length > 0;
         this.isLoading = false;
       }));
 
@@ -47,9 +46,10 @@ export class ContainerComponent implements OnInit, OnDestroy {
         switchMap(categoryId => {
           return this._productService.getAllFromCategoryWithId(categoryId)
         })).subscribe(productsFromCategory => {
-        this.products = productsFromCategory;
-        this.totalSize = this.products.length;
-        this.productsDataSource.data = productsFromCategory;
+        this.allProducts = productsFromCategory;
+        this.hasContent = productsFromCategory.length > 0;
+        this.totalSize = productsFromCategory.length;
+        this.products = productsFromCategory.slice(0, this.pageSize);
       })
     );
 
@@ -57,9 +57,10 @@ export class ContainerComponent implements OnInit, OnDestroy {
       this._sharedService.newQueryWritten.pipe(switchMap(searchTerm => {
         return this._productService.getAllFromSearchTerm(searchTerm)
       })).subscribe(productsFromSearch => {
-        this.products = productsFromSearch;
-        this.totalSize = this.products.length;
-        this.productsDataSource.data = productsFromSearch;
+        this.hasContent = productsFromSearch.length > 0;
+        this.allProducts = productsFromSearch;
+        this.products = productsFromSearch.slice(0, this.pageSize);
+        this.totalSize = productsFromSearch.length;
       })
     );
   }
@@ -70,6 +71,18 @@ export class ContainerComponent implements OnInit, OnDestroy {
 
   productTrack(index: number, item: Product): Product {
     return item;
+  }
+
+  onPageChangedClick(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.totalSize = event.length;
+    this.reloadPageItems();
+  }
+
+  reloadPageItems() {
+    const firstIndex = this.pageIndex * this.pageSize;
+    const lastIndex = (this.pageIndex + 1) * this.pageSize;
+    this.products = this.allProducts.slice(firstIndex, lastIndex);
   }
 
   ngOnDestroy(): void {
