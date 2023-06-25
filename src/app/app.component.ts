@@ -143,6 +143,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.userService.setUserAsLoggedOut();
     this.router.navigateByUrl('web-shop').catch(err => console.log(err));
     this.collapsed = true;
+    this._snackBar.open("Successfully logged out", "OK", snackBarConfig)
   }
 
   onChangePasswordClick() {
