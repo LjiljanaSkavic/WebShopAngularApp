@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from "../../models/Product";
-import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-product-card',
@@ -9,12 +8,10 @@ import { UserService } from "../../services/user.service";
 })
 export class ProductCardComponent implements OnInit {
   @Input() product: Product;
-  isLoggedIn: boolean;
 
-  constructor(private _userService: UserService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = this._userService.isLoggedIn;
   }
 }

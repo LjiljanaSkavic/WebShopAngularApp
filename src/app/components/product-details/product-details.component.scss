@@ -32,6 +32,15 @@
   }
 }
 
+.comment-card {
+  display: flex;
+
+  &__field {
+    display: flex;
+    flex: 1 1 0;
+  }
+}
+
 .comment-wrapper {
   display: flex;
   flex-direction: column;

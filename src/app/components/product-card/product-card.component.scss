@@ -10,13 +10,8 @@
   &__container {
 
   }
-}
 
-.comment-card {
-  display: flex;
-
-  &__field {
-    display: flex;
-    flex: 1 1 0;
+  &:hover {
+    box-shadow: 0 0 16px darkslategray;
   }
 }
