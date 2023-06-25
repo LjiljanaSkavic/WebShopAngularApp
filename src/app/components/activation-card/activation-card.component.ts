@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormGroup, Validators } from "@angular/forms";
 import { RegisterService } from "../../services/register.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Subscription, switchMap } from "rxjs";
+import { Subscription } from "rxjs";
 import { LocalService } from "../../services/local.service";
 import { UserService } from "../../services/user.service";
 import { LoginService } from "../../services/login.service";
@@ -47,11 +47,8 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
   onSubmitActivationCodeClick() {
     const activationPinControlValue = this.activationProfileForm.get('activationPinControl')?.value;
     if (+activationPinControlValue === this.activationPin) {
-      this.subs.add(this._registerService.activateProfile(this.userId)
-        .pipe(switchMap(res =>
-          this._loginService.getUserByUsernameAndPassword(this.username, this.password)
-        ))
-        .subscribe(user => {
+      this.subs.add(
+        this._loginService.getUserByUsernameAndPassword(this.username, this.password).subscribe(user => {
           this._router.navigateByUrl('web-shop').catch(err => console.log(err));
           this._userService.setUserAsLoggedIn(user);
         }))
