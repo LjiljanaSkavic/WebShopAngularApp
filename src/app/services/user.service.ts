@@ -34,8 +34,13 @@ export class UserService {
   }
 
   logoutUser(id: number): Observable<User> {
-    const userWithIdUrl = `http://localhost:9000/users/sign-out/${ id }`
-    return this._httpClient.post<User>(userWithIdUrl, {});
+    const userWithIdUrl = `http://localhost:9000/logout/${ id }`
+    return this._httpClient.put<User>(userWithIdUrl, {});
+  }
+
+  loginUser(id: number): Observable<User> {
+    const userWithIdUrl = `http://localhost:9000/login/mark-as-logged-in/${ id }`
+    return this._httpClient.put<User>(userWithIdUrl, {});
   }
 
   changePassword(user: User, passwordHash: string): Observable<User> {

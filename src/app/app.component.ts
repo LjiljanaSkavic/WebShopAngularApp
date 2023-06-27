@@ -119,10 +119,6 @@ export class AppComponent implements OnInit, OnDestroy {
     user === null ? this._router.navigateByUrl('login').catch(err => console.log(err)) : this.collapsed = !this.collapsed;
   }
 
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
-
   getNode(node: Category) {
     this._router.navigateByUrl('web-shop').then(res => {
       this._sharedService.newCategorySelected.next(node.id);
@@ -143,10 +139,11 @@ export class AppComponent implements OnInit, OnDestroy {
     const user = this._userService.getLoggedUser();
     if (user !== null) {
       const loggedUser = JSON.parse(user);
-      this._userService.logoutUser(loggedUser.id).subscribe(res => () => {
+      this._userService.logoutUser(loggedUser.id).subscribe(res => {
         this.collapsed = true;
         this._userService.setUserAsLoggedOut();
-        this._router.navigateByUrl('web-shop').catch(err => console.log(err));
+        this._router.navigateByUrl('login').catch(err => console.log(err));
+        console.log('odjavljeni user', user);
         this._snackBar.open("Successfully logged out", "OK", snackBarConfig);
       }, err => {
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
@@ -196,5 +193,9 @@ export class AppComponent implements OnInit, OnDestroy {
       (err) => {
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
       });
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }

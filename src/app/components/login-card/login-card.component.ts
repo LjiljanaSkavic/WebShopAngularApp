@@ -4,8 +4,11 @@ import { SharedService } from "../../services/shared.service";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { LoginService } from "../../services/login.service";
-import { Subscription } from "rxjs";
+import { Observable, Subscription, switchMap, throwError } from "rxjs";
 import { LocalService } from "../../services/local.service";
+import { RegisterService } from "../../services/register.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
 
 @Component({
   selector: 'app-login-card',
@@ -23,7 +26,9 @@ export class LoginCardComponent implements OnInit, OnDestroy {
               private _sharedService: SharedService,
               private _router: Router,
               private _loginService: LoginService,
-              private _userService: UserService) {
+              private _userService: UserService,
+              private _registerService: RegisterService,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -46,14 +51,25 @@ export class LoginCardComponent implements OnInit, OnDestroy {
   onLoginClick($event: MouseEvent) {
     const username = this.loginForm.get('username')?.value;
     const password = this.getPasswordHash();
-    this.subs.add(this._loginService.getUserByUsernameAndPassword(username, password).subscribe(user => {
+    this.subs.add(this._loginService.findUserByUsernameAndPassword(username, password).pipe(switchMap(user => {
+      console.log(user);
       if (user.isActivated) {
+        console.log('korisnik je vec aktiviran', user);
         this._router.navigateByUrl('web-shop').catch(err => console.log(err));
         this._userService.setUserAsLoggedIn(user);
+        return this._userService.loginUser(user.id);
       } else {
-        this._router.navigate(['profile-activation']).catch(err => console.log(err));
+        console.log('korisnik nije aktiviran', user);
+        this._registerService.username = username;
+        this._registerService.password = password;
+        this._registerService.activationPin = user.activationPin;
+        this._router.navigate(['profile-activation'], {queryParams: {id: user.id}}).catch(err => console.log(err));
+        return new Observable<null>();
       }
-      this.invalidCredentials = false;
+      return throwError(() => new Error(`No user found`));
+    })).subscribe((user) => {
+      console.log('logovani user', user);
+      this._snackBar.open("Successfully logged in, enjoy buying products", "OK", snackBarConfig);
     }, err => {
       this.invalidCredentials = true;
     }));
