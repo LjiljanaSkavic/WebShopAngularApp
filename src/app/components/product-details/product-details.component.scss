@@ -9,7 +9,8 @@
     background-color: #2196F3;
     color: white;
     font-size: 20px;
-    padding-bottom: 16px;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   &__container {
@@ -36,11 +37,11 @@
   justify-content: flex-end;
 }
 
-.button-post{
+.button-post {
   background-color: #2196F3;
   color: white;
 
-  &:hover{
+  &:hover {
     background-color: #0A6EBD;
   }
 }
@@ -66,11 +67,14 @@
   align-self: center;
 }
 
-.comment-header{
+.comment-header {
+  min-width: 300px;
   background-color: #2196F3;
   color: white;
   text-align: center;
+  align-self: center;
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 .attribute-wrapper {
@@ -78,12 +82,12 @@
   margin-bottom: 16px;
   gap: 16px;
 
-  &__name{
+  &__name {
     font-weight: bold;
     margin-bottom: 4px;
   }
 
-  &__value{
+  &__value {
     color: #333;
   }
 }
