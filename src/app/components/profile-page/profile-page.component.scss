@@ -1,3 +1,5 @@
+@import "src/app/shared/colors";
+
 .profile-page-card {
   display: flex;
   justify-content: center;
@@ -22,9 +24,4 @@
     display: flex;
     flex-direction: column;
   }
-}
-
-.button-wrapper {
-  display: flex;
-  justify-content: flex-end;
 }

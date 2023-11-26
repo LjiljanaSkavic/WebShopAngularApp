@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ProductService } from "../../services/product.service";
-import { SharedService } from "../../services/shared.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Observable, Subscription, switchMap } from "rxjs";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatTableDataSource } from "@angular/material/table";
-import { Product } from "../../models/Product";
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ProductService} from "../../services/product.service";
+import {SharedService} from "../../services/shared.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Observable, Subscription, switchMap} from "rxjs";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableDataSource} from "@angular/material/table";
+import {Product} from "../../models/Product";
 
 @Component({
   selector: 'app-store',

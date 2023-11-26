@@ -1,9 +1,11 @@
-.comment{
+@import "src/app/shared/colors";
+
+.comment {
   padding: 8px;
 }
 
 .my-comment-wrapper {
-  background-color: whitesmoke;
+  background-color: $color-blue-5;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -11,7 +13,7 @@
 }
 
 .other-people-comment-wrapper {
-  background-color: aliceblue;
+  background-color: $color-gray-1;
   display: flex;
   align-items: center;
   gap: 16px;

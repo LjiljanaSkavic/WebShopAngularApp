@@ -1,3 +1,5 @@
+@import "src/app/shared/colors";
+
 .toolbar-container {
   display: flex;
   justify-content: space-between;
@@ -11,7 +13,7 @@
 .toolbar-container-left {
   display: flex;
   align-items: center;
-  color: dodgerblue;
+  color: $color-blue-3;
 }
 
 .toolbar-container-right {
@@ -27,7 +29,7 @@
   padding: 8px;
   border: 1px solid darkgrey;
   border-radius: 24px;
-  color: dodgerblue;
+  color: $color-blue-3;
 
   &__icon {
   }
@@ -36,10 +38,10 @@
     background-color: inherit;
     border: none;
     outline: none;
-    color: dodgerblue;
+    color: $color-blue-3;
 
     &::placeholder {
-      color: cornflowerblue;
+      color: $color-blue-3;
     }
   }
 }
@@ -47,7 +49,7 @@
 .container {
   height: 100vh;
   border: 1px solid rgba(0, 0, 0, 0.5);
-  background-color: #e6e6eb;
+  background-color: $color-gray-1;
 }
 
 .sidenav-content {
@@ -59,37 +61,37 @@
   z-index: 10;
   height: 120px;
   width: 240px;
-  background-color: #01c7f3;
+  background-color: $color-blue-2;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 8px;
   position: fixed;
-  right: 0px;
+  right: 0;
 }
 
 .sidenav {
   display: flex;
   width: 300px;
-  background-color: #041741;
-  color: dodgerblue;
+  background-color: $color-blue-4;
+  color: $color-blue-3;
   padding: 8px;
 }
 
 .sidenav .button-show-all {
   padding: 20px;
-  color: dodgerblue;
+  color: $color-blue-3;
   background-color: transparent !important;
   font-size: 16px;
   margin-left: 30px;
 }
 
 .mat-tree-node {
-  color: dodgerblue !important;
+  color: $color-blue-3 !important;
 }
 
 .mat-tree-node mat-icon-button {
-  color: dodgerblue;
+  color: $color-blue-3;
 }
 
 .no-bullets {
@@ -99,14 +101,14 @@
   cursor: pointer;
 
   &:hover {
-    background-color: white;
+    background-color: $color-white;
   }
 }
 
 .tree-node {
   cursor: pointer;
-  color: dodgerblue;
-  background-color: #041741;
+  color: $color-blue-3;
+  background-color: $color-blue-4;
 }
 
 
@@ -118,7 +120,7 @@
 }
 
 .icon-label-wrapper mat-icon {
-  color: #041741;
+  color: $color-blue-4;
 }
 
 .mat-drawer-inner-container::-webkit-scrollbar {

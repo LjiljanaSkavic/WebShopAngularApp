@@ -1,3 +1,5 @@
+@import "src/app/shared/colors";
+
 .product-details-wrapper {
   display: flex;
   margin: 32px;
@@ -6,8 +8,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #08598e;
-    color: white;
+    background-color: $color-blue-1;
+    color: $color-white;
     font-size: 20px;
     padding-bottom: 15px;
     margin-bottom: 20px;
@@ -30,20 +32,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.button-wrapper {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.button-post {
-  background-color: #2196F3;
-  color: white;
-
-  &:hover {
-    background-color: #0A6EBD;
-  }
 }
 
 .comment-card {
@@ -69,8 +57,8 @@
 
 .comment-header {
   min-width: 300px;
-  background-color: #08598e;
-  color: white;
+  background-color: $color-blue-1;
+  color: $color-white;
   text-align: center;
   align-self: center;
   padding: 20px;
@@ -88,6 +76,6 @@
   }
 
   &__value {
-    color: #333;
+    color: $color-black;
   }
 }

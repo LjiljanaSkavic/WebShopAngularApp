@@ -15,16 +15,16 @@
       <img [src]="product.image" class="product-info-image" mat-card-md-image>
       <div class="product-info__attributes-info">
         <div class="attribute-wrapper">
-        <mat-label class="attribute-wrapper__name">Category: </mat-label>
-        <mat-label class="attribute-wrapper__value">{{ product.category.name }}</mat-label>
+          <mat-label class="attribute-wrapper__name">Category:</mat-label>
+          <mat-label class="attribute-wrapper__value">{{ product.category.name }}</mat-label>
         </div>
         <div class="attribute-wrapper">
-        <mat-label class="attribute-wrapper__name">Description: </mat-label>
-        <mat-label class="attribute-wrapper__value">{{  product.description}}</mat-label>
+          <mat-label class="attribute-wrapper__name">Description:</mat-label>
+          <mat-label class="attribute-wrapper__value">{{  product.description}}</mat-label>
         </div>
         <div class="attribute-wrapper">
-        <mat-label class="attribute-wrapper__name">Price: </mat-label>
-        <mat-label class="attribute-wrapper__value">{{ product.price }}</mat-label>
+          <mat-label class="attribute-wrapper__name">Price:</mat-label>
+          <mat-label class="attribute-wrapper__value">{{ product.price }}</mat-label>
         </div>
         <div class="attribute-wrapper">
           <mat-label class="attribute-wrapper__name">State :</mat-label>
@@ -32,26 +32,26 @@
         </div>
         <div *ngFor="let attribute of attributes trackBy: attributeValueTrack">
           <div class="attribute-wrapper">
-          <mat-label class="attribute-wrapper__name">{{ attribute.attributeName }} : </mat-label>
-          <mat-label class="attribute-wrapper__value"> {{ attribute.attributeValueName }}</mat-label>
+            <mat-label class="attribute-wrapper__name">{{ attribute.attributeName }} :</mat-label>
+            <mat-label class="attribute-wrapper__value"> {{ attribute.attributeValueName }}</mat-label>
           </div>
-      </div>
-    </div>
-    <div class="comment-wrapper">
-      <div class="comment-header">Comments</div>
-      <div *ngFor="let comment of comments trackBy: commentTrack">
-        <app-comment [comment]="comment"></app-comment>
-      </div>
-      <form *ngIf="isLoggedIn" [formGroup]="leaveCommentForm" class="comment-card">
-        <mat-form-field class="comment-card__field">
-          <mat-label>Leave a comment</mat-label>
-          <textarea class="comment-content" formControlName="commentContent" matInput></textarea>
-        </mat-form-field>
-        <div class="button-wrapper">
-          <button (click)="onPostCommentClick()" mat-button class="button-post">Post</button>
         </div>
-      </form>
-    </div>
+      </div>
+      <div class="comment-wrapper">
+        <div class="comment-header">Comments</div>
+        <div *ngFor="let comment of comments trackBy: commentTrack">
+          <app-comment [comment]="comment"></app-comment>
+        </div>
+        <form *ngIf="isLoggedIn" [formGroup]="leaveCommentForm" class="comment-card">
+          <mat-form-field class="comment-card__field">
+            <mat-label>Leave a comment</mat-label>
+            <textarea class="comment-content" formControlName="commentContent" matInput></textarea>
+          </mat-form-field>
+          <div class="button-wrapper">
+            <button (click)="onPostCommentClick()" mat-button class="button-save">Post</button>
+          </div>
+        </form>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

@@ -1,12 +1,14 @@
- .contact-support-wrapper {
-   display: flex;
-   flex-direction: column;
-   width: 400px;
- }
+@import "src/app/shared/colors";
+
+.contact-support-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
 
 .contact-support-wrapper__header {
-  background-color: #2196F3;
-  color: white;
+  background-color: $color-blue-1;
+  color: $color-white;
   text-align: center;
   font-size: 20px;
   padding-bottom: 20px;
@@ -28,28 +30,3 @@
 .comment-content {
   width: 100%;
 }
-
-.button-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px;
-  gap: 16px;
-}
-
- .button-discard {
-   background-color: #FF5722;
-   color: white;
-
-   &:hover{
-     background-color: #D43908;
-   }
- }
-
- .button-save {
-   background-color: #2196F3;
-   color: white;
-
-   &:hover{
-     background-color: #0A6EBD;
-   }
- }
