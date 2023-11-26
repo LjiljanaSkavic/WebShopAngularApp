@@ -32,7 +32,7 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.css",
-              "src/app/shared/colors.css"
+              "src/app/shared/colors.scss"
             ],
             "scripts": []
           },
@@ -96,7 +96,7 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.css",
-              "src/app/shared/colors.css"
+              "src/app/shared/colors.scss"
             ],
             "scripts": []
           }
