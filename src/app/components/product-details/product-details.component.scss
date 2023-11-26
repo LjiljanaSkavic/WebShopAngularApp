@@ -6,10 +6,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #2196F3;
+    color: white;
+    font-size: 20px;
+    padding-bottom: 16px;
   }
 
   &__container {
     display: flex;
+    flex-direction: column;
   }
 }
 
@@ -17,23 +22,33 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+}
 
-  &__main-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+.attributes-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  &__details-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-post{
+  background-color: #2196F3;
+  color: white;
+
+  &:hover{
+    background-color: #0A6EBD;
   }
 }
 
 .comment-card {
   display: flex;
+  flex-direction: column;
+  margin-top: 16px;
 
   &__field {
     display: flex;
@@ -49,4 +64,26 @@
 
 .product-info-image {
   align-self: center;
+}
+
+.comment-header{
+  background-color: #2196F3;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.attribute-wrapper {
+  display: flex;
+  margin-bottom: 16px;
+  gap: 16px;
+
+  &__name{
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  &__value{
+    color: #333;
+  }
 }
