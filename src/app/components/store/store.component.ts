@@ -37,6 +37,7 @@ export class StoreComponent implements OnInit, OnDestroy {
         this.sellerId = params['id'];
         return this._productService.getBySellerId(this.sellerId)
       })).subscribe(products => {
+        console.log('products', this.products);
         this.products = products;
         this.totalSize = this.products.length;
         this.productsDataSource.data = products;

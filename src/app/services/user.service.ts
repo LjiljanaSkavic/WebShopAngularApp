@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import { User, UserRequest } from "../models/User";
 import { LocalService } from "./local.service";
 
@@ -9,6 +9,8 @@ import { LocalService } from "./local.service";
 })
 export class UserService {
   private baseUrl = "http://localhost:9000/users"
+
+   isLoggedIn$ = new BehaviorSubject(false);
 
   constructor(private _httpClient: HttpClient,
               private _localStore: LocalService) {

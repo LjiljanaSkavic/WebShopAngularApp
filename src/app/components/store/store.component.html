@@ -2,7 +2,7 @@
   <ng-container *ngFor="let product of productsObservable | async trackBy: productTrack">
     <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
   </ng-container>
-  <mat-paginator [length]="totalSize"
+  <mat-paginator *ngIf="products.length > 0" [length]="totalSize"
                  [pageSize]="pageSize"
                  class="paginator">
   </mat-paginator>

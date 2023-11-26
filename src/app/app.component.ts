@@ -47,6 +47,7 @@ export const SEARCH_DEBOUNCE_TIME = 500;
 export class AppComponent implements OnInit, OnDestroy {
   title = 'WebShopAngularApp';
   collapsed = true;
+  isLoggedIn = false;
 
   subs = new Subscription();
   treeControl = new FlatTreeControl<ExampleFlatNode>(
@@ -59,7 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
     searchControl: this.searchControl,
   });
 
-  constructor(private _localStore: LocalService,
+  constructor(
               private _sharedService: SharedService,
               private _categoryService: CategoryService,
               private _router: Router,
@@ -88,6 +89,8 @@ export class AppComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   ngOnInit(): void {
+    this.isLoggedIn = this._userService.isLoggedIn;
+
     this.subs.add(this._categoryService.getAll().subscribe(categories => {
       this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
       this.dataSource.data = categories;
@@ -98,6 +101,13 @@ export class AppComponent implements OnInit, OnDestroy {
         this._sharedService.newQueryWritten.emit(query);
       }
     }));
+
+    this._userService.isLoggedIn$.subscribe(res=> {
+      this.isLoggedIn = res;
+      if(this._userService.getLoggedUser() !== null){
+        this.isLoggedIn = true;
+      }
+    })
   }
 
 
@@ -144,7 +154,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this._userService.setUserAsLoggedOut();
         this._router.navigateByUrl('login').catch(err => console.log(err));
         console.log('odjavljeni user', user);
-        this._snackBar.open("Successfully logged out", "OK", snackBarConfig);
+        this._userService.isLoggedIn$.next(false);
+        this._router.navigateByUrl('web-shop').catch(err => console.log(err));
       }, err => {
         this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig);
       });
