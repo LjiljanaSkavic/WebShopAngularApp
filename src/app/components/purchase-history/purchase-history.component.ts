@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UserService } from "../../services/user.service";
-import { Router } from "@angular/router";
-import { ProductPurchase, ProductPurchaseDetails } from "../../models/ProductPurchase";
-import { ProductPurchaseService } from "../../services/product-purchase.service";
-import { Subscription } from "rxjs";
-import { User } from "../../models/User";
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {UserService} from "../../services/user.service";
+import {Router} from "@angular/router";
+import {ProductPurchase, ProductPurchaseDetails} from "../../models/ProductPurchase";
+import {ProductPurchaseService} from "../../services/product-purchase.service";
+import {Observable, Subscription} from "rxjs";
+import {User} from "../../models/User";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-purchase-history',
@@ -12,8 +14,19 @@ import { User } from "../../models/User";
   styleUrls: ['./purchase-history.component.scss']
 })
 export class PurchaseHistoryComponent implements OnInit, OnDestroy {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  productPurchaseObservable: Observable<any>;
   productPurchases: ProductPurchaseDetails[] = []
   subs = new Subscription();
+
+  productPurchasesDataSource: MatTableDataSource<ProductPurchaseDetails> = new MatTableDataSource<ProductPurchaseDetails>();
+
+  isLoading = true;
+
+  pageSize = 5;
+  currentPage = 0;
+  totalSize = 0;
+  hasContent = false;
 
   constructor(private _userService: UserService,
               private _router: Router,
@@ -30,6 +43,12 @@ export class PurchaseHistoryComponent implements OnInit, OnDestroy {
       const user: User = JSON.parse(userString);
       this.subs.add(this._productPurchaseService.getPurchasesByCustomerId(user.id).subscribe(productPurchases => {
         this.productPurchases = productPurchases;
+        this.totalSize = this.productPurchases.length;
+        this.hasContent = this.productPurchases.length > 0;
+        this.productPurchasesDataSource.data = productPurchases;
+        this.productPurchasesDataSource.paginator = this.paginator;
+        this.productPurchaseObservable = this.productPurchasesDataSource.connect();
+        this.isLoading = false;
       }));
     }
   }

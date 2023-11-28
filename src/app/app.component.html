@@ -52,8 +52,8 @@
       </mat-tree-node>
     </mat-tree>
   </mat-drawer>
-  <mat-drawer-content class="sidenav-content">
-    <router-outlet></router-outlet>
+
+  <mat-drawer-content>
     <div [@collapse]="collapsed" class="quick-profile-view-card">
       <button (click)="onProfileDetailsClick()" class="icon-label-wrapper" mat-button>
         <mat-icon>settings</mat-icon>
@@ -69,5 +69,6 @@
         Log out
       </button>
     </div>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ProductService} from "../../services/product.service";
-import {SharedService} from "../../services/shared.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable, Subscription, switchMap} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
@@ -24,9 +23,9 @@ export class StoreComponent implements OnInit, OnDestroy {
   pageSize = 5;
   currentPage = 0;
   totalSize = 0;
+  hasContent = false;
 
   constructor(private _productService: ProductService,
-              private _sharedService: SharedService,
               private _router: Router,
               private _activatedRoute: ActivatedRoute) {
   }
@@ -40,6 +39,7 @@ export class StoreComponent implements OnInit, OnDestroy {
         console.log('products', this.products);
         this.products = products;
         this.totalSize = this.products.length;
+        this.hasContent = this.products.length > 0;
         this.productsDataSource.data = products;
         this.productsDataSource.paginator = this.paginator;
         this.productsObservable = this.productsDataSource.connect();

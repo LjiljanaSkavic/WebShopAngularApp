@@ -1,9 +1,9 @@
-<div class="products-container">
-  <div *ngIf="hasContent; else noContentImage">
-    <div *ngFor="let product of products trackBy: productTrack">
+<div *ngIf="!isLoading" class="items-container">
+  <ng-container *ngIf="hasContent; else noContentImage">
+    <ng-container *ngFor="let product of products trackBy: productTrack">
       <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
-    </div>
-  </div>
+    </ng-container>
+  </ng-container>
   <ng-template #noContentImage>
     <img src="https://cdn.dribbble.com/users/2382015/screenshots/6065978/no_result.gif">
   </ng-template>

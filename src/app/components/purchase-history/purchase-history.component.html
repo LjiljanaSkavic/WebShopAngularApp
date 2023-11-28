@@ -1,5 +1,16 @@
-<div class="product-purchases-history-wrapper">
-  <ng-container *ngFor="let productPurchase of productPurchases trackBy: productPurchaseTrack">
-    <app-product-purchase-card [productPurchase]="productPurchase"></app-product-purchase-card>
+<div *ngIf="!isLoading" class="items-container">
+  <ng-container *ngIf="hasContent; else noContentImage">
+    <ng-container *ngFor="let productPurchase of productPurchases trackBy: productPurchaseTrack">
+      <app-product-purchase-card [productPurchase]="productPurchase"></app-product-purchase-card>
+    </ng-container>
   </ng-container>
+  <ng-template #noContentImage>
+    <img src="https://cdn.dribbble.com/users/2382015/screenshots/6065978/no_result.gif">
+  </ng-template>
+  <mat-paginator *ngIf="hasContent"
+                 [length]="totalSize"
+                 [pageSize]="pageSize"
+                 class="paginator"
+                 hidePageSize="true">
+  </mat-paginator>
 </div>
