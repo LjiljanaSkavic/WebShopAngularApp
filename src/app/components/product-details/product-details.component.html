@@ -2,7 +2,8 @@
   <mat-card-header class="product-details-wrapper__header">
     <mat-label>{{ product.title }}</mat-label>
     <div class="button-wrapper">
-      <button (click)="onDeleteProductClick()" *ngIf="isMyProduct" mat-icon-button matTooltip="Delete">
+      <button *ngIf="isMyProduct" (click)="onDeleteProductClick()" mat-icon-button
+              matTooltip="Delete">
         <mat-icon>delete</mat-icon>
       </button>
       <button (click)="onBuyNowClick()" *ngIf="!isMyProduct" mat-icon-button matTooltip="Buy">

@@ -45,8 +45,8 @@
       </div>
     </form>
     <div *ngIf="formChanged" class="button-wrapper">
-      <button (click)="onDiscardProfileChanges()" mat-button>Discard</button>
-      <button (click)="onSaveProfileChanges()" mat-button>Save</button>
+      <button class="button-discard" (click)="onDiscardProfileChanges()" mat-button>Discard</button>
+      <button class="button-save" (click)="onSaveProfileChanges()" mat-button>Save</button>
     </div>
   </mat-card-content>
 </mat-card>

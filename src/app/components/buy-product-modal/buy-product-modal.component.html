@@ -56,8 +56,9 @@
     </ng-container>
   </div>
   <div class="button-wrapper">
-    <button [mat-dialog-close]="DIALOG_RESPONSE.DISCARD" mat-button>Discard</button>
+    <button class="button-discard" [mat-dialog-close]="DIALOG_RESPONSE.DISCARD" mat-button>Discard</button>
     <button
+      class="button-save"
       [disabled]="selectedFormValid"
       [mat-dialog-close]="this.selectPayingForm.get('payingOption')?.value"
       mat-button>
