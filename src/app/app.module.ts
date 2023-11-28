@@ -40,6 +40,7 @@ import { BuyProductModalComponent } from './components/buy-product-modal/buy-pro
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ManagePasswordModalComponent } from './components/manage-password-modal/manage-password-modal.component';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -82,6 +83,7 @@ const MATERIAL_MODULES = [
     ContactSupportModalComponent,
     BuyProductModalComponent,
     NotFoundComponent,
+    ManagePasswordModalComponent,
   ],
   imports: [
     CommonModule,
