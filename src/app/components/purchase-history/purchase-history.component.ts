@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {UserService} from "../../services/user.service";
-import {Router} from "@angular/router";
 import {ProductPurchase, ProductPurchaseDetails} from "../../models/ProductPurchase";
 import {ProductPurchaseService} from "../../services/product-purchase.service";
 import {Observable, Subscription} from "rxjs";
@@ -27,9 +26,9 @@ export class PurchaseHistoryComponent implements OnInit, OnDestroy {
   currentPage = 0;
   totalSize = 0;
   hasContent = false;
+  text = "You don't have any product purchases ih history yet.";
 
   constructor(private _userService: UserService,
-              private _router: Router,
               private _productPurchaseService: ProductPurchaseService) {
   }
 

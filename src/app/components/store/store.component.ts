@@ -25,6 +25,8 @@ export class StoreComponent implements OnInit, OnDestroy {
   totalSize = 0;
   hasContent = false;
 
+  text = "You don't have any products in your store yet.";
+
   constructor(private _productService: ProductService,
               private _router: Router,
               private _activatedRoute: ActivatedRoute) {

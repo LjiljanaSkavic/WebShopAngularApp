@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ProductService } from "../../services/product.service";
-import { Product } from "../../models/Product";
-import { Subscription, switchMap } from "rxjs";
-import { SharedService } from "../../services/shared.service";
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
-import { Router } from "@angular/router";
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ProductService} from "../../services/product.service";
+import {Product} from "../../models/Product";
+import {Subscription, switchMap} from "rxjs";
+import {SharedService} from "../../services/shared.service";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-container',
@@ -25,6 +25,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
   hasContent = false;
 
   subs = new Subscription();
+  text = "There is no products to show.";
 
   constructor(private _productService: ProductService,
               private _sharedService: SharedService,

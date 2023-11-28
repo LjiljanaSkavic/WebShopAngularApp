@@ -1,0 +1,21 @@
+@import "src/app/shared/colors";
+
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: $color-blue-1;
+  color: white;
+  border-radius: 8px;
+  margin-top: 20px;
+  height: 200px;
+}
+
+.not-found-heading {
+  color: $color-blue-2;
+}
+
+.not-found-message {
+  color: $color-blue-3;
+}
