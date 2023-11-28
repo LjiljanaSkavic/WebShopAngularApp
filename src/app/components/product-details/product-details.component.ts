@@ -108,7 +108,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         text: BUY_PRODUCT_MODAL.TEXT
       }
     }).afterClosed().pipe(switchMap(result => {
-      if (result !== DIALOG_RESPONSE.NO) {
+      if (result && result !== DIALOG_RESPONSE.NO) {
         return this.dialog.open(BuyProductModalComponent, {
           data: {
             userId: this.userId,
