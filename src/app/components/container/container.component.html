@@ -1,17 +1,23 @@
-<div *ngIf="!isLoading" class="items-container">
+<div
+  *ngIf="!isLoading"
+  class="items-container">
   <ng-container *ngIf="hasContent; else noContent">
     <ng-container *ngFor="let product of products trackBy: productTrack">
-      <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
+      <app-product-card
+        (click)="onCardClick(product)"
+        [product]="product"></app-product-card>
     </ng-container>
   </ng-container>
   <ng-template #noContent>
     <app-not-found [text]=text></app-not-found>
   </ng-template>
-  <mat-paginator (page)="onPageChangedClick($event)" *ngIf="hasContent"
-                 [length]="totalSize"
-                 [pageIndex]="pageIndex"
-                 [pageSize]="pageSize"
-                 class="paginator"
-                 hidePageSize="true">
+  <mat-paginator
+    (page)="onPageChangedClick($event)"
+    *ngIf="hasContent"
+    [length]="totalSize"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    class="paginator"
+    hidePageSize="true">
   </mat-paginator>
 </div>

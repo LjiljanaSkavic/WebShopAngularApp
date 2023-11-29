@@ -1,4 +1,6 @@
-<div *ngIf="!isLoading" class="items-container">
+<div
+  *ngIf="!isLoading"
+  class="items-container">
   <ng-container *ngIf="hasContent; else noContent">
     <ng-container *ngFor="let productPurchase of productPurchases trackBy: productPurchaseTrack">
       <app-product-purchase-card [productPurchase]="productPurchase"></app-product-purchase-card>
@@ -7,10 +9,11 @@
   <ng-template #noContent>
     <app-not-found [text]=text></app-not-found>
   </ng-template>
-  <mat-paginator *ngIf="hasContent"
-                 [length]="totalSize"
-                 [pageSize]="pageSize"
-                 class="paginator"
-                 hidePageSize="true">
+  <mat-paginator
+    *ngIf="hasContent"
+    [length]="totalSize"
+    [pageSize]="pageSize"
+    class="paginator"
+    hidePageSize="true">
   </mat-paginator>
 </div>

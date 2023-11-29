@@ -1,12 +1,17 @@
 <mat-card class="product-purchase-card-wrapper">
   <mat-card-header class="product-purchase-card-wrapper__header">
     <mat-label>Order shipped</mat-label>
-    <button (click)="onDeleteProductPurchaseClick()" mat-icon-button matTooltip="Delete purchase">
+    <button
+      (click)="onDeleteProductPurchaseClick()"
+      mat-icon-button
+      matTooltip="Delete purchase">
       <mat-icon>delete</mat-icon>
     </button>
   </mat-card-header>
   <mat-card-content class="product-purchase-card-wrapper__container">
-    <img [src]="productPurchase.product.image" mat-card-sm-image>
+    <img
+      [src]="productPurchase.product.image"
+      mat-card-sm-image>
     <div class="order-details-text-wrapper">
       <mat-label>Product name: {{ productPurchase.product.title }}</mat-label>
       <mat-label>Order number: {{ productPurchase.orderId }}</mat-label>

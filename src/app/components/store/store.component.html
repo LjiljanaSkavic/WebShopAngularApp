@@ -1,16 +1,21 @@
-<div *ngIf="!isLoading" class="items-container">
+<div
+  *ngIf="!isLoading"
+  class="items-container">
   <ng-container *ngIf="hasContent; else noContent">
     <ng-container *ngFor="let product of productsObservable | async trackBy: productTrack">
-      <app-product-card (click)="onCardClick(product)" [product]="product"></app-product-card>
+      <app-product-card
+        (click)="onCardClick(product)"
+        [product]="product"></app-product-card>
     </ng-container>
   </ng-container>
   <ng-template #noContent>
     <app-not-found [text]=text></app-not-found>
   </ng-template>
-  <mat-paginator *ngIf="hasContent"
-                 [length]="totalSize"
-                 [pageSize]="pageSize"
-                 class="paginator"
-                 hidePageSize="true">
+  <mat-paginator
+    *ngIf="hasContent"
+    [length]="totalSize"
+    [pageSize]="pageSize"
+    class="paginator"
+    hidePageSize="true">
   </mat-paginator>
 </div>

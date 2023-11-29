@@ -1,19 +1,31 @@
-<mat-card *ngIf="!isLoading" class="product-details-wrapper">
+<mat-card
+  *ngIf="!isLoading"
+  class="product-details-wrapper">
   <mat-card-header class="product-details-wrapper__header">
     <mat-label>{{ product.title }}</mat-label>
     <div class="button-wrapper">
-      <button *ngIf="isMyProduct" (click)="onDeleteProductClick()" mat-icon-button
-              matTooltip="Delete">
+      <button
+        *ngIf="isMyProduct"
+        (click)="onDeleteProductClick()"
+        mat-icon-button
+        matTooltip="Delete">
         <mat-icon>delete</mat-icon>
       </button>
-      <button (click)="onBuyNowClick()" *ngIf="!isMyProduct" mat-icon-button matTooltip="Buy">
+      <button
+        (click)="onBuyNowClick()"
+        *ngIf="!isMyProduct"
+        mat-icon-button
+        matTooltip="Buy">
         <mat-icon>shopping_bag</mat-icon>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content class="product-details-wrapper__container">
     <div class="product-info">
-      <img [src]="product.image" class="product-info-image" mat-card-md-image>
+      <img
+        [src]="product.image"
+        class="product-info-image"
+        mat-card-md-image>
       <div class="product-info__attributes-info">
         <div class="attribute-wrapper">
           <mat-label class="attribute-wrapper__name">Category:</mat-label>
@@ -43,13 +55,23 @@
         <div *ngFor="let comment of comments trackBy: commentTrack">
           <app-comment [comment]="comment"></app-comment>
         </div>
-        <form *ngIf="isLoggedIn" [formGroup]="leaveCommentForm" class="comment-card">
+        <form
+          *ngIf="isLoggedIn"
+          [formGroup]="leaveCommentForm"
+          class="comment-card">
           <mat-form-field class="comment-card__field">
             <mat-label>Leave a comment</mat-label>
-            <textarea class="comment-content" formControlName="commentContent" matInput></textarea>
+            <textarea
+              class="comment-content"
+              formControlName="commentContent"
+              matInput></textarea>
           </mat-form-field>
           <div class="button-wrapper">
-            <button (click)="onPostCommentClick()" mat-button class="button-save">Post</button>
+            <button
+              (click)="onPostCommentClick()"
+              mat-button
+              class="button-save">Post
+            </button>
           </div>
         </form>
       </div>

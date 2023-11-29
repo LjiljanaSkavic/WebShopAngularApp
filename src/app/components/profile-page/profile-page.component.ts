@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from "@angular/forms";
-import { Subscription, switchMap } from "rxjs";
-import { Router } from "@angular/router";
-import { SharedService } from "../../services/shared.service";
-import { UserService } from "../../services/user.service";
-import { LocalService } from "../../services/local.service";
-import { User } from "../../models/User";
-import { MatDialog } from "@angular/material/dialog";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from "@angular/forms";
+import {Subscription, switchMap} from "rxjs";
+import {Router} from "@angular/router";
+import {SharedService} from "../../services/shared.service";
+import {UserService} from "../../services/user.service";
+import {LocalService} from "../../services/local.service";
+import {User} from "../../models/User";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-profile-page',
@@ -40,27 +40,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         this.formChanged = true;
       }));
     }
-
-
-    //   this._router.events.pipe(
-    //     filter(event => event instanceof NavigationEnd)).pipe(switchMap(res => {
-    //     console.log('ejj');
-    //     if (this.formChanged) {
-    //       console.log('form changed');
-    //       return this.dialog.open(ConfirmationModalComponent, {
-    //         data: {
-    //           title: "Leave change password",
-    //           text: "Are you sure that you want to leave this page and discard changes?"
-    //         }
-    //       }).afterClosed()
-    //     } else {
-    //       return new Observable<null>()
-    //     }
-    //   })).subscribe(res => {
-    //     if (res === DIALOG_RESPONSE.NO) {
-    //       console.log('stay on the page');
-    //     }
-    //   });
   }
 
   buildEmptyForm() {
@@ -99,6 +78,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   onSaveProfileChanges() {
     //TODO: Implement post on profile
     this.formChanged = false;
+  }
+
+  onEditProfileClick() {
+    this.dialog.open(ProfilePageComponent).afterClosed().subscribe(res => console.log(res));
+
   }
 
   ngOnDestroy(): void {

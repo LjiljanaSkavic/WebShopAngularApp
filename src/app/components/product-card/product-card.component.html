@@ -3,7 +3,9 @@
     <mat-label>{{ product.title }}</mat-label>
   </mat-card-header>
   <mat-card-content class="product-card-wrapper__container">
-    <img [src]="product.image" mat-card-sm-image>
+    <img
+      [src]="product.image"
+      mat-card-sm-image>
     <div>
       <mat-label>Price : {{ product.price }} BAM</mat-label>
     </div>
