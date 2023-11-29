@@ -3,7 +3,6 @@ import { FormControl, FormGroup, UntypedFormGroup, Validators } from "@angular/f
 import { RegisterService } from "../../services/register.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription, switchMap } from "rxjs";
-import { LocalService } from "../../services/local.service";
 import { UserService } from "../../services/user.service";
 import { LoginService } from "../../services/login.service";
 
@@ -22,18 +21,18 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
   subs = new Subscription();
 
   constructor(
-              private _activatedRoute: ActivatedRoute,
-              private _registerService: RegisterService,
-              private _loginService: LoginService,
-              private _router: Router,
-              private _userService: UserService) {
+    private _activatedRoute: ActivatedRoute,
+    private _registerService: RegisterService,
+    private _loginService: LoginService,
+    private _router: Router,
+    private _userService: UserService) {
   }
 
   ngOnInit(): void {
     this.subs.add(this._activatedRoute.queryParams.subscribe(params => {
         this.userId = params['id'];
-        }
-      ));
+      }
+    ));
 
     this.activationPin = this._registerService.activationPin;
     console.log(this.activationPin);
@@ -51,7 +50,7 @@ export class ActivationCardComponent implements OnInit, OnDestroy {
       this.subs.add(
         this._loginService.activateUser(this.userId).pipe(switchMap(res => {
             //TODO: Avoid using this endpoint only because of user data
-          console.log('on submit')
+            console.log('on submit')
             return this._loginService.findUserByUsernameAndPassword(this.username, this.password);
           }
         )).subscribe(user => {

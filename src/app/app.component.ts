@@ -1,24 +1,24 @@
-import {Component, ElementRef, HostListener, OnDestroy, OnInit} from '@angular/core';
-import {debounceTime, Observable, Subscription, switchMap} from "rxjs";
-import {FlatTreeControl} from "@angular/cdk/tree";
-import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
-import {Category} from "./models/Category";
-import {FormControl, FormGroup} from "@angular/forms";
-import {CategoryService} from "./services/category.service";
-import {Router} from "@angular/router";
-import {UserService} from "./services/user.service";
-import {SharedService} from "./services/shared.service";
-import {animate, AUTO_STYLE, state, style, transition, trigger} from "@angular/animations";
-import {DEFAULT_ANIMATION_DURATION} from "./components/product-details/product-details.component"
-import {MatDialog} from "@angular/material/dialog";
-import {ContactSupportModalComponent} from "./components/contact-support-modal/contact-support-modal.component";
-import {ContactSupportService} from "./services/contact-support.service";
-import {Message} from "./models/Message";
-import {User} from "./models/User";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {snackBarConfig} from "./components/product-purchase-card/product-purchase-card.component";
-import {DIALOG_RESPONSE} from "./components/confirmation-modal/confirmation-modal.component";
-import {ERROR_HAS_OCCURRED_MESSAGE, MESSAGE_SUCCESS} from "./shared/constants";
+import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { debounceTime, Observable, Subscription, switchMap } from "rxjs";
+import { FlatTreeControl } from "@angular/cdk/tree";
+import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
+import { Category } from "./models/Category";
+import { FormControl, FormGroup } from "@angular/forms";
+import { CategoryService } from "./services/category.service";
+import { Router } from "@angular/router";
+import { UserService } from "./services/user.service";
+import { SharedService } from "./services/shared.service";
+import { animate, AUTO_STYLE, state, style, transition, trigger } from "@angular/animations";
+import { DEFAULT_ANIMATION_DURATION } from "./components/product-details/product-details.component"
+import { MatDialog } from "@angular/material/dialog";
+import { ContactSupportModalComponent } from "./components/contact-support-modal/contact-support-modal.component";
+import { ContactSupportService } from "./services/contact-support.service";
+import { Message } from "./models/Message";
+import { User } from "./models/User";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { snackBarConfig } from "./components/product-purchase-card/product-purchase-card.component";
+import { DIALOG_RESPONSE } from "./components/confirmation-modal/confirmation-modal.component";
+import { ERROR_HAS_OCCURRED_MESSAGE, MESSAGE_SUCCESS } from "./shared/constants";
 
 interface ExampleFlatNode {
   id: number,

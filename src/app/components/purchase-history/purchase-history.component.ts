@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {UserService} from "../../services/user.service";
-import {ProductPurchase, ProductPurchaseDetails} from "../../models/ProductPurchase";
-import {ProductPurchaseService} from "../../services/product-purchase.service";
-import {Observable, Subscription} from "rxjs";
-import {User} from "../../models/User";
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { UserService } from "../../services/user.service";
+import { ProductPurchase, ProductPurchaseDetails } from "../../models/ProductPurchase";
+import { ProductPurchaseService } from "../../services/product-purchase.service";
+import { Observable, Subscription } from "rxjs";
+import { User } from "../../models/User";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
 
 @Component({
   selector: 'app-purchase-history',

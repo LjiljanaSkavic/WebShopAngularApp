@@ -12,7 +12,7 @@ export class CommentService {
   }
 
   getCommentsByProductId(productId: number): Observable<Comment[]> {
-    const getByProductId = `http://localhost:9000/comments/product/${ productId }`
+    const getByProductId = `http://localhost:9000/comments/product/${productId}`
     return this._httpClient.get<Comment[]>(getByProductId);
   }
 

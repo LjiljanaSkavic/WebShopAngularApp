@@ -12,7 +12,7 @@ export class ProductPurchaseService {
   }
 
   getPurchasesByCustomerId(customerId: number): Observable<ProductPurchaseDetails[]> {
-    const productPurchaseByCustomerIdUrl = `http://localhost:9000/product-purchase/customer/${ customerId }`;
+    const productPurchaseByCustomerIdUrl = `http://localhost:9000/product-purchase/customer/${customerId}`;
     return this._httpClient.get<ProductPurchaseDetails[]>(productPurchaseByCustomerIdUrl);
   }
 
@@ -22,7 +22,7 @@ export class ProductPurchaseService {
   }
 
   deleteProductPurchaseById(productPurchaseId: number): Observable<ProductPurchase> {
-    const deleteProductPurchaseByIdUrl = `http://localhost:9000/product-purchase/delete/${ productPurchaseId }`;
+    const deleteProductPurchaseByIdUrl = `http://localhost:9000/product-purchase/delete/${productPurchaseId}`;
     return this._httpClient.put<ProductPurchase>(deleteProductPurchaseByIdUrl, {});
   }
 }

@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ProductService} from "../../services/product.service";
-import {Product} from "../../models/Product";
-import {Subscription, switchMap} from "rxjs";
-import {SharedService} from "../../services/shared.service";
-import {MatPaginator, PageEvent} from "@angular/material/paginator";
-import {Router} from "@angular/router";
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ProductService } from "../../services/product.service";
+import { Product } from "../../models/Product";
+import { Subscription, switchMap } from "rxjs";
+import { SharedService } from "../../services/shared.service";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-container',

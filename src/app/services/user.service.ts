@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { User, UserRequest } from "../models/User";
 import { LocalService } from "./local.service";
 
@@ -10,7 +10,7 @@ import { LocalService } from "./local.service";
 export class UserService {
   private baseUrl = "http://localhost:9000/users"
 
-   isLoggedIn$ = new BehaviorSubject(false);
+  isLoggedIn$ = new BehaviorSubject(false);
 
   constructor(private _httpClient: HttpClient,
               private _localStore: LocalService) {
@@ -27,7 +27,7 @@ export class UserService {
   }
 
   getUser(id: number): Observable<User> {
-    const userWithIdUrl = `http://localhost:9000/users/${ id }`
+    const userWithIdUrl = `http://localhost:9000/users/${id}`
     return this._httpClient.get<User>(userWithIdUrl);
   }
 
@@ -36,17 +36,17 @@ export class UserService {
   }
 
   logoutUser(id: number): Observable<User> {
-    const userWithIdUrl = `http://localhost:9000/logout/${ id }`
+    const userWithIdUrl = `http://localhost:9000/logout/${id}`
     return this._httpClient.put<User>(userWithIdUrl, {});
   }
 
   loginUser(id: number): Observable<User> {
-    const userWithIdUrl = `http://localhost:9000/login/mark-as-logged-in/${ id }`
+    const userWithIdUrl = `http://localhost:9000/login/mark-as-logged-in/${id}`
     return this._httpClient.put<User>(userWithIdUrl, {});
   }
 
   changePassword(user: User, passwordHash: string): Observable<User> {
-    const changePasswordUrl = `http://localhost:9000/users/${ user.id }`;
+    const changePasswordUrl = `http://localhost:9000/users/${user.id}`;
     const userRequest: UserRequest = {
       activationPin: user.activationPin,
       countryId: user.location.country.id,

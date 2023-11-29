@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Subscription} from "rxjs";
-import {SharedService} from "../../services/shared.service";
-import {User} from "../../models/User";
-import {UserService} from "../../services/user.service";
-import {MatDialogRef} from "@angular/material/dialog";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { SharedService } from "../../services/shared.service";
+import { User } from "../../models/User";
+import { UserService } from "../../services/user.service";
+import { MatDialogRef } from "@angular/material/dialog";
 
 export const PASSWORD_ERROR_MESSAGES = {
   PASSWORDS_DONT_MATCH: "Passwords don't match.",

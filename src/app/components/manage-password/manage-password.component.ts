@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {EMPTY, Subscription, switchMap} from "rxjs";
-import {UserService} from "../../services/user.service";
-import {User} from "../../models/User";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {ManagePasswordModalComponent} from "../manage-password-modal/manage-password-modal.component";
-import {MatDialog} from "@angular/material/dialog";
-import {snackBarConfig} from "../product-purchase-card/product-purchase-card.component";
-import {ERROR_HAS_OCCURRED_MESSAGE} from "../../shared/constants";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { EMPTY, Subscription, switchMap } from "rxjs";
+import { UserService } from "../../services/user.service";
+import { User } from "../../models/User";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { ManagePasswordModalComponent } from "../manage-password-modal/manage-password-modal.component";
+import { MatDialog } from "@angular/material/dialog";
+import { snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
+import { ERROR_HAS_OCCURRED_MESSAGE } from "../../shared/constants";
 
 @Component({
   selector: 'app-manage-password',

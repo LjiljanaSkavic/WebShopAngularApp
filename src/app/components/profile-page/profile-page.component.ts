@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {Subscription, switchMap} from "rxjs";
-import {Router} from "@angular/router";
-import {SharedService} from "../../services/shared.service";
-import {UserService} from "../../services/user.service";
-import {LocalService} from "../../services/local.service";
-import {User} from "../../models/User";
-import {MatDialog} from "@angular/material/dialog";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from "@angular/forms";
+import { Subscription, switchMap } from "rxjs";
+import { Router } from "@angular/router";
+import { SharedService } from "../../services/shared.service";
+import { UserService } from "../../services/user.service";
+import { LocalService } from "../../services/local.service";
+import { User } from "../../models/User";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-profile-page',

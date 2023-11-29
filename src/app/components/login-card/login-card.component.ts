@@ -4,7 +4,7 @@ import { SharedService } from "../../services/shared.service";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { LoginService } from "../../services/login.service";
-import {EMPTY, Observable, Subscription, switchMap, throwError} from "rxjs";
+import { EMPTY, Subscription, switchMap } from "rxjs";
 import { LocalService } from "../../services/local.service";
 import { RegisterService } from "../../services/register.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -54,26 +54,26 @@ export class LoginCardComponent implements OnInit, OnDestroy {
     const password = this.getPasswordHash();
     this._loginService.findUserByUsernameAndPassword(username, password)
       .pipe(switchMap(user => {
-      console.log('user', user);
-      if (user.isActivated) {
-        console.log('korisnik je vec aktiviran', user);
-        this._router.navigateByUrl('web-shop').catch(err => console.log(err));
-        this._userService.setUserAsLoggedIn(user);
-        console.log(user.id);
-        return this._userService.loginUser(user.id);
-      } else {
-        console.log('korisnik nije aktiviran', user);
-        this._registerService.username = username;
-        this._registerService.password = password;
-        this._registerService.activationPin = user.activationPin;
-        this._router.navigate(['profile-activation'], {queryParams: {id: user.id}}).catch(err => console.log(err));
-        return EMPTY;
-      }
-    })).subscribe(user => {
+        console.log('user', user);
+        if (user.isActivated) {
+          console.log('korisnik je vec aktiviran', user);
+          this._router.navigateByUrl('web-shop').catch(err => console.log(err));
+          this._userService.setUserAsLoggedIn(user);
+          console.log(user.id);
+          return this._userService.loginUser(user.id);
+        } else {
+          console.log('korisnik nije aktiviran', user);
+          this._registerService.username = username;
+          this._registerService.password = password;
+          this._registerService.activationPin = user.activationPin;
+          this._router.navigate(['profile-activation'], {queryParams: {id: user.id}}).catch(err => console.log(err));
+          return EMPTY;
+        }
+      })).subscribe(user => {
       console.log('yo');
       this._userService.isLoggedIn$.next(true);
       this._snackBar.open("Successfully logged in, enjoy buying products", "OK", snackBarConfig);
-      }, err => {
+    }, err => {
       console.log('invalid credentials');
       this.invalidCredentials = true;
     });
