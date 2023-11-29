@@ -24,6 +24,10 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const loggedUserString = this._userService.getLoggedUser();
+    if (loggedUserString !== null) {
+      this.user = JSON.parse(loggedUserString);
+    }
   }
 
   resetPasswordSelected() {
@@ -36,6 +40,7 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
       }
     })).subscribe(res => {
       this._snackBar.open("Password successfully changed", "OK", snackBarConfig);
+      //TODO: Set user with this password to local storage
     }, (err) => {
       this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
     });
