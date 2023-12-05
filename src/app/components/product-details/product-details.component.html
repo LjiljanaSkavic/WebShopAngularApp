@@ -70,6 +70,7 @@
             <button
               (click)="onPostCommentClick()"
               mat-button
+              [disabled]="leaveCommentForm.invalid"
               class="button-save">Post
             </button>
           </div>

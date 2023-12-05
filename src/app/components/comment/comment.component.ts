@@ -22,6 +22,4 @@ export class CommentComponent implements OnInit {
       this.isMyComment = user.id === this.comment.user.id;
     }
   }
-
-
 }

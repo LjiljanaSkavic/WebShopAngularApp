@@ -17,7 +17,7 @@ import { BuyProductModalComponent } from "../buy-product-modal/buy-product-modal
 import { ProductPurchaseService } from "../../services/product-purchase.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { snackBarConfig } from "../product-purchase-card/product-purchase-card.component";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ERROR_HAS_OCCURRED_MESSAGE } from "../../shared/constants";
 
 export const DEFAULT_ANIMATION_DURATION = 100;
@@ -80,7 +80,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       this.isLoggedIn = true;
       this.leaveCommentForm = new FormGroup(
         {
-          commentContent: new FormControl('')
+          commentContent: new FormControl('', Validators.required)
         });
     }
 
