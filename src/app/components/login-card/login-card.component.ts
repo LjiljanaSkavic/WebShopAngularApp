@@ -63,9 +63,8 @@ export class LoginCardComponent implements OnInit, OnDestroy {
           return this._userService.loginUser(user.id);
         } else {
           console.log('korisnik nije aktiviran', user);
-          this._registerService.username = username;
-          this._registerService.password = password;
-          this._registerService.activationPin = user.activationPin;
+          this._registerService.email = user.email;
+          console.log(this._registerService.email);
           this._router.navigate(['profile-activation'], {queryParams: {id: user.id}}).catch(err => console.log(err));
           return EMPTY;
         }

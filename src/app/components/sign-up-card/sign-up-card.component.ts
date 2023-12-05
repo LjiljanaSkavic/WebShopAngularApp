@@ -48,13 +48,8 @@ export class SignUpCardComponent implements OnInit, OnDestroy {
         isLoggedIn: false
       }
       this.subs.add(this._registerService.createUser(user).subscribe(newUser => {
-          this._registerService.activationPin = newUser.activationPin;
           this._registerService.email = newUser.email;
-          this._registerService.username = newUser.username;
-          this._registerService.password = this._sharedService.getSha512Hash(this.signUpForm.get('password')?.value);
           this._router.navigate(['profile-activation'], {queryParams: {id: newUser.id}}).catch(err => console.log(err));
-        },
-        err => {
         }
       ));
     }

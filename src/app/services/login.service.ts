@@ -20,8 +20,8 @@ export class LoginService {
     return this._httpClient.post<User>(this.baseUrl, loginUserInfo);
   }
 
-  activateUser(id: number): Observable<User> {
-    const activationUrl = `http://localhost:9000/login/${id}`;
+  activateAndReturnUser(id: number): Observable<User> {
+    const activationUrl = `http://localhost:9000/login/activate/${id}`;
     return this._httpClient.put<User>(activationUrl, {});
   }
 }

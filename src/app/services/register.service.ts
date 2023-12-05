@@ -7,43 +7,6 @@ import { HttpClient } from "@angular/common/http";
   providedIn: 'root'
 })
 export class RegisterService {
-  baseUrl = "http://localhost:9000/register";
-
-  constructor(private _httpClient: HttpClient) {
-  }
-
-  private _username: string;
-
-  get username(): string {
-    return this._username;
-  }
-
-  set username(value: string) {
-    this._username = value;
-  }
-
-  private _password: string;
-
-  get password(): string {
-    return this._password;
-  }
-
-  set password(value: string) {
-    this._password = value;
-  }
-
-  private _activationPin: number;
-
-  get activationPin(): number {
-    return this._activationPin;
-  }
-
-  set activationPin(value: number) {
-    this._activationPin = value;
-  }
-
-  private _email: string;
-
   get email(): string {
     return this._email;
   }
@@ -52,12 +15,18 @@ export class RegisterService {
     this._email = value;
   }
 
+  baseUrl = "http://localhost:9000/register";
+  private _email: string;
+
+  constructor(private _httpClient: HttpClient) {
+  }
+
   createUser(user: NewUser): Observable<User> {
     return this._httpClient.post<User>(this.baseUrl, user);
   }
 
-  activateProfile(id: number): Observable<User> {
-    const activationUrl = `http://localhost:9000/register/${id}`;
-    return this._httpClient.put<User>(activationUrl, {});
+  sendEmail(id: number): Observable<number> {
+    const activationUrl = `${this.baseUrl}/activate/${id}`;
+    return this._httpClient.put<number>(activationUrl, {});
   }
 }
