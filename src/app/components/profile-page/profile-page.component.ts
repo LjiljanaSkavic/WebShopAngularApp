@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from "@angular/forms";
-import { Subscription, switchMap } from "rxjs";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { SharedService } from "../../services/shared.service";
 import { UserService } from "../../services/user.service";
@@ -17,8 +17,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   profileForm: FormGroup;
   subs = new Subscription();
-  formChanged = false;
   user: User;
+  isEditMode = false;
 
 
   constructor(private _router: Router,
@@ -32,14 +32,17 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     this.buildEmptyForm();
     const userString = this._localStore.getData('loggedUser');
     if (userString !== null) {
-      this.subs.add(this._userService.getUser(JSON.parse(userString).id).pipe(switchMap(user => {
+      this.subs.add(this._userService.getUser(JSON.parse(userString).id).subscribe(user => {
         this.buildProfileForm(user);
+        this.profileForm.disable();
         this.user = user;
-        return this.profileForm.valueChanges;
-      })).subscribe(formChanged => {
-        this.formChanged = true;
+        return
       }));
     }
+
+    this.profileForm.valueChanges.subscribe(res => {
+      //TODO: Implement logic
+    })
   }
 
   buildEmptyForm() {
@@ -58,10 +61,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   buildProfileForm(user: User) {
     this.profileForm = new FormGroup({
-      firstName: new FormControl(user.firstName),
-      lastName: new FormControl(user.lastName),
+      firstName: new FormControl(user.firstName, Validators.required),
+      lastName: new FormControl(user.lastName, Validators.required),
       username: new FormControl({value: user.username, disabled: true}),
-      email: new FormControl(user.email),
+      email: new FormControl(user.email, Validators.required),
       country: new FormControl(user.location?.country.name),
       city: new FormControl(user.location?.city),
       postalCode: new FormControl(user.location?.postalCode),
@@ -72,20 +75,49 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   onDiscardProfileChanges() {
     this.buildProfileForm(this.user);
-    this.formChanged = false;
+    this.isEditMode = false;
+    this.profileForm.disable();
   }
 
   onSaveProfileChanges() {
     //TODO: Implement post on profile
-    this.formChanged = false;
-  }
+    this.isEditMode = false;
+    const modifiedUser: User = {
+      activationPin: this.user.activationPin,
+      email: this.profileForm.get('email')?.value,
+      firstName: this.profileForm.get('firstName')?.value,
+      id: this.user.id,
+      imageAvatar: "",
+      isActivated: this.user.isActivated,
+      isLoggedIn: this.user.isLoggedIn,
+      lastName: this.profileForm.get('lastName')?.value,
+      location: {
+        id: this.user.location.id,
+        streetAddress: this.profileForm.get('streetAddress')?.value,
+        streetNumber: this.profileForm.get('streetNumber')?.value,
+        postalCode: this.profileForm.get('postalCode')?.value,
+        city: this.profileForm.get('city')?.value,
+        country: {
+          id: this.user.location.country.id,
+          name: this.profileForm.get('country')?.value
+        },
 
-  onEditProfileClick() {
-    this.dialog.open(ProfilePageComponent).afterClosed().subscribe(res => console.log(res));
-
+      },
+      password: this.user.password,
+      username: this.user.username
+    };
+    this._userService.updateUser(this.user.id, modifiedUser).subscribe(res => {
+      // this.user = res;
+      //TODO: Add success message or error
+    });
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  onEditProfilePageClick(): void {
+    this.isEditMode = true;
+    this.profileForm.enable();
   }
 }

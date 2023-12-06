@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
-import { User, UserRequest } from "../models/User";
+import { User } from "../models/User";
 import { LocalService } from "./local.service";
 
 @Injectable({
@@ -45,24 +45,6 @@ export class UserService {
     return this._httpClient.put<User>(userWithIdUrl, {});
   }
 
-  changePassword(user: User, passwordHash: string): Observable<User> {
-    const changePasswordUrl = `http://localhost:9000/users/${user.id}`;
-    const userRequest: UserRequest = {
-      activationPin: user.activationPin,
-      countryId: user.location.country.id,
-      email: user.email,
-      firstName: user.firstName,
-      imageAvatar: user.imageAvatar,
-      isActivated: user.isActivated,
-      isLoggedIn: user.isLoggedIn,
-      lastName: user.lastName,
-      locationId: user.location.id,
-      password: passwordHash,
-      username: user.username
-    }
-    return this._httpClient.put<User>(changePasswordUrl, userRequest);
-  }
-
   setUserAsLoggedIn(user: User) {
     this._localStore.saveData('loggedUser', JSON.stringify(user));
     this._isLoggedIn = true;
@@ -71,5 +53,10 @@ export class UserService {
   setUserAsLoggedOut() {
     this._localStore.removeData('loggedUser');
     this._isLoggedIn = false;
+  }
+
+  updateUser(id: number, modifiedUser: User) {
+    const updateUserUrl = `http://localhost:9000/users/${id}`;
+    return this._httpClient.put<User>(updateUserUrl, modifiedUser);
   }
 }

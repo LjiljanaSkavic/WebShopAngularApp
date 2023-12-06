@@ -34,13 +34,14 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
     this.dialog.open(ManagePasswordModalComponent,
     ).afterClosed().pipe(switchMap(newPasswordHash => {
       if (newPasswordHash != null) {
-        return this._userService.changePassword(this.user, newPasswordHash);
+        this.user.password = newPasswordHash;
+        return this._userService.updateUser(this.user.id, this.user);
       } else {
         return EMPTY;
       }
     })).subscribe(res => {
       this._snackBar.open("Password successfully changed", "OK", snackBarConfig);
-      //TODO: Set user with this password to local storage
+      this._userService.setUserAsLoggedIn(this.user);
     }, (err) => {
       this._snackBar.open(ERROR_HAS_OCCURRED_MESSAGE, "OK", snackBarConfig)
     });

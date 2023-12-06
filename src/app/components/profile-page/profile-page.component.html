@@ -1,87 +1,97 @@
-<mat-card class="profile-page-card">
-  <mat-card-header class="profile-page-card__header">
-    <mat-label>Profile details</mat-label>
-    <mat-icon (click)="onEditProfileClick()">edit</mat-icon>
-  </mat-card-header>
-  <mat-card-content class="profile-page-card__content">
-    <form
-      [formGroup]="profileForm"
-      class="profile-form">
-      <div class="profile-form profile-form--side">
-        <mat-form-field class="form-field">
-          <mat-label>Username</mat-label>
-          <input
-            formControlName="username"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>First name</mat-label>
-          <input
-            formControlName="firstName"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Last name</mat-label>
-          <input
-            formControlName="lastName"
-            matInput>
-        </mat-form-field>
+<div class="center-container">
+  <mat-card class="profile-page-card">
+    <mat-card-title
+      mat-dialog-title
+      class="profile-page-card__header">
+      <div> Profile details</div>
+      <mat-icon
+        *ngIf="!isEditMode"
+        class="icon-edit"
+        [matTooltip]="'Edit'"
+        (click)="onEditProfilePageClick()">edit
+      </mat-icon>
+    </mat-card-title>
+    <mat-card-content class="profile-page-card__content">
+      <form
+        [formGroup]="profileForm"
+        class="profile-form">
+        <div class="profile-form profile-form--side">
+          <mat-form-field class="form-field">
+            <mat-label>Username</mat-label>
+            <input
+              formControlName="username"
+              matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>First name</mat-label>
+            <input
+              formControlName="firstName"
+              matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Last name</mat-label>
+            <input
+              formControlName="lastName"
+              matInput>
+          </mat-form-field>
+        </div>
+        <div class="profile-form profile-form--side">
+          <mat-form-field class="form-field">
+            <mat-label>Email</mat-label>
+            <input
+              formControlName="email"
+              matInput
+              type="email">
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Country</mat-label>
+            <input
+              formControlName="country"
+              matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>City</mat-label>
+            <input
+              formControlName="city"
+              matInput>
+          </mat-form-field>
+        </div>
+        <div class="profile-form profile-form--side">
+          <mat-form-field class="form-field">
+            <mat-label>Postal code</mat-label>
+            <input
+              formControlName="postalCode"
+              matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Street address</mat-label>
+            <input
+              formControlName="streetAddress"
+              matInput>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Street number</mat-label>
+            <input
+              formControlName="streetNumber"
+              matInput>
+          </mat-form-field>
+        </div>
+      </form>
+      <div
+        class="button-wrapper"
+        *ngIf="isEditMode">
+        <button
+          class="button-discard"
+          (click)="onDiscardProfileChanges()"
+          mat-button>Discard
+        </button>
+        <button
+          class="button-save"
+          [disabled]="profileForm.invalid"
+          (click)="onSaveProfileChanges()"
+          mat-button>Save
+        </button>
       </div>
-      <div class="profile-form profile-form--side">
-        <mat-form-field class="form-field">
-          <mat-label>Email</mat-label>
-          <input
-            formControlName="email"
-            matInput
-            type="email">
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Country</mat-label>
-          <input
-            formControlName="country"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>City</mat-label>
-          <input
-            formControlName="city"
-            matInput>
-        </mat-form-field>
-      </div>
-      <div class="profile-form profile-form--side">
-        <mat-form-field class="form-field">
-          <mat-label>Postal code</mat-label>
-          <input
-            formControlName="postalCode"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Street address</mat-label>
-          <input
-            formControlName="streetAddress"
-            matInput>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Street number</mat-label>
-          <input
-            formControlName="streetNumber"
-            matInput>
-        </mat-form-field>
-      </div>
-    </form>
-    <div
-      *ngIf="formChanged"
-      class="button-wrapper">
-      <button
-        class="button-discard"
-        (click)="onDiscardProfileChanges()"
-        mat-button>Discard
-      </button>
-      <button
-        class="button-save"
-        (click)="onSaveProfileChanges()"
-        mat-button>Save
-      </button>
-    </div>
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>
